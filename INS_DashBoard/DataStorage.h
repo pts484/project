@@ -2,14 +2,17 @@
 #define DATASTORAGE_H
 
 #include <QObject>
+#include <QHash>
 #include <QList>
 #include <QStringList>
 
-//typedef QList<QStringList>;
+
+typedef QHash<int, QStringList *> dbStorage;
 
 class DataStorage : public QObject {
 	Q_OBJECT
 
+		dbStorage *dbStorage;
 
 
 
