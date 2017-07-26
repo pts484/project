@@ -12,7 +12,7 @@
 #define DB_HOST "koto.i234.me"
 #define DB_USER "dbuser"
 #define DB_PASS "qwe123"
-#define DB_NAME "dbuser"
+#define DB_NAME "INS_Dashboard"
 #define DB_PORT 3307
 #define CHOP(x) x[strlen(x) - 1] = ' '
 

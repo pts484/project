@@ -4,10 +4,7 @@
 #include <QObject>
 #include "DataStorage.h"
 #include "UI/UI.h"
-#include "db/db_mysql.h"
 #include "VoiceRecode/PTT.h"
-
-
 
 
 class DashBoard_main : public QObject
@@ -15,7 +12,6 @@ class DashBoard_main : public QObject
     Q_OBJECT
 
     UI			*pUIMain;
-	DB_MySQL	*pDB;
 	PTT			*pPTT;
 	DataStorage *mStorage;
 

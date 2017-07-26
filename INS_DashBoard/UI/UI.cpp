@@ -3,7 +3,7 @@
 
 
 
-UI::UI(QWidget *parent) : QMainWindow(parent)
+UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
 {
 
     this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 900);

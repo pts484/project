@@ -3,8 +3,7 @@
 
 DashBoard_main::DashBoard_main(void)
 {
-	pUIMain = new UI();
-	pDB = new DB_MySQL();
+	pUIMain = new UI(mStorage);
 	pPTT = new PTT();
 	mStorage = new DataStorage();
 	

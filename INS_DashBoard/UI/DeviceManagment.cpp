@@ -3,7 +3,19 @@
 DeviceManagment::DeviceManagment(QWidget *parent):QWidget(parent)
 {
 	initLayout();
-	
+
+	treeModel = new QStandardItemModel();
+	mDeviceList.setModel(treeModel);
+
+	index = treeModel->index(0, 0);
+	treeModel->appendRow(new QStandardItem("1"));
+	treeModel->appendRow(new QStandardItem("2"));
+	treeModel->appendRow(new QStandardItem("3"));
+	treeModel->appendRow(new QStandardItem("4"));
+	//treeModel->setRootIndex();
+	treeModel->appendRow(new QStandardItem("1"));
+	treeModel->appendRow(new QStandardItem("2"));
+
 }
 
 DeviceManagment::~DeviceManagment()

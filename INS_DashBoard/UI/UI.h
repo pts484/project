@@ -13,7 +13,7 @@
 #include "DeviceManagment.h"
 #include "Dashboard.h"
 
-
+#include "../DataStorage.h"
 
 class UI : public QMainWindow
 {
@@ -29,12 +29,13 @@ class UI : public QMainWindow
 	DeviceManagment *uiDevice;
 
 
+
 	inline void initConnect(void);
 
 	void resizeEvent(QResizeEvent *event);
 
 public:
-    UI(QWidget *parent = 0);
+    UI(DataStorage *dataStorage, QWidget *parent = 0);
     ~UI(void);
 
 signals:

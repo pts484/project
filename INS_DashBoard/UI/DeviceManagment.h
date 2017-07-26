@@ -7,6 +7,9 @@
 #include <QTreeView>
 #include <QListView>
 
+#include <QStandardItemModel>
+#include <QStandardItem>
+
 #include <QImage>
 #include <QPixmap>
 
@@ -30,6 +33,10 @@ class DeviceManagment : public QWidget
 	QLabel		mCanvas;
 
 	QPushButton mDechBtn[3];
+
+
+	QStandardItemModel *treeModel;
+	QModelIndex	index;
 
 
 
