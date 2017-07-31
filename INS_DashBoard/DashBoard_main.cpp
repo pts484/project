@@ -3,12 +3,10 @@
 
 DashBoard_main::DashBoard_main(void)
 {
+	mStorage = new DataStorage();
 	pUIMain = new UI(mStorage);
 	pPTT = new PTT();
-	mStorage = new DataStorage();
 	
-
-
 	pUIMain->show();
 }
 

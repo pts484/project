@@ -6,6 +6,7 @@
 UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
 {
 
+	mStorage = dataStorage;
     this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 900);
 
     mainWidget.setParent(this);
@@ -19,7 +20,7 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
 	labelMenuBtn[1].setText(tr("Equip Management"));
 
 	uiDashBoard = new Dashboard();
-	uiDevice = new DeviceManagment();
+	uiDevice = new DeviceManagment(dataStorage);
 
 	//Default View = DashBoard
 	uiDashBoard->show();
@@ -35,6 +36,9 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
 	mainWidget.setLayout(&vLayout0);
 
 	initConnect();
+
+	//first Update
+	uiDevice->UpdateDeviceView();
 }
 
 UI::~UI(void) {

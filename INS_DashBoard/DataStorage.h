@@ -7,8 +7,10 @@
 #include <QList>
 #include <QStringList>
 
+
 #include <QStandardItem>
 #include "../db/db_mysql.h"
+#include "define.h"
 
 
 typedef struct {

@@ -13,6 +13,7 @@
 #include "DeviceManagment.h"
 #include "Dashboard.h"
 
+
 #include "../DataStorage.h"
 
 class UI : public QMainWindow
@@ -28,7 +29,7 @@ class UI : public QMainWindow
 	Dashboard		*uiDashBoard;
 	DeviceManagment *uiDevice;
 
-
+	DataStorage		*mStorage;
 
 	inline void initConnect(void);
 

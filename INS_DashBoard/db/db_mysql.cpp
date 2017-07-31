@@ -1,5 +1,4 @@
-#include "db_mysql.h"
-#include "define.h"
+﻿#include "db_mysql.h"
 
 DB_MySQL::DB_MySQL() {
 	
@@ -8,6 +7,8 @@ DB_MySQL::DB_MySQL() {
 
 	printf("MySQL client Version : %s\n", mysql_get_client_info());
 	mysql_init(&mysql);
+	mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "utf8");
+	mysql_options(&mysql, MYSQL_INIT_COMMAND, "SET NAMES utf8");
 }
 
 DB_MySQL::~DB_MySQL(void) {
@@ -66,7 +67,7 @@ resultTable DB_MySQL::runQuery(const char *query) {
 
 		for (int i = 0; i < num_fields; ++i) {
 
-			result.recode << sql_row[i];
+			result.recode << STR_UTF8(sql_row[i]);
 		}
 	}
 	mysql_free_result(sql_result);

@@ -3,11 +3,19 @@
 
 #include <QHash>
 #include <QStringList>
+#include <string>
 
 #include <my_global.h>
 #include <winsock2.h>
 #include <mysql.h>
+
+#include <qstring.h> 
+#include <qtextcodec.h>
+
+#include <qmessagebox.h>
+
 #pragma comment(lib, "libmysql.lib")
+#include "../define.h"
 
 typedef struct {
 	bool chk;

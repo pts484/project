@@ -5,7 +5,8 @@
 #include <QLabel>
 #include <QPushButton>
 #include <QTreeView>
-#include <QListView>
+#include <QTableView>
+#include <QList>
 
 #include <QStandardItemModel>
 #include <QStandardItem>
@@ -17,35 +18,58 @@
 #include <QHBoxLayout>
 
 #include <QDebug>
+#include "DataStorage.h"
+
+
+class DeviceView : public QTreeView {
+	Q_OBJECT
+public:
+
+	DeviceView();
+	~DeviceView();
+
+	
+	void mouseReleaseEvent(QMouseEvent *event);
+	public slots:
+	void aa(void);
+};
 
 class DeviceManagment : public QWidget
 {
 	Q_OBJECT
 
+	DataStorage		*mStorage;
+
 	QVBoxLayout mainLayout;
 	QHBoxLayout hLayout0;
 	QVBoxLayout vLayout00, vLayout000;
 
-	QTreeView	mDeviceList;
-	QListView	mCheckList;
+	DeviceView	mDeviceList;
+	QTableView	mCheckList;
 
 	QPixmap		mImgShipDeck;
 	QLabel		mCanvas;
 
 	QPushButton mDechBtn[3];
 
-
+	int listWidth;
 	QStandardItemModel *treeModel;
-	QModelIndex	index;
-
+	QStandardItemModel *listModel;
 
 
 	inline void initLayout();
+	inline void initTreeView();
+	inline void initListView();
 
 	void resizeEvent(QResizeEvent *event);
 
 public:
-	DeviceManagment(QWidget *parent=0);
+	
+	DeviceManagment(DataStorage *dataStorage, QWidget *parent=0);
 	~DeviceManagment();
+
+	void UpdateDeviceView(void);
+	void UpdateInspecView(void);
+
 };
 #endif //DEVICEMANAGMENT_H

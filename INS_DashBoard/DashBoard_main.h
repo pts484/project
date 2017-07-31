@@ -6,7 +6,6 @@
 #include "UI/UI.h"
 #include "VoiceRecode/PTT.h"
 
-
 class DashBoard_main : public QObject
 {
     Q_OBJECT

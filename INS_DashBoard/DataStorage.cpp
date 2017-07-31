@@ -31,7 +31,9 @@ bool DataStorage::loadDeviceList(void) {
 		dbVelue *tmp = new dbVelue();
 
 		for (int col = 0; col < result.col; ++col) {
+			
 			*tmp << new QStandardItem(result.recode.at(((result.col * row) + col)));
+
 		}
 		*dbDeviceStorage << tmp;
 		tmp = 0;
@@ -56,12 +58,13 @@ bool DataStorage::loadDeviceList(void) {
 
 		D_TYPE *tmp = new D_TYPE();
 		
-		tmp->num = row;
+		tmp->num = row+1;
 		tmp->type = new QStandardItem(result.recode.at(row));
 		*dbDeviceType << tmp;
 		
 		//qDebug() << tmp->num << " : " << tmp->type->text();
-		//qDebug() << dbDeviceType->at(row) << " : " << (dbDeviceType->at(row))->type->text() ;
+		qDebug() << dbDeviceType->at(row) << " : " << (dbDeviceType->at(row))->type->text() << 
+			(dbDeviceType->at(row))->num;
 	}
 
 
