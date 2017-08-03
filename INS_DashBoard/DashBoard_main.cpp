@@ -10,7 +10,5 @@ DashBoard_main::DashBoard_main(void)
 	pUIMain->show();
 }
 
-DashBoard_main::~DashBoard_main(void)
-{
-
+DashBoard_main::~DashBoard_main(void){
 }

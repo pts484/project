@@ -2,23 +2,32 @@
 
 
 DeviceView::DeviceView() {
-	connect(this, SIGNAL(clicked()), this, SLOT(aa()));
+	selectId = "";
 }
+DeviceView::~DeviceView() {}
 
-DeviceView::~DeviceView() {
+
+void DeviceView::mouseDoubleClickEvent(QMouseEvent *event) {
+
+	emit sigSelectDeviceID(selectId);
+	selectId = "";
 }
 
 void DeviceView::mouseReleaseEvent(QMouseEvent *event) {
-	//this->setSelectionBehavior(QAbstractItemView::SelectRows);
-	//this->setSelectionMode(SelectionMode::SingleSelection);
-	qDebug() << this->currentIndex().sibling(this->currentIndex().row(), 0).data().toString();
+
+	QModelIndex i;
+	selectId = this->currentIndex().sibling(this->currentIndex().row(), 1).data().toString();
 }
 
-void DeviceView::aa(void) {
-	qDebug() << "aaaa";
+void DeviceView::mouseMoveEvent(QMouseEvent *event) {
 }
 
 
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//DeviceManagment
+////////////////////////////////////////////////////////////////////////////////////////////////////
 DeviceManagment::DeviceManagment(DataStorage *dataStorage, QWidget *parent):QWidget(parent)
 {
 
@@ -26,6 +35,8 @@ DeviceManagment::DeviceManagment(DataStorage *dataStorage, QWidget *parent):QWid
 	initLayout();
 	initTreeView();
 	initListView();
+
+	connect(&mDeviceList, SIGNAL(sigSelectDeviceID(QString)), this, SIGNAL(sigDeviceID(QString)));
 }
 
 DeviceManagment::~DeviceManagment()
@@ -71,17 +82,19 @@ inline void DeviceManagment::initLayout() {
 inline void DeviceManagment::initTreeView() {
 
 	//init Header
-	QStringList headerText;
-	headerText << STR_KOR("장비이름") << STR_KOR("장비번호");
-	treeModel = new QStandardItemModel();
-	treeModel->setHorizontalHeaderLabels(headerText);
-	mDeviceList.setModel(treeModel);
+	QStringList instanceHeader;
+	instanceHeader << STR_KOR("장비이름") << STR_KOR("장비번호");
+	treeModel = new QStandardItemModel(&mDeviceList);
+	treeModel->setHorizontalHeaderLabels(instanceHeader);
 
+	mDeviceList.setSelectionMode(QAbstractItemView::SingleSelection);
+	mDeviceList.setSelectionBehavior(QAbstractItemView::SelectRows);
+	//mDeviceList.setDragEnabled(true);
+	
+	mDeviceList.setModel(treeModel);
 	mDeviceList.setMaximumWidth(300);
 
 	//Edit Locked
-	//mDeviceList.setSelectionMode(QAbstractItemView::SingleSelecti on);
-	//mDeviceList.setSelectionBehavior(QAbstractItemView::SelectRow s);
 	mDeviceList.setEditTriggers(QAbstractItemView::NoEditTriggers);
 
 }
@@ -89,16 +102,32 @@ inline void DeviceManagment::initTreeView() {
 inline void DeviceManagment::initListView() {
 
 	//init Header
-	listModel = new QStandardItemModel();
+	listModel = new QStandardItemModel(&mCheckList);
 	mCheckList.setModel(listModel);
-	
-	listModel->setHorizontalHeaderItem(0, new QStandardItem(STR_KOR("점검일자")));
-	listModel->setHorizontalHeaderItem(1, new QStandardItem(STR_KOR("장비번호")));
-	listModel->setHorizontalHeaderItem(2, new QStandardItem(STR_KOR("장비이름")));
-	listModel->setHorizontalHeaderItem(3, new QStandardItem(STR_KOR("담당자")));
-	listModel->setHorizontalHeaderItem(4, new QStandardItem(STR_KOR("점검 전")));
-	listModel->setHorizontalHeaderItem(5, new QStandardItem(STR_KOR("점검 후")));
-	listModel->setHorizontalHeaderItem(6, new QStandardItem(STR_KOR("점검내역")));
+	mCheckList.resizeRowsToContents();
+	mCheckList.setSelectionMode(QAbstractItemView::SingleSelection);
+	mCheckList.setSelectionBehavior(QAbstractItemView::SelectRows);
+
+
+	listWidth = mCheckList.size().width();
+	headerText << STR_KOR("점검일자") << STR_KOR("장비번호") \
+	<< STR_KOR("장비이름") \
+	<< STR_KOR("장비위치") \
+	<< STR_KOR("담당자") \
+	<< STR_KOR("점검 전") \
+	<< STR_KOR("점검 후") \
+	<< STR_KOR("점검내역");
+
+	initListHeader();
+
+	//Edit Locked
+	mCheckList.setEditTriggers(QAbstractItemView::NoEditTriggers);
+}
+
+void DeviceManagment::initListHeader() {
+
+	listWidth = mCheckList.size().width();
+	listModel->setHorizontalHeaderLabels(headerText);
 
 	mCheckList.setColumnWidth(0, listWidth * 0.1);
 	mCheckList.setColumnWidth(1, listWidth * 0.1);
@@ -106,19 +135,16 @@ inline void DeviceManagment::initListView() {
 	mCheckList.setColumnWidth(3, listWidth * 0.1);
 	mCheckList.setColumnWidth(4, listWidth * 0.1);
 	mCheckList.setColumnWidth(5, listWidth * 0.1);
-	mCheckList.setColumnWidth(6, listWidth * 0.35);
-
-	//Edit Locked
-	mCheckList.setEditTriggers(QAbstractItemView::NoEditTriggers);
+	mCheckList.setColumnWidth(6, listWidth * 0.1);
+	mCheckList.setColumnWidth(7, listWidth * 0.25);
 }
 
 void DeviceManagment::UpdateDeviceView(void){
-	
+
 	deviceType *type = mStorage->dbDeviceType;
 	dbStorage  *data = mStorage->dbDeviceStorage;
 
 	if ((type->size() <= 0) || (data->size() <= 0)) return;
-
 
 	int rowCnt = treeModel->rowCount();
 
@@ -143,28 +169,35 @@ void DeviceManagment::UpdateDeviceView(void){
 				DviceType->appendRow(DviceList);
 			}
 		}
+		mCheckList.setRowHeight(i, 10);
 	}
 	mDeviceList.expandAll();
 }
 
 void DeviceManagment::UpdateInspecView(void) {
 
-	deviceType *type = mStorage->dbDeviceType;
-	dbStorage  *data = mStorage->dbDeviceStorage;
-
+	dbStorage  *data = mStorage->dbInspecStorage;
+	int size = data->size();
+	qDebug() << "dbInspecStorage size :: " << size;
 	
+	if(listModel->rowCount() > 0){
+		listModel->clear();
+	}
+
+	QList<QStandardItem *> *rows;
+	for (int i = 0; i < size; ++i) {
+		
+		rows = data->at(i);
+		listModel->appendRow(*rows);
+	}
+
+	initListHeader();
 }
 
 void DeviceManagment::resizeEvent(QResizeEvent *event) {
 	qDebug() << "run DeviceManangement";
-	listWidth = mCheckList.size().width();
-	mCheckList.setColumnWidth(0, listWidth * 0.1);
-	mCheckList.setColumnWidth(1, listWidth * 0.1);
-	mCheckList.setColumnWidth(2, listWidth * 0.1);
-	mCheckList.setColumnWidth(3, listWidth * 0.1);
-	mCheckList.setColumnWidth(4, listWidth * 0.1);
-	mCheckList.setColumnWidth(5, listWidth * 0.1);
-	mCheckList.setColumnWidth(6, listWidth * 0.39);
+
+	initListHeader();
 
 	listWidth = mDeviceList.size().width();
 	mDeviceList.setColumnWidth(0, listWidth * 0.6);

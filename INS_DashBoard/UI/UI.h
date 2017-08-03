@@ -26,17 +26,17 @@ class UI : public QMainWindow
 	QPushButton		labelMenuBtn[2];
 
     QWidget			mainWidget;
+
+	inline void initConnect(void);
+	void resizeEvent(QResizeEvent *event);
+
+public:
 	Dashboard		*uiDashBoard;
 	DeviceManagment *uiDevice;
 
 	DataStorage		*mStorage;
 
-	inline void initConnect(void);
-
-	void resizeEvent(QResizeEvent *event);
-
-public:
-    UI(DataStorage *dataStorage, QWidget *parent = 0);
+	UI(DataStorage *dataStorage, QWidget *parent = 0);
     ~UI(void);
 
 signals:
@@ -44,6 +44,9 @@ signals:
 public slots:
 	void viewDashBoard(void);
 	void viewDeviceManagement(void);
+	void loadInspectionList(QString);
+
+
 
 };
 

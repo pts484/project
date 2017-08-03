@@ -13,7 +13,7 @@ class DashBoard_main : public QObject
     UI			*pUIMain;
 	PTT			*pPTT;
 	DataStorage *mStorage;
-
+	
 public:
     DashBoard_main(void);
     ~DashBoard_main(void);

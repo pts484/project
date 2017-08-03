@@ -33,16 +33,19 @@ class DataStorage : public QObject {
 
 public:
 
+	dbStorage	*dbInspecStorage;
 	dbStorage	*dbDeviceStorage;
 	deviceType	*dbDeviceType;
-
 
 	DataStorage(void);
 	~DataStorage();
 
-
 signals:
 	void sig_UpdateDeviceList(void);
+
+public slots:
+	bool loadInspectionList(QString);
+
 };
 
 #endif // !DATASTORAGE_H

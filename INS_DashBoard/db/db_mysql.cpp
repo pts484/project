@@ -19,6 +19,10 @@ inline void DB_MySQL::checkConnection(void) {
 	printf("Mysql connection error : %s", mysql_error(&mysql));
 }
 
+bool DB_MySQL::isConnection(void) {
+	return connection == 0 ? false : true;
+}
+
 bool DB_MySQL::connectDB(void) {
 
 	printf("connecting... -> %s:%d\n", DB_HOST, DB_PORT);
@@ -37,14 +41,13 @@ bool DB_MySQL::connectDB(void) {
 
 void DB_MySQL::disconnectDB() {
 	mysql_close(&mysql);
+	connection = 0;
 }
 
 
 resultTable DB_MySQL::runQuery(const char *query) {
 
 	resultTable result = { false, 0, 0 };
-	result.recode.clear();
-
 	unsigned int num_fields = 0;
 
 	printf("%s\n", query);
@@ -52,7 +55,8 @@ resultTable DB_MySQL::runQuery(const char *query) {
 	query_stat = mysql_query(connection, query);
 	if (query_stat != 0){
 	
-		fprintf(stderr, "Mysql query error : %s", mysql_error(&mysql));
+		qDebug() << "Mysql query error : " << mysql_error(&mysql);
+		result.chk = false;
 		return result;
 	}
 

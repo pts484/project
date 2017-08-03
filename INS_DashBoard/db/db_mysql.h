@@ -39,6 +39,7 @@ public:
 	DB_MySQL(void);
 	~DB_MySQL(void);
 
+	bool isConnection(void);
 	bool connectDB(void);
 	void disconnectDB(void);
 	resultTable runQuery(const char *query);

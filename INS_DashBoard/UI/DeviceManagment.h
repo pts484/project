@@ -28,10 +28,18 @@ public:
 	DeviceView();
 	~DeviceView();
 
-	
+	QString selectId;
+
+	QModelIndex sigCell;
+	void mouseDoubleClickEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
-	public slots:
-	void aa(void);
+	void mouseMoveEvent(QMouseEvent *event);
+	
+
+signals:
+	void sigSelectDeviceID(QString);
+
+public slots:
 };
 
 class DeviceManagment : public QWidget
@@ -54,12 +62,15 @@ class DeviceManagment : public QWidget
 
 	int listWidth;
 	QStandardItemModel *treeModel;
+
+	QStringList headerText;
 	QStandardItemModel *listModel;
 
 
 	inline void initLayout();
 	inline void initTreeView();
 	inline void initListView();
+	inline void initListHeader();
 
 	void resizeEvent(QResizeEvent *event);
 
@@ -70,6 +81,12 @@ public:
 
 	void UpdateDeviceView(void);
 	void UpdateInspecView(void);
+
+signals:
+	void sigDeviceID(QString);
+
+public slots:
+
 
 };
 #endif //DEVICEMANAGMENT_H

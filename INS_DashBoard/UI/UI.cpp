@@ -51,6 +51,7 @@ inline void UI::initConnect(void) {
 
 	connect(&labelMenuBtn[0], SIGNAL(clicked()), this, SLOT(viewDashBoard()));
 	connect(&labelMenuBtn[1], SIGNAL(clicked()), this, SLOT(viewDeviceManagement()));
+	connect(uiDevice, SIGNAL(sigDeviceID(QString)), this, SLOT(loadInspectionList(QString)));
 }
 
 void UI::viewDashBoard(void) {
@@ -75,4 +76,11 @@ void UI::viewDeviceManagement(void) {
 
 void UI::resizeEvent(QResizeEvent *event) {
 	qDebug() << "run Resize Event";
+}
+
+void UI::loadInspectionList(QString id) {
+
+	if (mStorage->loadInspectionList(id) == true) {
+		uiDevice->UpdateInspecView();
+	}
 }
