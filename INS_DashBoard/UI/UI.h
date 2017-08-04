@@ -18,8 +18,10 @@
 
 class UI : public QMainWindow
 {
-    Q_OBJECT
-		
+	Q_OBJECT
+
+	DashLABEL		*Title;
+
 	QVBoxLayout		vLayout0;
 	QHBoxLayout		hLayout1[2];
 

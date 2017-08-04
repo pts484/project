@@ -35,6 +35,9 @@
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
+    <Filter Include="res">
+      <UniqueIdentifier>{357f8a4d-f9ad-40b5-a0e6-10ad81bce160}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DashBoard_main.cpp">
@@ -97,6 +100,9 @@
     <ClCompile Include="DataStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="GeneratedFiles\qrc_gui_img_icon.cpp">
+      <Filter>Generated Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DashBoard_main.h">
@@ -126,6 +132,9 @@
     <CustomBuild Include="DataStorage.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="res\gui_img_icon.qrc">
+      <Filter>res</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -137,6 +146,9 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="resource.h">
+      <Filter>Generated Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

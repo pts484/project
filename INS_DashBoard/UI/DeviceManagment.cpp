@@ -180,9 +180,9 @@ void DeviceManagment::UpdateInspecView(void) {
 	int size = data->size();
 	qDebug() << "dbInspecStorage size :: " << size;
 	
-	if(listModel->rowCount() > 0){
+	//if(listModel->rowCount() >= 0){
 		listModel->clear();
-	}
+	//}
 
 	QList<QStandardItem *> *rows;
 	for (int i = 0; i < size; ++i) {

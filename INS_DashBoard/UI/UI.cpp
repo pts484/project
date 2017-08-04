@@ -3,33 +3,49 @@
 
 
 
-UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
-{
+UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent) {
+
+	uiDashBoard = new Dashboard();
+	uiDevice = new DeviceManagment(dataStorage);
 
 	mStorage = dataStorage;
     this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 900);
 
     mainWidget.setParent(this);
     this->setCentralWidget(&mainWidget);
-
-	//Menu Layout - hLayout1[0]
-	labelMenuBtn[0].setParent(&mainWidget);
-	labelMenuBtn[0].setText("DASH BORAD");
+	
+	//TITLE IMAGE
+	Title = new DashLABEL(&mainWidget, &vLayout0, ":/DLABEL_TITLE", "");
+	/////////////////////////////////////////////////////////////////
+	//  Initialize Image Button
+	labelMenuBtn[0].setParent(&mainWidget); 
+	QPixmap pixmap0(":/DBTN_DASH_ON");
+	QIcon ButtonIcon0(pixmap0);
+	labelMenuBtn[0].setIcon(ButtonIcon0);
+	labelMenuBtn[0].setIconSize(pixmap0.rect().size());
+	labelMenuBtn[0].setFixedSize(pixmap0.rect().size());
 
 	labelMenuBtn[1].setParent(&mainWidget);
-	labelMenuBtn[1].setText(tr("Equip Management"));
+	QPixmap pixmap(":/DBTN_DEVICE_OFF");
+	QIcon ButtonIcon(pixmap);
+	labelMenuBtn[1].setIcon(ButtonIcon);
+	labelMenuBtn[1].setIconSize(pixmap.rect().size());
+	labelMenuBtn[1].setFixedSize(pixmap.rect().size());
 
-	uiDashBoard = new Dashboard();
-	uiDevice = new DeviceManagment(dataStorage);
+	hLayout1[0].setMargin(0);
+	hLayout1[0].setSpacing(0);
+	hLayout1[0].addWidget(&labelMenuBtn[0], 0, Qt::AlignLeft);
+	hLayout1[0].addWidget(&labelMenuBtn[1], 0, Qt::AlignLeft);
+	hLayout1[0].addItem(new QSpacerItem(0, 0, QSizePolicy::Expanding, QSizePolicy::Minimum));
+	//////////////////////////////////////////////////////////////////
 
-	//Default View = DashBoard
-	uiDashBoard->show();
-	uiDevice->hide();
-
-	hLayout1[0].addWidget(&labelMenuBtn[0]);
-	hLayout1[0].addWidget(&labelMenuBtn[1]);
+	//[1].setMargin(0);
+	//hLayout1[1].setSpacing(0);
 	hLayout1[1].addWidget(uiDashBoard);
 
+
+	vLayout0.setMargin(0);
+	vLayout0.setSpacing(0);
 	vLayout0.addLayout(&hLayout1[0]);
 	vLayout0.addLayout(&hLayout1[1]);
 
@@ -39,6 +55,10 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent)
 
 	//first Update
 	uiDevice->UpdateDeviceView();
+
+	//Default View = DashBoard
+	uiDashBoard->show();
+	uiDevice->hide();
 }
 
 UI::~UI(void) {
@@ -58,6 +78,9 @@ void UI::viewDashBoard(void) {
 
 	if (uiDashBoard->isVisible()) return;
 
+	labelMenuBtn[0].setIcon(QIcon(":/DBTN_DASH_ON"));
+	labelMenuBtn[1].setIcon(QIcon(":/DBTN_DEVICE_OFF"));
+
 	hLayout1[1].replaceWidget(uiDevice, uiDashBoard);
 	uiDashBoard->show();
 	uiDevice->hide();
@@ -67,6 +90,9 @@ void UI::viewDashBoard(void) {
 void UI::viewDeviceManagement(void) {
 
 	if (uiDevice->isVisible()) return;
+
+	labelMenuBtn[0].setIcon(QIcon(":/DBTN_DASH_OFF"));
+	labelMenuBtn[1].setIcon(QIcon(":/DBTN_DEVICE_ON"));
 
 	hLayout1[1].replaceWidget(uiDashBoard, uiDevice);
 	uiDashBoard->hide();

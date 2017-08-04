@@ -1,0 +1,37 @@
+<RCC>
+    <qresource prefix="/">
+        <file alias="FAILED">img/load_faild.png</file>
+        <file alias="DLABEL_TAG">img/Dash_Label_TAG.png</file>
+        <file alias="DLABEL_TITLE">img/Dash_Label_TITLE.png</file>
+        <file alias="DBTN_DASH_OFF">img/DASH_BTN_DASH_OFF.png</file>
+        <file alias="DBTN_DASH_ON">img/DASH_BTN_DASH_ON.png</file>
+        <file alias="DBTN_DEVICE_OFF">img/DASH_BTN_DEVICE_OFF.png</file>
+        <file alias="DBTN_DEVICE_ON">img/DASH_BTN_DEVICE_ON.png</file>
+        <file alias="DLABEL_AP">img/Dash_Label_AP.png</file>
+        <file alias="DICON_AP_OFF">img/Dash_Icon_AP_OFF.png</file>
+        <file alias="DICON_AP_ON">img/Dash_Icon_AP_ON.png</file>
+        <file alias="DICON_TAG_OFF">img/Dash_Icon_TAG_OFF.png</file>
+        <file alias="DICON_TAG_ON">img/Dash_Icon_TAG_ON.png</file>
+        <file alias="YUNGOTHIC350">img/yungothic350.TTF</file>
+        <file alias="DICON_PDANGER_OFF">img/Dash_Icon_Peple_DANGER_OFF.png</file>
+        <file alias="DICON_PDANGER_ON">img/Dash_Icon_Peple_DANGER_ON.png</file>
+        <file alias="DICON_PSAFETY_OFF">img/Dash_Icon_Peple_SAFETY_OFF.png</file>
+        <file alias="DICON_PSAFETY_ON">img/Dash_Icon_Peple_SAFETY_ON.png</file>
+        <file alias="DICON_PTOTAL">img/Dash_Icon_Peple_TOTAL.png</file>
+        <file alias="DLABEL_DISASTER">img/Dash_Label_Disaster.png</file>
+        <file alias="DLABEL_DISASTER_CAUSE">img/Dash_Label_Disaster_Cause.png</file>
+        <file alias="DLABEL_DISASTER_TIME">img/Dash_Label_Disaster_Time.png</file>
+        <file alias="DLABEL_PEOPLE">img/Dash_Label_People.png</file>
+        <file alias="DLABEL_PEOPLE_INFO">img/Dash_Label_People_Info.png</file>
+        <file alias="DLABEL_PEOPLE_TIME">img/Dash_Label_People_Time.png</file>
+        <file alias="DICON_COMPLETE">img/DICON_ECOMPLETE.png</file>
+        <file alias="DICON_FIRE">img/DICON_FIRE.png</file>
+        <file alias="DICON_PICKTIME">img/DICON_PICKTIME.png</file>
+        <file alias="DICON_SAFETY">img/DICON_SAFETY.png</file>
+        <file alias="DICON_TIMEOVER">img/DICON_TIMEOVER.png</file>
+        <file alias="DBTN_PTT_ON">img/DBTN_PTT_ON.png</file>
+        <file alias="DBTN_PTT_PRESS">img/DBTN_PTT_PRESS.png</file>
+        <file alias="DDOWNBTN_PTT_ON">img/DDOWNBTN_PTT_ON.png</file>
+        <file alias="DDOWNBTN_PTT_PRESS">img/DDOWNBTN_PTT_PRESS.png</file>
+    </qresource>
+</RCC>
