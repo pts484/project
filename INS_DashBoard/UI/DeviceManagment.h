@@ -11,6 +11,9 @@
 #include <QStandardItemModel>
 #include <QStandardItem>
 
+#include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+#include <QGraphicsView>
 #include <QImage>
 #include <QPixmap>
 
@@ -20,6 +23,45 @@
 #include <QDebug>
 #include "DataStorage.h"
 
+
+class DashLABEL;
+
+
+class DECKView : public QGraphicsView{
+	Q_OBJECT
+
+
+	QGraphicsScene *scene;
+	QGraphicsPixmapItem *Icons;
+
+public:
+
+	DECKView(QWidget *parent = Q_NULLPTR);
+	~DECKView();
+
+	void drawImage(QString imgSrc, float _scale, int _x, int _y, bool movement);
+
+
+};
+
+class DECKButton : public QPushButton {
+	Q_OBJECT
+
+	QFont *font;
+
+	QHBoxLayout mainLayout;
+	DashLABEL *Icon;
+	DashLABEL *Text;
+	
+public:
+	
+	DECKButton() {}
+	DECKButton(QString text, QFont *font);
+	~DECKButton();
+	
+	void mousePressEvent(QMouseEvent *event);
+	void mouseReleaseEvent(QMouseEvent *event);
+};
 
 class DeviceView : public QTreeView {
 	Q_OBJECT
@@ -46,7 +88,11 @@ class DeviceManagment : public QWidget
 {
 	Q_OBJECT
 
-	DataStorage		*mStorage;
+	int fontID;
+	QString family;
+	QFont monospace;
+
+	DataStorage	*mStorage;
 
 	QVBoxLayout mainLayout;
 	QHBoxLayout hLayout0;
@@ -55,10 +101,10 @@ class DeviceManagment : public QWidget
 	DeviceView	mDeviceList;
 	QTableView	mCheckList;
 
-	QPixmap		mImgShipDeck;
+	DECKView	*mImgShipDeck;
 	QLabel		mCanvas;
 
-	QPushButton mDechBtn[3];
+	DECKButton *mDechBtn[3];
 
 	int listWidth;
 	QStandardItemModel *treeModel;

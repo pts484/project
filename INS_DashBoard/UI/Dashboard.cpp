@@ -4,19 +4,25 @@ Dashboard::Dashboard(QWidget *parent)
 	: QWidget(parent)
 {
 
-	//init FONT
+	isEmergencyMode = false;
+
+	//init FONT ////////////////////////////////////////////
 	fontID = QFontDatabase::addApplicationFont(":/YUNGOTHIC350");
 	family = QFontDatabase::applicationFontFamilies(fontID).at(0);
 	monospace.setFamily(family);
 	monospace.setPixelSize(100);
 	monospace.setLetterSpacing(QFont::AbsoluteSpacing, 30);
-	////////////////////////////
+	////////////////////////////////////////////////////////
 	monotime.setFamily(family);
 	monotime.setPixelSize(90);
 
 	initLayout();
 	
+	//this->setMaximumSize(1600, 1200);
+	//this->setMinimumSize(1600, 1200);
 
+	PTTBtn->hide();
+	connect(bottomBarBtn, SIGNAL(clicked()), this, SLOT(onDownBar(void)));
 }
 
 Dashboard::~Dashboard()
@@ -28,10 +34,8 @@ inline void Dashboard::initLayout(void) {
 	vMain.setSpacing(0);
 	vMain.setMargin(0);
 	this->setLayout(&vMain);
-
 	vMain.addLayout(&hMain);
-
-	
+		
 	hMain.setMargin(8);
 	hMain.addLayout(&vLayoutLeft);
 	hMain.addLayout(&vLayoutCenter);
@@ -49,12 +53,12 @@ inline void Dashboard::initLayout(void) {
 	cntTAG_On  = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_TAG_ON", layoutWidth);
 	cntTAG_On->setText("0");
 	cntTAG_Off = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_TAG_OFF", layoutWidth);
-	DashLISTView *view1 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 160);
+	DashLISTView *view1 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
 
 	DashLABEL *pApTitle  = new DashLABEL(this, &vLayoutLeft, ":/DLABEL_AP",  "");
 	cntAP_On  = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_ON", layoutWidth);
 	cntAP_OFF = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_OFF", layoutWidth);
-	DashLISTView *view2 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 160);
+	DashLISTView *view2 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
 
 	vLayoutLeft.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
@@ -70,17 +74,16 @@ inline void Dashboard::initLayout(void) {
 	vLayoutCenter.setMargin(0);
 
 	DashLABEL *a = new DashLABEL(this, &vLayoutCenter, ":/DLABEL_DISASTER", "");
-	DashIconLABEL * ca = new DashIconLABEL(this, &vLayoutCenter, \
-		":/DLABEL_DISASTER_CAUSE", ":/DICON_SAFETY", "00:00:00", layoutWidth, 0);
+	centerA = new DashIconLABEL(this, &vLayoutCenter, \
+		":/DLABEL_DISASTER_CAUSE", ":/DICON_SAFETY", STR_KOR("정상 항해중"), layoutWidth, 0);
 	
-
-	DashIconLABEL * cb = new DashIconLABEL(this, &vLayoutCenter, \
-		":/DLABEL_DISASTER_TIME", ":/DICON_SAFETY", "00:00:00", layoutWidth, 0);
+	centerB = new DashIconLABEL(this, &vLayoutCenter, \
+		":/DLABEL_DISASTER_TIME", ":/DICON_SAFETY", STR_KOR("정상 항해중"), layoutWidth, 0);
 
 	vLayoutCenter.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-	ca->setFont(&monotime);
-	cb->setFont(&monotime);
+	centerA->setFont(&monotime);
+	centerB->setFont(&monotime);
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// Dash BOARD RIGHT ::: People Information
@@ -90,47 +93,83 @@ inline void Dashboard::initLayout(void) {
 
 	DashLABEL *ra = new DashLABEL(this, &vLayoutRight, ":/DLABEL_PEOPLE", "");
 
-	DashPeopleLABEL *rb = new DashPeopleLABEL(this, &vLayoutRight, layoutWidth, 0);
+	RightA = new DashPeopleLABEL(this, &vLayoutRight, layoutWidth, 0);
 	
-	DashIconLABEL * rc = new DashIconLABEL(this, &vLayoutRight, \
-		":/DLABEL_PEOPLE_TIME", ":/DICON_SAFETY", "00:00:00", layoutWidth, 0);
+	RightB = new DashIconLABEL(this, &vLayoutRight, \
+		":/DLABEL_PEOPLE_TIME", ":/DICON_SAFETY", STR_KOR("정상 항해중"), layoutWidth, 0);
 
 	vLayoutRight.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
-	rb->setFont(&monospace);
-	rc->setFont(&monotime);
+	RightA->setFont(&monospace);
+	RightB->setFont(&monotime);
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// Dash BOARD DOWN ::: PTT BUTTON
 
-	downBtnBar.setParent(this);
-	QPixmap pixmap0(":/DDOWNBTN_PTT_ON");
-	QIcon ButtonIcon0(pixmap0);
-	downBtnBar.setIcon(ButtonIcon0);
-	downBtnBar.setIconSize(pixmap0.rect().size());
-	downBtnBar.setFixedSize(pixmap0.rect().size());
-	downBtnBar.setStyleSheet("QPushButton{ border: 0px;}");
+	bottomBarBtn = new DashImgButton(this, &vMain, true, ":/DDOWNBTN_PTT_ON", ":/DDOWNBTN_PTT_PRESS");
+	PTTBtn       = new DashImgButton(this, 0, false, ":/DBTN_PTT_ON", ":/DBTN_PTT_PRESS");
 
-
-	//PTTBtn.setParent(this);
-	//QPixmap pixmap(":/DBTN_DEVICE_OFF");
-	//QIcon ButtonIcon(pixmap);
-	//PTTBtn.setIcon(ButtonIcon);
-	//PTTBtn.setIconSize(pixmap.rect().size());
-	//PTTBtn.setFixedSize(pixmap.rect().size());
-
-
-	vMain.addWidget(&downBtnBar, 0 , Qt::AlignLeft);
-
+	QSize size = QSize(1600, 1200)/2 - (PTTBtn->size() / 2);
+	PTTBtn->setGeometry(size.width(), size.height()-200, PTTBtn->size().width(), PTTBtn->size().height());
 }
 
 void Dashboard::resizeEvent(QResizeEvent *event) {
 	qDebug() << "run Dashboard Event";
+	QSize size = QSize(1600, 1200) / 2 - (PTTBtn->size() / 2);
+	PTTBtn->setGeometry(size.width(), size.height() - 200, PTTBtn->size().width(), PTTBtn->size().height());
 }
 
+void Dashboard::onDownBar(void) {
 
+	if (PTTBtn->isVisible()) {
+		PTTBtn->hide();
+	} else {
+		PTTBtn->show();
+	}
+}
 
+void Dashboard::updateDASHBOARD() {
+}
 
+void Dashboard::DASHBOARD_Emergency_MODE(uINT GoldenTime) {
+
+	isEmergencyMode = true;
+
+	centerA->onEmergency(1, true, 0, false);
+	centerB->onEmergency(10, false, GoldenTime, true);
+	RightB->onEmergency(10, false, GoldenTime, false);
+
+	RightA->onEmergency();
+}
+
+void Dashboard::DASHBOARD_SAFETY_MODE(void) {
+
+	isEmergencyMode = false;
+
+	centerA->onSafety();
+	centerB->onSafety();
+
+	RightA->onSafety();
+	RightB->onSafety();
+		
+	centerA->setText(STR_KOR("정상 항해중"));
+	centerB->setText(STR_KOR("정상 항해중"));
+	RightB->setText(STR_KOR("정상 항해중"));
+
+}
+
+void Dashboard::DASHBOARD_CLEAR_MODE(void) {
+
+	isEmergencyMode = false;
+
+	centerA->onClear();
+	centerB->onClear();
+	RightB->onClear();
+
+	centerA->setIcon(":/DICON_SAFETY");
+	centerB->setIcon(":/DICON_COMPLETE");
+	RightB->setIcon(":/DICON_SAFETY");
+}
 
 
 //////////////////////////////////////////////////////////////////////////////////////
@@ -141,14 +180,17 @@ DashLABEL::DashLABEL() {
 
 DashLABEL::DashLABEL(QWidget *parent, QLayout *layout, QString imgSrc, QString text, Qt::Alignment align){
 
-	
+	imgBuf = 0;
+
 	this->setParent(parent);
 
 	if (imgSrc.size() > 0) {
 
 		QImage img;
 		QSize imgSize;
-		imgBuf = new QPixmap();
+		if (imgBuf == 0) {
+			imgBuf = new QPixmap();
+		}
 
 		if (img.load(imgSrc)) {
 			*imgBuf = QPixmap::fromImage(img);
@@ -181,6 +223,27 @@ DashLABEL::~DashLABEL() {
 	}
 }
 
+void DashLABEL::setIcon(QString imgSrc) {
+	QImage img;
+	QSize imgSize;
+	if (imgBuf == 0) {
+		imgBuf = new QPixmap();
+	}
+	if (img.load(imgSrc)) {
+		*imgBuf = QPixmap::fromImage(img);
+	}
+	else {
+		img.load(":/FAILED");
+		*imgBuf = QPixmap::fromImage(img);
+		qDebug() << imgSrc << " Image Load Faild";
+	}
+
+	imgSize = imgBuf->size();
+	*imgBuf = imgBuf->scaled(imgSize);
+	this->setMinimumSize(imgSize);
+	this->setMaximumSize(imgSize);
+	this->setPixmap(*imgBuf);
+}
 
 
 
@@ -249,7 +312,9 @@ DashIconLABEL::DashIconLABEL() {
 DashIconLABEL::DashIconLABEL(QWidget *parent, QLayout *layout, \
 							 QString imgSrc_Title, QString imgSrc_Icon, QString text, \
 							 uINT w, uINT h) {
-	
+	isKeepGoing = false;
+	isTimeOver = false;
+	timer = nullptr;
 	int _h = 0;
 
 	this->setParent(parent);
@@ -287,8 +352,121 @@ DashIconLABEL::~DashIconLABEL(){
 	if (!Title) delete Title;
 }
 
+void DashIconLABEL::onEmergency(uINT Disaster, bool isCutTime, uINT interval, bool keepgoing) {
 
+	this->interval = interval;
+	isKeepGoing = keepgoing;
 
+	switch (Disaster) {
+	
+		case 0:
+			setIcon(":/DICON_SAFETY");
+			break;
+		case 1:
+			setIcon(":/DICON_FIRE");
+			break;
+		case 10:
+			setIcon(":/DICON_PICKTIME");
+			break;
+		case 11:
+			setIcon(":/DICON_COMPLETE");
+			break;
+		case 12:
+			setIcon(":/DICON_TIMEOVER");
+			break;
+
+		case 22:
+			setIcon(":/DICON_SAFETY");
+			break;
+		case 23:
+			setIcon(":/DICON_PICKTIME");
+			break;
+	}
+
+	if (isKeepGoing) {
+
+		if (timer == nullptr) {
+			timer = new QBasicTimer();
+		}
+		timer->start(10, this);
+		
+	}
+	else {
+		QString strTime;
+
+		if (isCutTime == false) {
+			int runTime = interval;
+			int ms = runTime % 1000;
+			runTime = runTime / 1000;
+			int ss = runTime % 60;
+			runTime = runTime / 60;
+			int mm = runTime % 60;
+
+			strTime = QString("%1:%2:%3")
+				.arg(mm, 2, 10, QChar('0'))
+				.arg(ss, 2, 10, QChar('0'))
+				.arg(ms / 10, 2, 10, QChar('0'));
+		} else {
+			strTime = QTime::currentTime().toString("hh:mm:ss");
+		}
+
+		setText(strTime);
+	}
+}
+void DashIconLABEL::onSafety(void) {
+
+	if (timer != nullptr) {
+		
+		timer->stop();
+
+		delete timer;
+		timer = nullptr;
+	}
+	setIcon(":/DICON_SAFETY");
+	Text->setStyleSheet("DashLABEL{color : #546E7A;}");
+}
+
+void DashIconLABEL::onClear(void) {
+
+	if (timer != nullptr) {
+
+		timer->stop();
+
+		delete timer;
+		timer = nullptr;
+	}
+}
+
+void DashIconLABEL::timerEvent(QTimerEvent *event) {
+
+	if (isTimeOver == false) {
+		if (interval > 0) {
+			interval -= 10;
+		} else {
+			isTimeOver = true;
+			setIcon(":/DICON_TIMEOVER");
+			Text->setStyleSheet("DashLABEL{color : #FF0000;}");
+			qDebug() << "onEmergency Time OVER!! ::";
+			emit sigTIME_OVER();
+		}
+	} else {
+		interval += 10;
+	}
+
+	int runTime = interval;
+	int ms = runTime % 1000;
+	runTime = runTime / 1000;
+	int ss = runTime % 60;
+	runTime = runTime / 60;
+	int mm = runTime % 60;
+
+	QString strTime = QString("%1:%2:%3")
+		.arg(mm, 2, 10, QChar('0'))
+		.arg(ss, 2, 10, QChar('0'))
+		.arg(ms/10, 2, 10, QChar('0'));
+	
+	setText(strTime);
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 //   CLASS DashPeopleLABEL 
@@ -322,9 +500,10 @@ DashPeopleLABEL::DashPeopleLABEL(QWidget *parent, QLayout *layout, uINT w, uINT 
 	cntPeopleTotal->setStyleSheet(css3Code);
 	cntPeopleSafe->setStyleSheet(css3Code);
 	cntPeopleDanger->setStyleSheet(css3Code);
+	cntPeopleSafe->Text->setStyleSheet("DashLABEL{ color: #D3D9DC; }");
+	cntPeopleDanger->Text->setStyleSheet("DashLABEL{ color: #D3D9DC; }");
 
-
-	
+		
 	if (h == 0) {
 		_h = Title->size().height();
 		_h += cntPeopleTotal->size().height();
@@ -343,4 +522,92 @@ DashPeopleLABEL::DashPeopleLABEL(QWidget *parent, QLayout *layout, uINT w, uINT 
 }
 
 DashPeopleLABEL::~DashPeopleLABEL() {
+}
+
+void DashPeopleLABEL::onEmergency(void) {
+	cntPeopleSafe->setIcon(":/DICON_PSAFETY_ON");
+	cntPeopleDanger->setIcon(":/DICON_PDANGER_ON");
+	cntPeopleSafe->Text->setStyleSheet("DashLABEL{ color: #546E7A; }");
+	cntPeopleDanger->Text->setStyleSheet("DashLABEL{ color: #FF0000; }");
+}
+void DashPeopleLABEL::onSafety(void) {
+	cntPeopleSafe->setIcon(":/DICON_PSAFETY_OFF");
+	cntPeopleDanger->setIcon(":/DICON_PDANGER_OFF");
+	cntPeopleSafe->Text->setStyleSheet("DashLABEL{ color: #D3D9DC; }");
+	cntPeopleDanger->Text->setStyleSheet("DashLABEL{ color: #D3D9DC; }");
+}
+
+//////////////////////////////////////////////////////////////////////////////////////
+//   CLASS DashImgButton 
+//////////////////////////////////////////////////////////////////////////////////////
+DashImgButton::DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QString imgSrc, QString imgPressSrc) {
+
+	isPush = toggle;
+
+	imgOn = imgSrc;
+	imgPress = imgPressSrc;
+
+
+	this->setParent(parent);
+	QPixmap pixmap0(imgOn);
+	QIcon ButtonIcon0(pixmap0);
+	this->setIcon(ButtonIcon0);
+	this->setIconSize(pixmap0.rect().size());
+	this->setFixedSize(pixmap0.rect().size());
+	this->setStyleSheet("DashImgButton{ border: 0px;}");
+
+	if (layout != 0)	layout->addWidget(this);
+
+	if (isPush) {
+		connect(this, SIGNAL(clicked()), this, SLOT(toggleBtn()));
+	} else {
+		connect(this, SIGNAL(pressed()), this, SLOT(pressedBtn()));
+		connect(this, SIGNAL(clicked()), this, SLOT(clickedBtn()));
+	}
+
+}
+
+DashImgButton::~DashImgButton() {}
+
+void DashImgButton::pressedBtn(void) {
+	qDebug() << "pressed PTT BAR Button";
+	QPixmap pixmap0(imgPress);
+	QIcon ButtonIcon0(pixmap0);
+	this->setIcon(ButtonIcon0);
+
+	emit sigPressed();
+}
+
+void DashImgButton::clickedBtn(void) {
+	qDebug() << "click PTT BAR Button";
+	QPixmap pixmap0(imgOn);
+	QIcon ButtonIcon0(pixmap0);
+	this->setIcon(ButtonIcon0);
+
+	emit sigClicked();
+
+	if (this->isVisible()) {
+		this->hide();
+	}
+	else {
+		this->show();
+	}
+}
+
+void DashImgButton::toggleBtn(void) {
+	qDebug() << "Toggle PTT BAR Button";
+
+	if (isPush) {
+		
+		QPixmap pixmap0(imgPress);
+		QIcon ButtonIcon0(pixmap0);
+		this->setIcon(ButtonIcon0);
+	} else {
+		QPixmap pixmap0(imgOn);
+		QIcon ButtonIcon0(pixmap0);
+		this->setIcon(ButtonIcon0);
+	}
+	isPush = !isPush;
+
+	emit sigToggle();
 }

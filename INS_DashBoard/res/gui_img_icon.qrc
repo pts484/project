@@ -33,5 +33,13 @@
         <file alias="DBTN_PTT_PRESS">img/DBTN_PTT_PRESS.png</file>
         <file alias="DDOWNBTN_PTT_ON">img/DDOWNBTN_PTT_ON.png</file>
         <file alias="DDOWNBTN_PTT_PRESS">img/DDOWNBTN_PTT_PRESS.png</file>
+        <file alias="DEICON_DECK">img/Device_ICON_DECK.png</file>
+        <file alias="DE_BOTTOMBAR">img/DEVICE_BOTTOMBAR.png</file>
+        <file alias="SHIP_DECK_B">img/B_DECK.png</file>
+        <file alias="DE_ICON_BOAT">img/DEVICE_ICON_BOAT.png</file>
+        <file alias="DE_ICON_FIRSTAID">img/DEVICE_ICON_FirstAid.png</file>
+        <file alias="DE_ICON_MCENTER">img/DEVICE_ICON_MCENTER.png</file>
+        <file alias="DE_ICON_TUBE">img/DEVICE_ICON_TUBE.png</file>
+        <file alias="DE_ICON_VEST">img/DEVICE_ICON_VEST.png</file>
     </qresource>
 </RCC>

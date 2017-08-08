@@ -56,9 +56,7 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent) {
 	//first Update
 	uiDevice->UpdateDeviceView();
 
-	//Default View = DashBoard
-	uiDashBoard->show();
-	uiDevice->hide();
+	viewDeviceManagement();
 }
 
 UI::~UI(void) {
@@ -109,4 +107,9 @@ void UI::loadInspectionList(QString id) {
 	if (mStorage->loadInspectionList(id) == true) {
 		uiDevice->UpdateInspecView();
 	}
+}
+
+void UI::DASHBOARD_Emergency_MODE(void) {
+
+
 }

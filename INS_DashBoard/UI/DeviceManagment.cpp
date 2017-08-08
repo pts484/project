@@ -1,6 +1,106 @@
 #include "DeviceManagment.h"
+#include "Dashboard.h"
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//DECKView
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DECKView::DECKView(QWidget *parent){
+
+	this->setParent(parent);
+	this->setRenderHints(QPainter::Antialiasing | QPainter::SmoothPixmapTransform);
+	this->setDragMode(QGraphicsView::ScrollHandDrag);
+	this->setHorizontalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
+	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
+	scene = new QGraphicsScene(parent);
+	
+	
+	this->setScene(scene);
+	this->setFixedSize(1300, 700);
+
+	drawImage(":/SHIP_DECK_B", 0.5, 0, 0, false);
+	drawImage(":/DE_ICON_BOAT", 0.15, 1000, 1000, true);
+
+	this->show();
+}
+DECKView::~DECKView() {
+}
+
+void DECKView::drawImage(QString imgSrc, float _scale, int _x, int _y, bool movement) {
+
+	QImage img;
+	QPixmap imgBuf;
+
+	if (img.load(imgSrc)) {
+		imgBuf = QPixmap::fromImage(img);
+	}
+	else {
+		img.load(":/FAILED");
+		imgBuf = QPixmap::fromImage(img);
+		qDebug() << imgSrc << " Image Load Faild";
+	}
+	//imgBuf.scaled(imgBuf.size().width() * 0.1, imgBuf.size().height() * 0.1);
+
+	Icons = new QGraphicsPixmapItem();
+	Icons->setPixmap(QPixmap(imgBuf));
+	Icons->setPos(_x, _y);
+	Icons->setScale(_scale);
+
+	if (movement) {
+		Icons->setFlag(QGraphicsItem::ItemIsMovable);
+	}
+	
+	scene->addItem(Icons);
+	
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//DECKButton
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+DECKButton::DECKButton(QString text, QFont *font) {
+
+	mainLayout.setMargin(0);
+	mainLayout.setSpacing(0);
+
+	this->font = font;
+
+	Icon = new DashLABEL(this, &mainLayout, ":/DEICON_DECK", "");
+	Text = new DashLABEL(this, &mainLayout, "", text, Qt::AlignCenter);
+
+	Text->setFont(*font);
+	Text->setStyleSheet("DashLABEL{color : #546E7A;}");
+
+	this->setStyleSheet("DECKButton{border : 1px solid #6E848E; \
+									   background-color: #FFFFFF;}");
+
+	this->setLayout(&mainLayout);
+	this->setMinimumSize(mainLayout.sizeHint());
+	this->setMaximumSize(mainLayout.sizeHint());
+}
+
+DECKButton::~DECKButton() {
+
+	if (!Icon) delete Icon;
+	if (!Text) delete Text;
+}
+
+void DECKButton::mousePressEvent(QMouseEvent *event) {
+	this->setStyleSheet("DECKButton{border : 1px solid #6E848E; \
+									   background-color: #14B5C8;}");
+	Text->setStyleSheet("DashLABEL{ color: #FFFFFF; }");
+}
+void DECKButton::mouseReleaseEvent(QMouseEvent *event) {
+	this->setStyleSheet("DECKButton{border : 1px solid #6E848E; \
+									   background-color: #FFFFFF;}");
+	Text->setStyleSheet("DashLABEL{ color: #546E7A; }");
+}
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+//DeviceView
+////////////////////////////////////////////////////////////////////////////////////////////////////
 DeviceView::DeviceView() {
 	selectId = "";
 }
@@ -31,6 +131,13 @@ void DeviceView::mouseMoveEvent(QMouseEvent *event) {
 DeviceManagment::DeviceManagment(DataStorage *dataStorage, QWidget *parent):QWidget(parent)
 {
 
+	//init FONT ////////////////////////////////////////////
+	fontID = QFontDatabase::addApplicationFont(":/YUNGOTHIC350");
+	family = QFontDatabase::applicationFontFamilies(fontID).at(0);
+	monospace.setFamily(family);
+	monospace.setPixelSize(22);
+	monospace.setLetterSpacing(QFont::AbsoluteSpacing, 5);
+
 	mStorage = dataStorage;
 	initLayout();
 	initTreeView();
@@ -43,40 +150,42 @@ DeviceManagment::~DeviceManagment()
 {
 }
 
-
 inline void DeviceManagment::initLayout() {
 	this->setLayout(&mainLayout);
 
-	QImage img;
-	if (img.load("res/img/B_DECK.png")) {
-		mImgShipDeck = QPixmap::fromImage(img);
-		mImgShipDeck = mImgShipDeck.scaled(1300, 600);
-	}else{
-		qDebug() << "Image Load Faild";
-	}
+
+	mainLayout.setSpacing(1);
+	hLayout0.setSpacing(1);
+	vLayout00.setSpacing(1);
+	vLayout000.setSpacing(1);
 
 	mainLayout.addLayout(&hLayout0);
 	mainLayout.addWidget(&mCheckList);
+	//DashLABEL *BottomBar = new DashLABEL(this, &mainLayout, ":/DE_BOTTOMBAR", "");
+	
+	mImgShipDeck = new DECKView(this);
 
+	hLayout0.setAlignment(Qt::AlignLeft);
 	hLayout0.addLayout(&vLayout00);
-	hLayout0.addWidget(&mCanvas);
-
-	mCanvas.setPixmap(mImgShipDeck);
-	mCanvas.setMinimumSize(1300, 600);
-	mCanvas.setMaximumSize(1300, 600);
-
+	hLayout0.addWidget(mImgShipDeck);
+	
 	vLayout00.addLayout(&vLayout000);
 	vLayout00.addWidget(&mDeviceList);
 
-	vLayout000.addWidget(&mDechBtn[0]);
-	vLayout000.addWidget(&mDechBtn[1]);
-	vLayout000.addWidget(&mDechBtn[2]);
 
-	mDechBtn[0].setText("DEAC A");
-	mDechBtn[1].setText("DEAC B");
-	mDechBtn[2].setText("DEAC C");
+	mDechBtn[0] = new DECKButton(STR_KOR("单农 A"), &monospace);
+	mDechBtn[1] = new DECKButton(STR_KOR("单农 B"), &monospace);
+	mDechBtn[2] = new DECKButton(STR_KOR("单农 C"), &monospace);
+
+	vLayout000.addWidget(mDechBtn[0]);
+	vLayout000.addWidget(mDechBtn[1]);
+	vLayout000.addWidget(mDechBtn[2]);
 
 	listWidth = mainLayout.sizeHint().width();
+
+	mDechBtn[0]->setMaximumWidth(listWidth);
+	mDechBtn[1]->setMaximumWidth(listWidth);
+	mDechBtn[2]->setMaximumWidth(listWidth);
 }
 
 inline void DeviceManagment::initTreeView() {
@@ -202,4 +311,7 @@ void DeviceManagment::resizeEvent(QResizeEvent *event) {
 	listWidth = mDeviceList.size().width();
 	mDeviceList.setColumnWidth(0, listWidth * 0.6);
 	mDeviceList.setColumnWidth(1, listWidth * 0.39);
+
+
+
 }

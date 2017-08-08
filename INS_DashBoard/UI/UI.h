@@ -12,6 +12,7 @@
 #include "css3_code.h"
 #include "DeviceManagment.h"
 #include "Dashboard.h"
+#include "qtimer.h"
 
 
 #include "../DataStorage.h"
@@ -47,6 +48,9 @@ public slots:
 	void viewDashBoard(void);
 	void viewDeviceManagement(void);
 	void loadInspectionList(QString);
+
+	void DASHBOARD_Emergency_MODE();
+
 
 
 
