@@ -1,6 +1,11 @@
 #ifndef DEVICEMANAGMENT_H
 #define DEVICEMANAGMENT_H
 
+#include <QScrollBar>
+#include <QWheelEvent>
+#include <QGraphicsSceneMouseEvent>
+#include <qmath.h>
+
 #include <QWidget>
 #include <QLabel>
 #include <QPushButton>
@@ -31,7 +36,7 @@ class DECKView : public QGraphicsView{
 	Q_OBJECT
 
 
-	QGraphicsScene *scene;
+	QGraphicsScene *pCurrentDECK;
 	QGraphicsPixmapItem *Icons;
 
 public:
@@ -40,6 +45,11 @@ public:
 	~DECKView();
 
 	void drawImage(QString imgSrc, float _scale, int _x, int _y, bool movement);
+
+
+protected:
+	void mousePressEvent(QMouseEvent *event) override;
+	void wheelEvent(QWheelEvent *evevt) override;
 
 
 };

@@ -9,7 +9,7 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent) {
 	uiDevice = new DeviceManagment(dataStorage);
 
 	mStorage = dataStorage;
-    this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 900);
+    this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 0);
 
     mainWidget.setParent(this);
     this->setCentralWidget(&mainWidget);

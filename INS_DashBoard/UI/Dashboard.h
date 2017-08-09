@@ -1,5 +1,5 @@
 #ifndef DASHBOARD_H
-#define DASHBOARD_H0
+#define DASHBOARD_H
 
 #include <QMainWindow>
 #include <QGridLayout>
@@ -234,7 +234,8 @@ public:
 	~Dashboard();
 
 signals:
-
+	void sigPressPTTBtn(void);
+	void sigReleasePTTBtn(void);
 	
 public slots :
 	void onDownBar(void);

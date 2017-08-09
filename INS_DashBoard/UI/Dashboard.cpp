@@ -23,6 +23,12 @@ Dashboard::Dashboard(QWidget *parent)
 
 	PTTBtn->hide();
 	connect(bottomBarBtn, SIGNAL(clicked()), this, SLOT(onDownBar(void)));
+
+	// PTT Signal connect
+	connect(PTTBtn, SIGNAL(sigPressed()), this, SIGNAL(sigPressPTTBtn()));
+	connect(PTTBtn, SIGNAL(sigClicked()), this, SIGNAL(sigReleasePTTBtn()));
+
+
 }
 
 Dashboard::~Dashboard()
@@ -567,10 +573,18 @@ DashImgButton::DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QStr
 
 }
 
-DashImgButton::~DashImgButton() {}
+DashImgButton::~DashImgButton() {
+	if (isPush) {
+		disconnect(this, SIGNAL(clicked()), this, SLOT(toggleBtn()));
+	}
+	else {
+		disconnect(this, SIGNAL(pressed()), this, SLOT(pressedBtn()));
+		disconnect(this, SIGNAL(clicked()), this, SLOT(clickedBtn()));
+	}
+}
 
 void DashImgButton::pressedBtn(void) {
-	qDebug() << "pressed PTT BAR Button";
+	
 	QPixmap pixmap0(imgPress);
 	QIcon ButtonIcon0(pixmap0);
 	this->setIcon(ButtonIcon0);
@@ -579,7 +593,7 @@ void DashImgButton::pressedBtn(void) {
 }
 
 void DashImgButton::clickedBtn(void) {
-	qDebug() << "click PTT BAR Button";
+	
 	QPixmap pixmap0(imgOn);
 	QIcon ButtonIcon0(pixmap0);
 	this->setIcon(ButtonIcon0);

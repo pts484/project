@@ -1,6 +1,16 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
   <ItemGroup>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Form Files">
+      <UniqueIdentifier>{99349809-55BA-4b9d-BF79-8FDBB0286EB3}</UniqueIdentifier>
+      <Extensions>ui</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
     <Filter Include="Generated Files">
       <UniqueIdentifier>{71ED8ED8-ACB9-4CE9-BBE1-E00B30144E11}</UniqueIdentifier>
       <Extensions>cpp;c;cxx;moc;h;def;odl;idl;res;</Extensions>
@@ -16,6 +26,16 @@
     <Filter Include="Header Files">
       <UniqueIdentifier>{93995380-89BD-4b04-88EB-625FBE52EBFB}</UniqueIdentifier>
       <Extensions>h;hpp;hxx;hm;inl;inc;xsd</Extensions>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
+    </Filter>
+    <Filter Include="Resource Files">
+      <UniqueIdentifier>{D9D6E242-F8AF-46E4-B9FD-80ECBC20BA3E}</UniqueIdentifier>
+      <Extensions>qrc;*</Extensions>
+      <ParseFiles>false</ParseFiles>
     </Filter>
     <Filter Include="Source Files">
       <UniqueIdentifier>{4FC737F1-C7A5-4376-A066-2A32D752A2FF}</UniqueIdentifier>
@@ -26,24 +46,36 @@
       <Extensions>cpp;c;cxx;def;odl;idl;hpj;bat;asm;asmx</Extensions>
     </Filter>
     <Filter Include="Generated Files\Debug">
-      <UniqueIdentifier>{4a36abc5-4819-4705-b230-888f9d1cee42}</UniqueIdentifier>
+      <UniqueIdentifier>{7373c37a-cc4c-462f-b29c-594352cebff5}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
     </Filter>
     <Filter Include="Generated Files\Release">
-      <UniqueIdentifier>{4d2804f3-1bab-4b90-b7ce-51a829caa81c}</UniqueIdentifier>
+      <UniqueIdentifier>{2f38488a-e436-41ff-9b67-3303940aafd2}</UniqueIdentifier>
       <Extensions>cpp;moc</Extensions>
       <SourceControlFiles>False</SourceControlFiles>
-    </Filter>
-    <Filter Include="res">
-      <UniqueIdentifier>{357f8a4d-f9ad-40b5-a0e6-10ad81bce160}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="DashBoard_main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="UI\Dashboard.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="DataStorage.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="UI\DeviceManagment.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioRecode\PTT.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
     <ClCompile Include="UI\UI.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="AudioRecode\audiorecorder.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="db\db_mysql.cpp">
@@ -52,10 +84,37 @@
     <ClCompile Include="main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="AudioRecode\qaudiolevel.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_qaudiolevel.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_qaudiolevel.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_audiorecorder.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_audiorecorder.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
     <ClCompile Include="Debug\moc_DashBoard_main.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_DashBoard_main.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_DataStorage.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_DataStorage.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_Dashboard.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_Dashboard.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
     <ClCompile Include="Debug\moc_UI.cpp">
@@ -70,45 +129,54 @@
     <ClCompile Include="Release\moc_PTT.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="VoiceRecode\PTT.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="Debug\moc_DeviceManagment.cpp">
       <Filter>Generated Files\Debug</Filter>
     </ClCompile>
     <ClCompile Include="Release\moc_DeviceManagment.cpp">
       <Filter>Generated Files\Release</Filter>
     </ClCompile>
-    <ClCompile Include="UI\DeviceManagment.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_Dashboard.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_Dashboard.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="UI\Dashboard.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
-    <ClCompile Include="Debug\moc_DataStorage.cpp">
-      <Filter>Generated Files\Debug</Filter>
-    </ClCompile>
-    <ClCompile Include="Release\moc_DataStorage.cpp">
-      <Filter>Generated Files\Release</Filter>
-    </ClCompile>
-    <ClCompile Include="DataStorage.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_gui_img_icon.cpp">
       <Filter>Generated Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_DataManager.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_DataManager.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="DataManager.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_VoiceSender.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_VoiceSender.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="VoiceSender.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DashBoard_main.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="UI\Dashboard.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="DataStorage.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="UI\DeviceManagment.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="AudioRecode\PTT.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
     <CustomBuild Include="UI\UI.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
+    <CustomBuild Include="AudioRecode\audiorecorder.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
     <ClInclude Include="css3_code.h">
@@ -120,20 +188,20 @@
     <ClInclude Include="define.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <CustomBuild Include="VoiceRecode\PTT.h">
+    <CustomBuild Include="AudioRecode\qaudiolevel.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="UI\DeviceManagment.h">
+    <ClInclude Include="resource.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="resource1.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <CustomBuild Include="DataManager.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
-    <CustomBuild Include="UI\Dashboard.h">
+    <CustomBuild Include="VoiceSender.h">
       <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="DataStorage.h">
-      <Filter>Header Files</Filter>
-    </CustomBuild>
-    <CustomBuild Include="res\gui_img_icon.qrc">
-      <Filter>res</Filter>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
@@ -145,10 +213,140 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource.h">
-      <Filter>Generated Files</Filter>
-    </ClInclude>
-    <ClInclude Include="resource1.h">
+    <CustomBuild Include="AudioRecode\audiorecorder.ui">
+      <Filter>Form Files</Filter>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\img\B_DECK.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DASH_BTN_DASH_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DASH_BTN_DASH_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DASH_BTN_DEVICE_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DASH_BTN_DEVICE_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DBTN_PTT_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DBTN_PTT_PRESS.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DDOWNBTN_PTT_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DDOWNBTN_PTT_PRESS.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_BOTTOMBAR.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_ICON_BOAT.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_ICON_FirstAid.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_ICON_MCENTER.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_ICON_TUBE.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DEVICE_ICON_VEST.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DICON_ECOMPLETE.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DICON_FIRE.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DICON_PICKTIME.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DICON_SAFETY.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\DICON_TIMEOVER.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_AP_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_AP_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_DANGER_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_DANGER_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_SAFETY_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_SAFETY_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_TOTAL.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_TAG_OFF.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Icon_TAG_ON.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_AP.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster_Cause.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster_Time.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_People.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_People_Info.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_People_Time.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_TAG.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Dash_Label_TITLE.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\Device_ICON_DECK.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <CustomBuild Include="res\gui_img_icon.qrc">
+      <Filter>Resource Files</Filter>
+    </CustomBuild>
+    <None Include="res\img\load_faild.png">
+      <Filter>Resource Files</Filter>
+    </None>
+    <None Include="res\img\yungothic350.TTF">
+      <Filter>Resource Files</Filter>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="GeneratedFiles\ui_audiorecorder.h">
       <Filter>Generated Files</Filter>
     </ClInclude>
   </ItemGroup>

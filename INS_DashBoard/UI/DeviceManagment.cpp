@@ -14,10 +14,10 @@ DECKView::DECKView(QWidget *parent){
 	this->setVerticalScrollBarPolicy(Qt::ScrollBarAlwaysOff);
 
 
-	scene = new QGraphicsScene(parent);
+	pCurrentDECK = new QGraphicsScene(parent);
+	pCurrentDECK->setItemIndexMethod(QGraphicsScene::NoIndex);
 	
-	
-	this->setScene(scene);
+	this->setScene(pCurrentDECK);
 	this->setFixedSize(1300, 700);
 
 	drawImage(":/SHIP_DECK_B", 0.5, 0, 0, false);
@@ -52,8 +52,32 @@ void DECKView::drawImage(QString imgSrc, float _scale, int _x, int _y, bool move
 		Icons->setFlag(QGraphicsItem::ItemIsMovable);
 	}
 	
-	scene->addItem(Icons);
+	pCurrentDECK->addItem(Icons);
 	
+}
+
+void DECKView::mousePressEvent(QMouseEvent *event) {
+	QGraphicsView::mousePressEvent(event);
+	qDebug() << "On MAP Double Cliick";
+	
+	QGraphicsItem *selectObject;
+	selectObject = pCurrentDECK->mouseGrabberItem();
+	qDebug() << selectObject;
+
+}
+
+void DECKView::wheelEvent(QWheelEvent *event) {
+
+	const QPointF p0scene = mapToScene(event->pos());
+
+	qreal factor = qPow(1.2, event->delta() / 240.0);
+	scale(factor, factor);
+
+	const QPointF p1mouse = mapFromScene(p0scene);
+	const QPointF move = p1mouse - event->pos(); // The move
+	horizontalScrollBar()->setValue(move.x() + horizontalScrollBar()->value());
+	verticalScrollBar()->setValue(move.y() + verticalScrollBar()->value());
+
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////

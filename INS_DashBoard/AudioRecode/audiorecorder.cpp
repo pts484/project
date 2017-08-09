@@ -62,6 +62,11 @@ AudioRecorder::AudioRecorder(QWidget *parent) :
 {
     ui->setupUi(this);
 
+	int _x = parent->pos().x() + 20;
+	int _y = parent->pos().x() + 20;
+
+	this->setGeometry(_x, _y, 100, 100);
+
     audioRecorder = new QAudioRecorder(this);
     probe = new QAudioProbe;
     connect(probe, SIGNAL(audioBufferProbed(QAudioBuffer)),
@@ -160,22 +165,22 @@ void AudioRecorder::updateStatus(QMediaRecorder::Status status)
 
 void AudioRecorder::onStateChanged(QMediaRecorder::State state)
 {
-    switch (state) {
-    case QMediaRecorder::RecordingState:
-        ui->recordButton->setText(tr("Stop"));
-        ui->pauseButton->setText(tr("Pause"));
-        break;
-    case QMediaRecorder::PausedState:
-        ui->recordButton->setText(tr("Stop"));
-        ui->pauseButton->setText(tr("Resume"));
-        break;
-    case QMediaRecorder::StoppedState:
-        ui->recordButton->setText(tr("Record"));
-        ui->pauseButton->setText(tr("Pause"));
-        break;
-    }
+    //switch (state) {
+    //case QMediaRecorder::RecordingState:
+    //    ui->recordButton->setText(tr("Stop"));
+    //    ui->pauseButton->setText(tr("Pause"));
+    //    break;
+    //case QMediaRecorder::PausedState:
+    //    ui->recordButton->setText(tr("Stop"));
+    //    ui->pauseButton->setText(tr("Resume"));
+    //    break;
+    //case QMediaRecorder::StoppedState:
+    //    ui->recordButton->setText(tr("Record"));
+    //    ui->pauseButton->setText(tr("Pause"));
+    //    break;
+    //}
 
-    ui->pauseButton->setEnabled(audioRecorder->state() != QMediaRecorder::StoppedState);
+    //ui->pauseButton->setEnabled(audioRecorder->state() != QMediaRecorder::StoppedState);
 }
 
 static QVariant boxValue(const QComboBox *box)
@@ -187,9 +192,8 @@ static QVariant boxValue(const QComboBox *box)
     return box->itemData(idx);
 }
 
-void AudioRecorder::toggleRecord()
-{
-    if (audioRecorder->state() == QMediaRecorder::StoppedState) {
+void AudioRecorder::startRecord(){
+
         audioRecorder->setAudioInput(boxValue(ui->audioDeviceBox).toString());
 
         QAudioEncoderSettings settings;
@@ -203,13 +207,13 @@ void AudioRecorder::toggleRecord()
                                  QMultimedia::ConstantBitRateEncoding);
 
         QString container = boxValue(ui->containerBox).toString();
-
+		qDebug() << container;
         audioRecorder->setEncodingSettings(settings, QVideoEncoderSettings(), container);
         audioRecorder->record();
-    }
-    else {
-        audioRecorder->stop();
-    }
+}
+
+void AudioRecorder::stopRecord(){
+	audioRecorder->stop();
 }
 
 void AudioRecorder::togglePause()
@@ -224,6 +228,7 @@ void AudioRecorder::setOutputLocation()
 {
     QString fileName = QFileDialog::getSaveFileName();
     audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
+	//audioRecorder->setOutputLocation(QUrl::fromLocalFile("ptt_voice.wav"));
     outputLocationSet = true;
 }
 
@@ -352,7 +357,7 @@ void AudioRecorder::processBuffer(const QAudioBuffer& buffer)
         for (int i = 0; i < buffer.format().channelCount(); ++i) {
             QAudioLevel *level = new QAudioLevel(ui->centralwidget);
             audioLevels.append(level);
-            ui->levelsLayout->addWidget(level);
+            //ui->levelsLayout->addWidget(level);
         }
     }
 
@@ -360,3 +365,4 @@ void AudioRecorder::processBuffer(const QAudioBuffer& buffer)
     for (int i = 0; i < levels.count(); ++i)
         audioLevels.at(i)->setLevel(levels.at(i));
 }
+

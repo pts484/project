@@ -11,7 +11,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <PropertyGroup Label="Globals">
-    <ProjectGuid>{9518F1EC-21F1-386E-B549-255A723C4235}</ProjectGuid>
+    <ProjectGuid>{070B8757-9C9D-3464-901E-E7188BE63AD3}</ProjectGuid>
     <RootNamespace>INS_DashBoard</RootNamespace>
     <Keyword>Qt4VSv1.0</Keyword>
   </PropertyGroup>
@@ -54,13 +54,9 @@
     <TargetName Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">INS_DashBoard</TargetName>
     <IgnoreImportLibrary Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</IgnoreImportLibrary>
   </PropertyGroup>
-  <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>E:\lib\mysql-5.7.19\x64\include;$(IncludePath)</IncludePath>
-    <LibraryPath>E:\lib\mysql-5.7.19\x64\lib;$(LibraryPath)</LibraryPath>
-  </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;release;$(QTDIR)\mkspecs\win32-msvc2015;.\VoiceRecode;$(QTDIR)\include\QtMultimedia;.\UI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\..\LIB\QT\5.8\MSVC2015_64\include;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore;release;.;..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015;.\GeneratedFiles;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>release\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -69,7 +65,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>MaxSpeed</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;NDEBUG;QT_MULTIMEDIA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;NDEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
       <RuntimeLibrary>MultiThreadedDLL</RuntimeLibrary>
@@ -79,8 +75,8 @@
       <WarningLevel>Level3</WarningLevel>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\lib\qtmain.lib;shell32.lib;$(QTDIR)\lib\Qt5Widgets.lib;$(QTDIR)\lib\Qt5Gui.lib;$(QTDIR)\lib\Qt5Core.lib;Qt5Multimedia.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;C:\utils\my_sql\my_sql\lib;C:\utils\postgresql\pgsql\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>E:\LIB\QT\5.8\MSVC2015_64\lib\qtmain.lib;shell32.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Multimedia.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Widgets.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Gui.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Network.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Core.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\LIB\QT\5.8\MSVC2015_64\lib;C:\utils\my_sql\my_sql\lib;C:\utils\postgresql\pgsql\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>false</GenerateDebugInformation>
@@ -97,12 +93,12 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_NO_DEBUG;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <ClCompile>
-      <AdditionalIncludeDirectories>.;$(QTDIR)\include;$(QTDIR)\include\QtWidgets;$(QTDIR)\include\QtGui;$(QTDIR)\include\QtANGLE;$(QTDIR)\include\QtCore;debug;$(QTDIR)\mkspecs\win32-msvc2015;.\VoiceRecode;$(QTDIR)\include\QtMultimedia;E:\lib\mysql-5.7.19\x64\include;.\UI;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.;..\..\..\LIB\QT\5.8\MSVC2015_64\include;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork;..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore;debug;..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015;.\GeneratedFiles;E:\lib\mysql-5.7.19\x64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <AdditionalOptions>-Zc:strictStrings -Zc:throwingNew -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 %(AdditionalOptions)</AdditionalOptions>
       <AssemblerListingLocation>debug\</AssemblerListingLocation>
       <BrowseInformation>false</BrowseInformation>
@@ -111,7 +107,7 @@
       <ExceptionHandling>Sync</ExceptionHandling>
       <ObjectFileName>$(IntDir)</ObjectFileName>
       <Optimization>Disabled</Optimization>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;QT_MULTIMEDIA_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <PreprocessToFile>false</PreprocessToFile>
       <RuntimeLibrary>MultiThreadedDebugDLL</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
@@ -121,8 +117,8 @@
       <ProgramDataBaseFileName>$(IntDir)vc$(PlatformToolsetVersion).pdb</ProgramDataBaseFileName>
     </ClCompile>
     <Link>
-      <AdditionalDependencies>$(QTDIR)\lib\qtmaind.lib;shell32.lib;$(QTDIR)\lib\Qt5Widgetsd.lib;$(QTDIR)\lib\Qt5Guid.lib;$(QTDIR)\lib\Qt5Cored.lib;Qt5Multimediad.lib;%(AdditionalDependencies)</AdditionalDependencies>
-      <AdditionalLibraryDirectories>$(QTDIR)\lib;E:\lib\mysql-5.7.19\x64\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>E:\LIB\QT\5.8\MSVC2015_64\lib\qtmaind.lib;shell32.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Multimediad.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Widgetsd.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Guid.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Networkd.lib;E:\LIB\QT\5.8\MSVC2015_64\lib\Qt5Cored.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalLibraryDirectories>E:\LIB\QT\5.8\MSVC2015_64\lib;E:\lib\mysql-5.7.19\x64\lib;C:\utils\postgresql\pgsql\lib;$(QTDIR)\lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
       <AdditionalOptions>"/MANIFESTDEPENDENCY:type='win32' name='Microsoft.Windows.Common-Controls' version='6.0.0.0' publicKeyToken='6595b64144ccf1df' language='*' processorArchitecture='*'" %(AdditionalOptions)</AdditionalOptions>
       <DataExecutionPrevention>true</DataExecutionPrevention>
       <GenerateDebugInformation>true</GenerateDebugInformation>
@@ -138,16 +134,22 @@
       <WarningLevel>0</WarningLevel>
     </Midl>
     <ResourceCompile>
-      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_WIDGETS_LIB;QT_GUI_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>_WINDOWS;UNICODE;WIN32;WIN64;QT_DEPRECATED_WARNINGS;QT_MULTIMEDIA_LIB;QT_WIDGETS_LIB;QT_GUI_LIB;QT_NETWORK_LIB;QT_CORE_LIB;_DEBUG;%(PreprocessorDefinitions)</PreprocessorDefinitions>
     </ResourceCompile>
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="DashBoard_main.cpp" />
-    <ClCompile Include="DataStorage.cpp" />
+    <ClCompile Include="DataManager.cpp" />
+    <ClCompile Include="Debug\moc_audiorecorder.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Debug\moc_Dashboard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Debug\moc_DashBoard_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_DataManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Debug\moc_DataStorage.cpp">
@@ -159,7 +161,13 @@
     <ClCompile Include="Debug\moc_PTT.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Debug\moc_qaudiolevel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Debug\moc_UI.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Debug\moc_VoiceSender.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="GeneratedFiles\qrc_gui_img_icon.cpp">
@@ -168,10 +176,16 @@
       <PrecompiledHeader Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
       </PrecompiledHeader>
     </ClCompile>
+    <ClCompile Include="Release\moc_audiorecorder.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Release\moc_Dashboard.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_DashBoard_main.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
+    <ClCompile Include="Release\moc_DataManager.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
     <ClCompile Include="Release\moc_DataStorage.cpp">
@@ -183,112 +197,341 @@
     <ClCompile Include="Release\moc_PTT.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Release\moc_qaudiolevel.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="Release\moc_UI.cpp">
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </ClCompile>
+    <ClCompile Include="Release\moc_VoiceSender.cpp">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+    </ClCompile>
     <ClCompile Include="UI\Dashboard.cpp" />
+    <ClCompile Include="DataStorage.cpp" />
     <ClCompile Include="UI\DeviceManagment.cpp" />
+    <ClCompile Include="AudioRecode\PTT.cpp" />
     <ClCompile Include="UI\UI.cpp" />
+    <ClCompile Include="AudioRecode\audiorecorder.cpp" />
     <ClCompile Include="db\db_mysql.cpp" />
     <ClCompile Include="main.cpp" />
-    <ClCompile Include="VoiceRecode\PTT.cpp" />
+    <ClCompile Include="AudioRecode\qaudiolevel.cpp" />
+    <ClCompile Include="VoiceSender.cpp" />
   </ItemGroup>
   <ItemGroup>
-    <ClInclude Include="resource1.h" />
-    <CustomBuild Include="DataStorage.h">
+    <CustomBuild Include="VoiceSender.h">
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DataStorage.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing VoiceSender.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DataStorage.h...</Message>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing VoiceSender.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
-    </CustomBuild>
-    <ClInclude Include="resource.h" />
-    <CustomBuild Include="UI\Dashboard.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing Dashboard.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing Dashboard.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
-    </CustomBuild>
-    <CustomBuild Include="UI\DeviceManagment.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DeviceManagment.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DeviceManagment.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
-    </CustomBuild>
-    <CustomBuild Include="VoiceRecode\PTT.h">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing PTT.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing PTT.h...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
     </CustomBuild>
     <CustomBuild Include="DashBoard_main.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DashBoard_main.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DashBoard_main.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+    <CustomBuild Include="UI\Dashboard.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing Dashboard.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing Dashboard.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="DataStorage.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DataStorage.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DataStorage.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="UI\DeviceManagment.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DeviceManagment.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DeviceManagment.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <CustomBuild Include="AudioRecode\PTT.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing PTT.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing PTT.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
     <CustomBuild Include="UI\UI.h">
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DNDEBUG -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\release" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing UI.h...</Message>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_MULTIMEDIA_LIB  "-I." "-I$(QTDIR)\include" "-I$(QTDIR)\include\QtWidgets" "-I$(QTDIR)\include\QtGui" "-I$(QTDIR)\include\QtANGLE" "-I$(QTDIR)\include\QtCore" "-I.\debug" "-I$(QTDIR)\mkspecs\win32-msvc2015" "-I.\VoiceRecode" "-I$(QTDIR)\include\QtMultimedia" "-IE:\lib\mysql-5.7.19\x64\include" "-I.\UI"</Command>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing UI.h...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
       <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
     </CustomBuild>
+    <CustomBuild Include="AudioRecode\audiorecorder.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing audiorecorder.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing audiorecorder.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
     <ClInclude Include="css3_code.h" />
+    <CustomBuild Include="DataManager.h">
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing DataManager.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing DataManager.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+    </CustomBuild>
     <ClInclude Include="db\db_mysql.h" />
     <ClInclude Include="define.h" />
+    <CustomBuild Include="AudioRecode\qaudiolevel.h">
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_NO_DEBUG -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB -DNDEBUG  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\release" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Moc%27ing qaudiolevel.h...</Message>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\moc.exe"  "%(FullPath)" -o "$(ConfigurationName)\moc_%(Filename).cpp"  -D_WINDOWS -DUNICODE -DWIN32 -DWIN64 -DQT_DEPRECATED_WARNINGS -DQT_MULTIMEDIA_LIB -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_NETWORK_LIB -DQT_CORE_LIB  "-I." "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtMultimedia" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtWidgets" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtGui" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtANGLE" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtNetwork" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\include\QtCore" "-I.\debug" "-I.\..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\win32-msvc2015" "-I.\GeneratedFiles" "-IE:\lib\mysql-5.7.19\x64\include"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Moc%27ing qaudiolevel.h...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(ConfigurationName)\moc_%(Filename).cpp</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\moc.exe;%(FullPath)</AdditionalInputs>
+    </CustomBuild>
+    <ClInclude Include="GeneratedFiles\ui_audiorecorder.h" />
+    <ClInclude Include="resource.h" />
+    <ClInclude Include="resource1.h" />
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
       <FileType>Document</FileType>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -Zi -MDd -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za ..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;debug\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">debug\moc_predefs.h;%(Outputs)</Outputs>
     </CustomBuild>
     <CustomBuild Include="release\moc_predefs.h.cbt">
       <FileType>Document</FileType>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -O2 -MD -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za $(QTDIR)\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\features\data\dummy.cpp;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">cl -Bx"$(QTDIR)\bin\qmake.exe" -nologo -Zc:wchar_t -FS -Zc:strictStrings -Zc:throwingNew -O2 -MD -GR -W3 -w34100 -w34189 -w44996 -w44456 -w44457 -w44458 -wd4577 -wd4467 -E -Za ..\..\..\LIB\QT\5.8\MSVC2015_64\mkspecs\features\data\dummy.cpp 2&gt;NUL &gt;release\moc_predefs.h</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Generate moc_predefs.h</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">release\moc_predefs.h;%(Outputs)</Outputs>
       <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
+    <CustomBuild Include="AudioRecode\audiorecorder.ui">
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">$(QTDIR)\bin\uic.exe;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\uic.exe" -o ".\GeneratedFiles\ui_%(Filename).h" "%(FullPath)"</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Uic%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\ui_%(Filename).h;%(Outputs)</Outputs>
+    </CustomBuild>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="res\img\B_DECK.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DASH_BTN_DASH_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DASH_BTN_DASH_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DASH_BTN_DEVICE_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DASH_BTN_DEVICE_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DBTN_PTT_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DBTN_PTT_PRESS.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DDOWNBTN_PTT_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DDOWNBTN_PTT_PRESS.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_BOTTOMBAR.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_ICON_BOAT.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_ICON_FirstAid.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_ICON_MCENTER.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_ICON_TUBE.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DEVICE_ICON_VEST.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DICON_ECOMPLETE.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DICON_FIRE.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DICON_PICKTIME.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DICON_SAFETY.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\DICON_TIMEOVER.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_AP_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_AP_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_DANGER_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_DANGER_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_SAFETY_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_SAFETY_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_Peple_TOTAL.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_TAG_OFF.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Icon_TAG_ON.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_AP.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster_Cause.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_Disaster_Time.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_People.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_People_Info.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_People_Time.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_TAG.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Dash_Label_TITLE.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\Device_ICON_DECK.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
     <CustomBuild Include="res\gui_img_icon.qrc">
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);%(AdditionalInputs)</AdditionalInputs>
-      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
-      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
-      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);%(AdditionalInputs)</AdditionalInputs>
+      <FileType>Document</FileType>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">%(FullPath);.\res\img\load_faild.png;.\res\img\Dash_Label_TAG.png;.\res\img\Dash_Label_TITLE.png;.\res\img\DASH_BTN_DASH_OFF.png;.\res\img\DASH_BTN_DASH_ON.png;.\res\img\DASH_BTN_DEVICE_OFF.png;.\res\img\DASH_BTN_DEVICE_ON.png;.\res\img\Dash_Label_AP.png;.\res\img\Dash_Icon_AP_OFF.png;.\res\img\Dash_Icon_AP_ON.png;.\res\img\Dash_Icon_TAG_OFF.png;.\res\img\Dash_Icon_TAG_ON.png;.\res\img\yungothic350.TTF;.\res\img\Dash_Icon_Peple_DANGER_OFF.png;.\res\img\Dash_Icon_Peple_DANGER_ON.png;.\res\img\Dash_Icon_Peple_SAFETY_OFF.png;.\res\img\Dash_Icon_Peple_SAFETY_ON.png;.\res\img\Dash_Icon_Peple_TOTAL.png;.\res\img\Dash_Label_Disaster.png;.\res\img\Dash_Label_Disaster_Cause.png;.\res\img\Dash_Label_Disaster_Time.png;.\res\img\Dash_Label_People.png;.\res\img\Dash_Label_People_Info.png;.\res\img\Dash_Label_People_Time.png;.\res\img\DICON_ECOMPLETE.png;.\res\img\DICON_FIRE.png;.\res\img\DICON_PICKTIME.png;.\res\img\DICON_SAFETY.png;.\res\img\DICON_TIMEOVER.png;.\res\img\DBTN_PTT_ON.png;.\res\img\DBTN_PTT_PRESS.png;.\res\img\DDOWNBTN_PTT_ON.png;.\res\img\DDOWNBTN_PTT_PRESS.png;.\res\img\Device_ICON_DECK.png;.\res\img\DEVICE_BOTTOMBAR.png;.\res\img\B_DECK.png;.\res\img\DEVICE_ICON_BOAT.png;.\res\img\DEVICE_ICON_FirstAid.png;.\res\img\DEVICE_ICON_MCENTER.png;.\res\img\DEVICE_ICON_TUBE.png;.\res\img\DEVICE_ICON_VEST.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
       <Message Condition="'$(Configuration)|$(Platform)'=='Release|x64'">Rcc%27ing %(Identity)...</Message>
       <Outputs Condition="'$(Configuration)|$(Platform)'=='Release|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
-      <Command Condition="'$(Configuration)|$(Platform)'=='Release|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <AdditionalInputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">%(FullPath);.\res\img\load_faild.png;.\res\img\Dash_Label_TAG.png;.\res\img\Dash_Label_TITLE.png;.\res\img\DASH_BTN_DASH_OFF.png;.\res\img\DASH_BTN_DASH_ON.png;.\res\img\DASH_BTN_DEVICE_OFF.png;.\res\img\DASH_BTN_DEVICE_ON.png;.\res\img\Dash_Label_AP.png;.\res\img\Dash_Icon_AP_OFF.png;.\res\img\Dash_Icon_AP_ON.png;.\res\img\Dash_Icon_TAG_OFF.png;.\res\img\Dash_Icon_TAG_ON.png;.\res\img\yungothic350.TTF;.\res\img\Dash_Icon_Peple_DANGER_OFF.png;.\res\img\Dash_Icon_Peple_DANGER_ON.png;.\res\img\Dash_Icon_Peple_SAFETY_OFF.png;.\res\img\Dash_Icon_Peple_SAFETY_ON.png;.\res\img\Dash_Icon_Peple_TOTAL.png;.\res\img\Dash_Label_Disaster.png;.\res\img\Dash_Label_Disaster_Cause.png;.\res\img\Dash_Label_Disaster_Time.png;.\res\img\Dash_Label_People.png;.\res\img\Dash_Label_People_Info.png;.\res\img\Dash_Label_People_Time.png;.\res\img\DICON_ECOMPLETE.png;.\res\img\DICON_FIRE.png;.\res\img\DICON_PICKTIME.png;.\res\img\DICON_SAFETY.png;.\res\img\DICON_TIMEOVER.png;.\res\img\DBTN_PTT_ON.png;.\res\img\DBTN_PTT_PRESS.png;.\res\img\DDOWNBTN_PTT_ON.png;.\res\img\DDOWNBTN_PTT_PRESS.png;.\res\img\Device_ICON_DECK.png;.\res\img\DEVICE_BOTTOMBAR.png;.\res\img\B_DECK.png;.\res\img\DEVICE_ICON_BOAT.png;.\res\img\DEVICE_ICON_FirstAid.png;.\res\img\DEVICE_ICON_MCENTER.png;.\res\img\DEVICE_ICON_TUBE.png;.\res\img\DEVICE_ICON_VEST.png;%(AdditionalInputs)</AdditionalInputs>
+      <Command Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">"$(QTDIR)\bin\rcc.exe" -name "%(Filename)" -no-compress "%(FullPath)" -o .\GeneratedFiles\qrc_%(Filename).cpp</Command>
+      <Message Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">Rcc%27ing %(Identity)...</Message>
+      <Outputs Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">.\GeneratedFiles\qrc_%(Filename).cpp;%(Outputs)</Outputs>
     </CustomBuild>
+    <None Include="res\img\load_faild.png">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
+    <None Include="res\img\yungothic350.TTF">
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">true</ExcludedFromBuild>
+      <ExcludedFromBuild Condition="'$(Configuration)|$(Platform)'=='Release|x64'">true</ExcludedFromBuild>
+    </None>
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets" />

@@ -4,7 +4,7 @@
 #
 #-------------------------------------------------
 
-QT       += core gui
+QT       += core gui multimedia
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets 
 
@@ -23,15 +23,40 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 
-SOURCES += \
-        main.cpp \
-        DashBoard_main.cpp \
-        UI/UI.cpp	\
-	db/db_mysql.cpp
+SOURCES += \ 
+    AudioRecode/audiorecorder.cpp \
+    AudioRecode/PTT.cpp \
+    AudioRecode/qaudiolevel.cpp \
+    db/db_mysql.cpp \
+    UI/Dashboard.cpp \
+    UI/DeviceManagment.cpp \
+    UI/UI.cpp \
+    DashBoard_main.cpp \
+    DataStorage.cpp \
+    main.cpp
 
-HEADERS += \
-        DashBoard_main.h \
-        UI/UI.h \
-	db/db_mysql.h	\
+HEADERS += \ 
+    AudioRecode/audiorecorder.h \
+    AudioRecode/PTT.h \
+    AudioRecode/qaudiolevel.h \
+    db/db_mysql.h \
+    UI/Dashboard.h \
+    UI/DeviceManagment.h \
+    UI/UI.h \
+    css3_code.h \
+    DashBoard_main.h \
+    DataStorage.h \
     define.h \
-    css3_code.h
+    resource.h \
+    resource1.h
+
+SUBDIRS += \
+    INS_DashBoard.pro
+
+DISTFILES += \
+
+RESOURCES += \
+    res/gui_img_icon.qrc
+
+FORMS += \
+    AudioRecode/audiorecorder.ui

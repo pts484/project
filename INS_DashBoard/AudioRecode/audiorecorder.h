@@ -65,10 +65,11 @@ public:
 public slots:
     void processBuffer(const QAudioBuffer&);
 
-private slots:
+public slots:
     void setOutputLocation();
     void togglePause();
-    void toggleRecord();
+    void startRecord();
+	void stopRecord();
 
     void updateStatus(QMediaRecorder::Status);
     void onStateChanged(QMediaRecorder::State);
