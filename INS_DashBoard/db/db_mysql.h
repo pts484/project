@@ -17,12 +17,6 @@
 #pragma comment(lib, "libmysql.lib")
 #include "../define.h"
 
-typedef struct {
-	bool chk;
-	unsigned int row;
-	unsigned int col;
-	QStringList recode;
-} resultTable;
 
 class DB_MySQL{
 

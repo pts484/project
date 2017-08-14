@@ -68,7 +68,7 @@ public slots:
 public slots:
     void setOutputLocation();
     void togglePause();
-    void startRecord();
+	QString startRecord();
 	void stopRecord();
 
     void updateStatus(QMediaRecorder::Status);

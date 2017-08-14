@@ -4,11 +4,12 @@
 DashBoard_main::DashBoard_main(void)
 {
 	mStorage		= new DataStorage();
-	pUIMain			= new UI(mStorage);
+	pUIMain			= new UI();
 	pAudioRecoder   = new AudioRecorder(pUIMain);
 	pVoiceSender	= new VoiceSender();
-	
-	pDataManager	= new DataManager(pUIMain, pAudioRecoder, mStorage, pVoiceSender);
+	pMySQL			= new DB_MySQL();
+
+	pDataManager	= new DataManager(pUIMain, pAudioRecoder, mStorage, pVoiceSender, pMySQL);
 
 	//pAudioRecoder->show();
 	pUIMain->show();

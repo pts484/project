@@ -6,46 +6,84 @@
 #include <QHash>
 #include <QList>
 #include <QStringList>
-
+#include <QDateTime>
 
 #include <QStandardItem>
-#include "../db/db_mysql.h"
+#include <QStandardItemModel>
+
+#include<time.h>
+
 #include "define.h"
 
+/*********************************/
+/* This Class is Singleton Class */
+/*********************************/
+
+typedef QList<QStandardItem *>			rowData;
 
 typedef struct {
-	int num;
-	QStandardItem *type;
-} D_TYPE;
+	bool isActive;
+	rowData recode;
+}rowGroup;
 
-typedef QList<D_TYPE *> deviceType;
+typedef QHash<QString, rowGroup>		ViewBuffer;
+typedef QHash<QString, QStringList>		HashBuffer;
 
-typedef QList<QStandardItem *> dbVelue;
-typedef QList<dbVelue *>	   dbStorage;
+class Buffer : public HashBuffer {
+
+	uint		*pTotal;
+	uint		*pEnable;
+	uint		*pDisable;
+
+	ViewBuffer			viewItems;
+	QStandardItemModel	viewModel;
+
+public:
+	
+	Buffer(void);
+	~Buffer(void);
+
+	const QStringList& findRecode(QString key);
+	void addRecode(QString key, QStringList &recode);
+	void deleteRecode(QString key);
+
+	void updateModel(void);
+	void checkToActive(const uint &Inteval, int index);
+	void checkToNumber(void);
+
+
+	QStandardItemModel* getModel(void) { return &viewModel; }
+	const ViewBuffer* getViewItems(void) { return &viewItems; }
+	const HashBuffer* getBuffer(void) { return this; }
+
+	void Clear(void);
+	void Clear(uint *_Total, uint *_Enable, uint *_Disable);
+
+};
+
 
 class DataStorage : public QObject {
 	Q_OBJECT
 
-	DB_MySQL  *pDB;
-
-	bool loadDeviceList(void);
-	void updateDeviceModel(void);
-
 public:
 
-	dbStorage	*dbInspecStorage;
-	dbStorage	*dbDeviceStorage;
-	deviceType	*dbDeviceType;
+	Buffer mTagBuffer;
+	Buffer mAPBuffer;
+	CountSection mCountData;
 
 	DataStorage(void);
-	~DataStorage();
+	~DataStorage(void);
+
+
+	const CountSection* getCountSection(void) { return &mCountData; }
 
 signals:
-	void sig_UpdateDeviceList(void);
+	
 
 public slots:
-	bool loadInspectionList(QString);
+	
 
 };
 
 #endif // !DATASTORAGE_H
+

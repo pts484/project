@@ -7,6 +7,7 @@
 #include "UI/UI.h"
 #include "AudioRecode/audiorecorder.h"
 #include "VoiceSender.h"
+#include "db/db_mysql.h"
 
 class DashBoard_main : public QObject
 {
@@ -16,7 +17,7 @@ class DashBoard_main : public QObject
 	DataStorage		*mStorage;
 	AudioRecorder	*pAudioRecoder;
 	VoiceSender		*pVoiceSender;
-
+	DB_MySQL		*pMySQL;
 	DataManager		*pDataManager;
 	
 public:

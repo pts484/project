@@ -192,24 +192,33 @@ static QVariant boxValue(const QComboBox *box)
     return box->itemData(idx);
 }
 
-void AudioRecorder::startRecord(){
+QString AudioRecorder::startRecord(){
 
-        audioRecorder->setAudioInput(boxValue(ui->audioDeviceBox).toString());
+	
+	QString path = QDir::currentPath() + "/ptt_voice.wav";
+	qDebug() << QUrl::fromLocalFile(path);
+	audioRecorder->setOutputLocation(QUrl::fromLocalFile(path));
+	outputLocationSet = true;
+	
 
-        QAudioEncoderSettings settings;
-        settings.setCodec(boxValue(ui->audioCodecBox).toString());
-        settings.setSampleRate(boxValue(ui->sampleRateBox).toInt());
-        settings.setBitRate(boxValue(ui->bitrateBox).toInt());
-        settings.setChannelCount(boxValue(ui->channelsBox).toInt());
-        settings.setQuality(QMultimedia::EncodingQuality(ui->qualitySlider->value()));
-        settings.setEncodingMode(ui->constantQualityRadioButton->isChecked() ?
-                                 QMultimedia::ConstantQualityEncoding :
-                                 QMultimedia::ConstantBitRateEncoding);
+    audioRecorder->setAudioInput(boxValue(ui->audioDeviceBox).toString());
 
-        QString container = boxValue(ui->containerBox).toString();
-		qDebug() << container;
-        audioRecorder->setEncodingSettings(settings, QVideoEncoderSettings(), container);
-        audioRecorder->record();
+
+    QAudioEncoderSettings settings;
+    settings.setCodec(boxValue(ui->audioCodecBox).toString());
+    settings.setSampleRate(boxValue(ui->sampleRateBox).toInt());
+    settings.setBitRate(boxValue(ui->bitrateBox).toInt());
+    settings.setChannelCount(boxValue(ui->channelsBox).toInt());
+    settings.setQuality(QMultimedia::EncodingQuality(ui->qualitySlider->value()));
+    settings.setEncodingMode(ui->constantQualityRadioButton->isChecked() ?
+                             QMultimedia::ConstantQualityEncoding :
+                             QMultimedia::ConstantBitRateEncoding);
+
+    QString container = boxValue(ui->containerBox).toString();
+    audioRecorder->setEncodingSettings(settings, QVideoEncoderSettings(), container);
+    audioRecorder->record();
+
+	return path;
 }
 
 void AudioRecorder::stopRecord(){
@@ -226,10 +235,9 @@ void AudioRecorder::togglePause()
 
 void AudioRecorder::setOutputLocation()
 {
-    QString fileName = QFileDialog::getSaveFileName();
-    audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
-	//audioRecorder->setOutputLocation(QUrl::fromLocalFile("ptt_voice.wav"));
-    outputLocationSet = true;
+    //QString fileName = QFileDialog::getSaveFileName();
+    //audioRecorder->setOutputLocation(QUrl::fromLocalFile(fileName));
+    //outputLocationSet = true;
 }
 
 void AudioRecorder::displayErrorMessage()

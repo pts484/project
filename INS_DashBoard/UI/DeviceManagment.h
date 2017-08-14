@@ -101,9 +101,7 @@ class DeviceManagment : public QWidget
 	int fontID;
 	QString family;
 	QFont monospace;
-
-	DataStorage	*mStorage;
-
+	
 	QVBoxLayout mainLayout;
 	QHBoxLayout hLayout0;
 	QVBoxLayout vLayout00, vLayout000;
@@ -132,7 +130,7 @@ class DeviceManagment : public QWidget
 
 public:
 	
-	DeviceManagment(DataStorage *dataStorage, QWidget *parent=0);
+	DeviceManagment(QWidget *parent = 0);
 	~DeviceManagment();
 
 	void UpdateDeviceView(void);

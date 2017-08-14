@@ -152,7 +152,7 @@ void DeviceView::mouseMoveEvent(QMouseEvent *event) {
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //DeviceManagment
 ////////////////////////////////////////////////////////////////////////////////////////////////////
-DeviceManagment::DeviceManagment(DataStorage *dataStorage, QWidget *parent):QWidget(parent)
+DeviceManagment::DeviceManagment(QWidget *parent):QWidget(parent)
 {
 
 	//init FONT ////////////////////////////////////////////
@@ -162,7 +162,6 @@ DeviceManagment::DeviceManagment(DataStorage *dataStorage, QWidget *parent):QWid
 	monospace.setPixelSize(22);
 	monospace.setLetterSpacing(QFont::AbsoluteSpacing, 5);
 
-	mStorage = dataStorage;
 	initLayout();
 	initTreeView();
 	initListView();
@@ -274,57 +273,10 @@ void DeviceManagment::initListHeader() {
 
 void DeviceManagment::UpdateDeviceView(void){
 
-	deviceType *type = mStorage->dbDeviceType;
-	dbStorage  *data = mStorage->dbDeviceStorage;
-
-	if ((type->size() <= 0) || (data->size() <= 0)) return;
-
-	int rowCnt = treeModel->rowCount();
-
-	if (rowCnt > 0) {
-		for (int i = 0; i < rowCnt; ++i) {
-			treeModel->removeRow(i);
-		}
-	}
-
-	QStandardItem *rootNode = treeModel->invisibleRootItem();
-
-	for (int i = 0; i < type->size(); ++i) {
-
-		QStandardItem *DviceType = type->at(i)->type;
-		rootNode->appendRow(DviceType);
-
-		for (int j = 0; j < data->size(); ++j) {
-			if (type->at(i)->num == (data->at(j)->at(5)->text()).toInt()) {
-
-				QList<QStandardItem *> DviceList;
-				DviceList << data->at(j)->at(1) << data->at(j)->at(0);
-				DviceType->appendRow(DviceList);
-			}
-		}
-		mCheckList.setRowHeight(i, 10);
-	}
-	mDeviceList.expandAll();
 }
 
 void DeviceManagment::UpdateInspecView(void) {
 
-	dbStorage  *data = mStorage->dbInspecStorage;
-	int size = data->size();
-	qDebug() << "dbInspecStorage size :: " << size;
-	
-	//if(listModel->rowCount() >= 0){
-		listModel->clear();
-	//}
-
-	QList<QStandardItem *> *rows;
-	for (int i = 0; i < size; ++i) {
-		
-		rows = data->at(i);
-		listModel->appendRow(*rows);
-	}
-
-	initListHeader();
 }
 
 void DeviceManagment::resizeEvent(QResizeEvent *event) {

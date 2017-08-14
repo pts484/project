@@ -52,6 +52,7 @@ class DashInfoLABEL : public QLabel {
 	QHBoxLayout layout;
 	DashLABEL *Icon;
 	
+	
 
 public:
 	DashLABEL *Text;
@@ -67,7 +68,7 @@ public:
 //////////////////////////////////////////////////////////////////////////////////////
 //   CLASS DashLISTView 
 //////////////////////////////////////////////////////////////////////////////////////
-class DashLISTView : public QLabel {
+class DashLISTView : public QTableView {
 	Q_OBJECT
 
 
@@ -139,6 +140,13 @@ public:
 	DashPeopleLABEL(QWidget *parent, QLayout *layout, uINT w, uINT h);
 	~DashPeopleLABEL();
 
+	void setText(QString _total, QString _safe, QString _denger) {
+		cntPeopleTotal->setText(_total);
+		cntPeopleSafe->setText(_safe);
+		cntPeopleDanger->setText(_denger);
+	}
+
+
 	void setFont(QFont *font) {
 		cntPeopleTotal->setFont(font);
 		cntPeopleSafe->setFont(font);
@@ -203,11 +211,11 @@ class Dashboard : public QWidget
 	// Dash BOARD LEFT ::: TAG_AP State Infomation Table
 	DashInfoLABEL *cntTAG_On;
 	DashInfoLABEL *cntTAG_Off;
-	QTableView mTAGView;
+	DashLISTView *mTAGView;
 
 	DashInfoLABEL *cntAP_On;
-	DashInfoLABEL *cntAP_OFF;
-	QTableView mAPView;
+	DashInfoLABEL *cntAP_Off;
+	QTableView *mAPView;
 
 	/////////////////////////////////////////
 	// Dash BOARD CENTER :::  Information
@@ -221,17 +229,21 @@ class Dashboard : public QWidget
 	DashPeopleLABEL *RightA;
 	DashIconLABEL	*RightB;
 
-	DashImgButton *bottomBarBtn;
-	DashImgButton *PTTBtn;
-
 	inline void initLayout(void);
 
 	void resizeEvent(QResizeEvent *event);
 
 public:
 	
+	DashImgButton *bottomBarBtn;
+	DashImgButton *PTTBtn;
+
 	Dashboard(QWidget *parent = 0);
 	~Dashboard();
+
+	QTableView* getTagView(void) { return mTAGView; }
+	QTableView* getAPView(void) { return mAPView; }
+
 
 signals:
 	void sigPressPTTBtn(void);
@@ -240,7 +252,9 @@ signals:
 public slots :
 	void onDownBar(void);
 
-	void updateDASHBOARD(void);
+	void Dashboard::updateDASHBOARD(QString _tagOn, QString _tagOff, \
+									QString _apOn, QString _apOff, \
+									QString _ppTotal, QString _ppSafe, QString _ppDenger);
 
 	void DASHBOARD_Emergency_MODE(uINT GoldenTime);
 	void DASHBOARD_SAFETY_MODE(void);

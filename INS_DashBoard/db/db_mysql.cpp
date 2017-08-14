@@ -47,8 +47,18 @@ void DB_MySQL::disconnectDB() {
 
 resultTable DB_MySQL::runQuery(const char *query) {
 
-	resultTable result = { false, 0, 0 };
-	unsigned int num_fields = 0;
+	resultTable result;
+
+	result.chk = false;
+	result.recode.clear();
+
+	unsigned int num_row = 0;
+	unsigned int num_col = 0;
+
+	if (!isConnection()) {
+		qDebug() << "do Not Connecttion Database";
+		return result;
+	}
 
 	printf("%s\n", query);
 
@@ -56,23 +66,23 @@ resultTable DB_MySQL::runQuery(const char *query) {
 	if (query_stat != 0){
 	
 		qDebug() << "Mysql query error : " << mysql_error(&mysql);
-		result.chk = false;
 		return result;
 	}
 
 	sql_result = mysql_store_result(connection);
 
-	num_fields = mysql_num_fields(sql_result);
-	result.col = num_fields;
+	num_row = mysql_num_rows(sql_result);
+	num_col = mysql_num_fields(sql_result);
 
-	while ((sql_row = mysql_fetch_row(sql_result)) != NULL){
+	while((sql_row = mysql_fetch_row(sql_result)) != NULL){
 
-		++(result.row);
+		QStringList mObj;
 
-		for (int i = 0; i < num_fields; ++i) {
+		for (int j = 0; j < num_col; ++j) {
 
-			result.recode << STR_UTF8(sql_row[i]);
+			mObj << STR_UTF8(sql_row[j]);
 		}
+		result.recode << mObj;
 	}
 	mysql_free_result(sql_result);
 	result.chk = true;

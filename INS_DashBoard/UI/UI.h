@@ -37,9 +37,8 @@ public:
 	Dashboard		*uiDashBoard;
 	DeviceManagment *uiDevice;
 
-	DataStorage		*mStorage;
 
-	UI(DataStorage *dataStorage, QWidget *parent = 0);
+	UI(QWidget *parent = 0);
     ~UI(void);
 
 signals:

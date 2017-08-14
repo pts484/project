@@ -1,8 +1,12 @@
 #include "VoiceSender.h"
+#include "define.h"
 
 VoiceSender::VoiceSender(QObject *parent)
 	: QObject(parent)
 {
+
+	wavFilePath = "";
+
 	socket = new QTcpSocket(this);
 	connect(socket, SIGNAL(connected()), this, SLOT(connected()));
 	connect(socket, SIGNAL(disconnected()), this, SLOT(disconnected()));
@@ -20,42 +24,59 @@ VoiceSender::~VoiceSender()
 }
 
 
-void VoiceSender::SendToVoiceFile(QString HostName, int port){
+void VoiceSender::SendToVoiceFile() {
 	
-
+	qDebug() << "/************* On Thread **************/";
+	qDebug() << "/* Thread ID : " << QThread::currentThread() << " : " << QThread::currentThreadId();
 	qDebug() << "Connecting,..";
 
-	socket->connectToHost(HostName, port);
-
-	if (!socket->waitForDisconnected(1000))
-	{
-		qDebug() << "Error: " << socket->errorString();
+	socket->connectToHost(PPT_HOST, PPT_PORT);
+	if (socket->waitForConnected(MAX_CONNECTING_TIME)){
+		qDebug("Connected!");
 	}
 }
 
 void VoiceSender::connected()
 {
 	qDebug() << "Connected!";
-
-	socket->write("HEAD / HTTP/1.0\r\n\r\n\r\n\r\n");
-
-	QString filepath("C:\Users\tspark\Documents\clip_0001.wav");
+	QString filepath(wavFilePath);
 
 	QFile file(filepath);
 	if (!file.open(QIODevice::ReadOnly)) {
-		qDebug() << "file open faild";
+		qDebug() << "[READ File Fail] --> Don't Send";
+
+	} else {
+
+		QByteArray bytes = file.readAll();
+
+		qDebug() << "[READ File Success] --> " << bytes.size() << "byte : " << wavFilePath;
+		
+		int sendByte = socket->write(bytes);
+		socket->flush();
+
+		if (bytes.size() == sendByte) {
+			qDebug() << "file Complete transmission !";
+		} else {
+			qDebug() << "file Incomplete transmission !";
+		}
+		emit sigSendEND();
 	}
-	QDataStream in(&file);    // read the data serialized from the file
-	QString str;
-	qint32 a;
-	in >> str >> a;
+
+	socket->disconnectFromHost();
 }
 
 void VoiceSender::disconnected()
 {
-	if (socket->isOpen()) {
-		socket->close();
-		qDebug() << "Disconnected!";
+	if (socket->state() == QAbstractSocket::UnconnectedState ||
+		socket->waitForDisconnected(MAX_CONNECTING_TIME))
+	{
+		qDebug() << "Disconnecting...!";
+		if (socket->isOpen()) {
+			socket->close();
+			qDebug() << "Disconnected!";
+		}
+	} else {
+		qDebug() << "Error: " << socket->errorString();
 	}
 }
 

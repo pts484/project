@@ -59,19 +59,19 @@ inline void Dashboard::initLayout(void) {
 	cntTAG_On  = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_TAG_ON", layoutWidth);
 	cntTAG_On->setText("0");
 	cntTAG_Off = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_TAG_OFF", layoutWidth);
-	DashLISTView *view1 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
+	mTAGView = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
 
 	DashLABEL *pApTitle  = new DashLABEL(this, &vLayoutLeft, ":/DLABEL_AP",  "");
 	cntAP_On  = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_ON", layoutWidth);
-	cntAP_OFF = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_OFF", layoutWidth);
-	DashLISTView *view2 = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
+	cntAP_Off = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_OFF", layoutWidth);
+	mAPView = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
 
 	vLayoutLeft.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
 	cntTAG_On->setFont(&monospace);
 	cntTAG_Off->setFont(&monospace);
 	cntAP_On->setFont(&monospace);
-	cntAP_OFF->setFont(&monospace);
+	cntAP_Off->setFont(&monospace);
 
 	//////////////////////////////////////////////////////////////////////////////////
 	// Dash BOARD CENTER :::  Information
@@ -134,7 +134,17 @@ void Dashboard::onDownBar(void) {
 	}
 }
 
-void Dashboard::updateDASHBOARD() {
+void Dashboard::updateDASHBOARD(QString _tagOn, QString _tagOff, \
+								QString _apOn, QString _apOff, \
+								QString _ppTotal, QString _ppSafe, QString _ppDenger) {
+
+	cntTAG_On->setText(_tagOn);
+	cntTAG_Off->setText(_tagOff);
+
+	cntAP_On->setText(_apOn);
+	cntAP_Off->setText(_apOff);
+
+	RightA->setText(_ppTotal, _ppSafe, _ppDenger);
 }
 
 void Dashboard::DASHBOARD_Emergency_MODE(uINT GoldenTime) {

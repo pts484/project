@@ -3,12 +3,11 @@
 
 
 
-UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent) {
+UI::UI(QWidget *parent) : QMainWindow(parent) {
 
 	uiDashBoard = new Dashboard();
-	uiDevice = new DeviceManagment(dataStorage);
+	uiDevice = new DeviceManagment();
 
-	mStorage = dataStorage;
     this->setGeometry(WINDOWS_POSX+30, WINDOWS_POSY+30, WINDOWS_SIZEX, 0);
 
     mainWidget.setParent(this);
@@ -54,9 +53,7 @@ UI::UI(DataStorage *dataStorage, QWidget *parent) : QMainWindow(parent) {
 	initConnect();
 
 	//first Update
-	uiDevice->UpdateDeviceView();
-
-	viewDeviceManagement();
+	//viewDeviceManagement();
 }
 
 UI::~UI(void) {
@@ -104,9 +101,7 @@ void UI::resizeEvent(QResizeEvent *event) {
 
 void UI::loadInspectionList(QString id) {
 
-	if (mStorage->loadInspectionList(id) == true) {
-		uiDevice->UpdateInspecView();
-	}
+
 }
 
 void UI::DASHBOARD_Emergency_MODE(void) {

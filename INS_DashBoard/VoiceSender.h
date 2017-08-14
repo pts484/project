@@ -2,6 +2,7 @@
 #define VOICESENDER_H
 
 #include <QObject>
+#include <QThread>
 #include <QFile>
 #include <QUrl>
 #include <QDataStream>
@@ -15,12 +16,19 @@ class VoiceSender : public QObject
 	QTcpSocket *socket;
 
 public:
+
+	QString		wavFilePath;
+
 	VoiceSender(QObject *parent = nullptr);
 	~VoiceSender();
 
-	void SendToVoiceFile(QString HostName, int port);
+signals:
+	void sigSendEND();
 
 public slots:
+
+	void SendToVoiceFile();
+
 	void connected();
 	void disconnected();
 	void bytesWritten(qint64 bytes);
