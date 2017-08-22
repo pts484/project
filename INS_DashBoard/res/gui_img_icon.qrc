@@ -41,5 +41,7 @@
         <file alias="DE_ICON_MCENTER">img/DEVICE_ICON_MCENTER.png</file>
         <file alias="DE_ICON_TUBE">img/DEVICE_ICON_TUBE.png</file>
         <file alias="DE_ICON_VEST">img/DEVICE_ICON_VEST.png</file>
+        <file alias="DBTN_EMMODE_BTN">img/EmergencyMODE_Btn.png</file>
+        <file alias="DBTN_MICOPTION_BTN">img/MIC_Option_Btn.png</file>
     </qresource>
 </RCC>

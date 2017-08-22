@@ -14,7 +14,7 @@
 #define STR_UTF8(x)     QString::fromUtf8((x))
 
 
-/*******         #define DB_HOST "SDD 서버"			*******/
+/*******         #define DB_HOST "SDD 서버"			   *******/
 #define DB_HOST "10.10.11.182"
 #define DB_USER "SDDUser"
 #define DB_PASS "SDDUser"
@@ -23,7 +23,7 @@
 #define CHOP(x) x[strlen(x) - 1] = ' '
 
 
-/*******         #define PTT_HOST "PTT 서버"		*******/
+/*******         #define PTT_HOST "PTT 서버"		    *******/
 #define PPT_HOST "10.10.11.182"
 #define PPT_PORT 4957
 
@@ -38,7 +38,6 @@
 
 /******* FLAG **************************************************/
 //#define _TESTCODE_DASHBOARD	// Test Code
-
 
 
 

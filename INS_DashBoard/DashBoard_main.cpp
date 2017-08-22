@@ -10,6 +10,9 @@ DashBoard_main::DashBoard_main(void)
 	pMySQL			= new DB_MySQL();
 
 	pDataManager	= new DataManager(pUIMain, pAudioRecoder, mStorage, pVoiceSender, pMySQL);
+	pJsonControll	= new JsonControll();
+
+	pJsonControll->sendRequest("http://qt-project.org");
 
 	//pAudioRecoder->show();
 	pUIMain->show();

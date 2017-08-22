@@ -156,6 +156,15 @@
     <ClCompile Include="VoiceSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Debug\moc_JsonControll.cpp">
+      <Filter>Generated Files\Debug</Filter>
+    </ClCompile>
+    <ClCompile Include="Release\moc_JsonControll.cpp">
+      <Filter>Generated Files\Release</Filter>
+    </ClCompile>
+    <ClCompile Include="db\JsonControll.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="DashBoard_main.h">
@@ -203,6 +212,9 @@
     <CustomBuild Include="VoiceSender.h">
       <Filter>Header Files</Filter>
     </CustomBuild>
+    <CustomBuild Include="db\JsonControll.h">
+      <Filter>Header Files</Filter>
+    </CustomBuild>
   </ItemGroup>
   <ItemGroup>
     <CustomBuild Include="debug\moc_predefs.h.cbt">
@@ -218,132 +230,9 @@
     </CustomBuild>
   </ItemGroup>
   <ItemGroup>
-    <None Include="res\img\B_DECK.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DASH_BTN_DASH_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DASH_BTN_DASH_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DASH_BTN_DEVICE_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DASH_BTN_DEVICE_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DBTN_PTT_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DBTN_PTT_PRESS.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DDOWNBTN_PTT_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DDOWNBTN_PTT_PRESS.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_BOTTOMBAR.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_ICON_BOAT.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_ICON_FirstAid.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_ICON_MCENTER.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_ICON_TUBE.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DEVICE_ICON_VEST.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DICON_ECOMPLETE.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DICON_FIRE.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DICON_PICKTIME.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DICON_SAFETY.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\DICON_TIMEOVER.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_AP_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_AP_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_Peple_DANGER_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_Peple_DANGER_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_Peple_SAFETY_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_Peple_SAFETY_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_Peple_TOTAL.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_TAG_OFF.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Icon_TAG_ON.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_AP.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_Disaster.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_Disaster_Cause.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_Disaster_Time.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_People.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_People_Info.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_People_Time.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_TAG.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Dash_Label_TITLE.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\Device_ICON_DECK.png">
-      <Filter>Resource Files</Filter>
-    </None>
     <CustomBuild Include="res\gui_img_icon.qrc">
       <Filter>Resource Files</Filter>
     </CustomBuild>
-    <None Include="res\img\load_faild.png">
-      <Filter>Resource Files</Filter>
-    </None>
-    <None Include="res\img\yungothic350.TTF">
-      <Filter>Resource Files</Filter>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="GeneratedFiles\ui_audiorecorder.h">

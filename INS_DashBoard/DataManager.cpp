@@ -47,6 +47,9 @@ inline void DataManager::setConnection(void) {
 	connect(pDM_uiDash, SIGNAL(sigPressPTTBtn()), this, SLOT(onPressPTTBtn()));
 	connect(pDM_uiDash, SIGNAL(sigReleasePTTBtn()), this, SLOT(onReleasePTTBtn()));
 
+	connect(pDM_uiDash, SIGNAL(sigReleaseOPTIONBtn()), this, SLOT(onReleaseOPTIONBtn()));
+	connect(pDM_uiDash, SIGNAL(sigReleaseMODEBtn()), this, SLOT(onReleaseMODEBtn()));
+	
 	connect(&wavFileSendThread, SIGNAL(started()), pDM_vs, SLOT(SendToVoiceFile()));
 	connect(pDM_vs, SIGNAL(sigSendEND()), &wavFileSendThread, SLOT(quit()));
 }
@@ -69,6 +72,12 @@ void DataManager::onPressPTTBtn(void) {
 void DataManager::onReleasePTTBtn(void) {
 	qDebug() << "click PTT BAR Button";
 
+	//Change Dashboard bottom PTT Btn
+	pDM_uiDash->bottomBarBtn->toggleBtn();
+	pDM_uiDash->EmergencyBtn->hide();
+	pDM_uiDash->MICOptionBtn->hide();
+	pDM_ar->hide();
+
 	talkTimer.stop();
 	if (talkTIme <= PPT_TALKTIME_SEC) {
 		return;
@@ -84,11 +93,25 @@ void DataManager::onReleasePTTBtn(void) {
 	qDebug() << QThread::currentThread() << " : " << QThread::currentThreadId();
 
 	wavFileSendThread.start();
+}
 
-	//Change Dashboard bottom PTT Btn
-	pDM_uiDash->bottomBarBtn->toggleBtn();
+void DataManager::onReleaseOPTIONBtn(void) {
 
+	if (pDM_ar->isVisible()) {
+		pDM_ar->hide();
+	} else {
+		pDM_ar->show();
+	}
+}
+void DataManager::onReleaseMODEBtn(void) {
 	
+	pDM_uiDash->DASHBOARD_Emergency_MODE(80000);
+	pDM_uiDash->bottomBarBtn->toggleBtn();
+	pDM_uiDash->PTTBtn->hide();
+	pDM_uiDash->EmergencyBtn->hide();
+	pDM_uiDash->MICOptionBtn->hide();
+
+	pDM_ar->hide();
 }
 
 void DataManager::update_DashBoard(void) {
@@ -101,19 +124,33 @@ void DataManager::update_DashBoard(void) {
 		qDebug() << "DB READ ERROR !";
 		return;
 	}
-
+	//create UI List Item 
 	for (int i = 0; i < dbDataBuf.recode.size(); ++i) {
-
 		QStringList &pObj = dbDataBuf.recode.takeAt(i);
 		pDM_ds->mTagBuffer.addRecode(pObj.at(ColumeIndex_TAG::TagID), pObj);
 	}
 
+	//Tag Enable/Disable count Check
 	pDM_ds->mTagBuffer.checkToActive(ACTIVE_INTERVAL, ColumeIndex_TAG::TagDATE);
+	pDM_ds->checkToPeople();
 
-	QStandardItemModel *pModel = pDM_ds->mTagBuffer.getModel();
-	pDM_ui->uiDashBoard->getTagView()->setModel(pModel);
-
+	QStandardItemModel *pTagModel = pDM_ds->mTagBuffer.getModel();
+	pDM_ui->uiDashBoard->getTagView()->setModel(pTagModel);
 	pDM_ds->mTagBuffer.updateModel();
+
+	QStandardItemModel *pAPModel = pDM_ds->mAPBuffer.getModel();
+	pDM_ui->uiDashBoard->getAPView()->setModel(pAPModel);
+	pDM_ds->mAPBuffer.updateModel();
+
+	QStringList TagHead, APHead;
+	TagHead << STR_KOR("TAG ID") << STR_KOR("TAG 이름") << STR_KOR("마지막 배터리 상태");
+	APHead << STR_KOR("AP ID") << STR_KOR("AP 이름") << STR_KOR("데크");
+
+	pDM_ds->mTagBuffer.setViewHeader(TagHead);
+	pDM_ds->mAPBuffer.setViewHeader(APHead);
+
+	DashLISTView *pTargetList = pDM_ui->uiDashBoard->getTagView();
+	//pTargetList->setVisibleHeader();
 
 	pDM_ui->uiDashBoard->updateDASHBOARD(
 		QString::number(pCount->nTagEnable),
@@ -125,9 +162,13 @@ void DataManager::update_DashBoard(void) {
 		QString::number(pCount->nPeopleDisable)
 	);
 
-
-
-
-
 	dbDataBuf.recode.clear();
+}
+
+void DataManager::update_DeviceManagment(void) {
+
+}
+
+void DataManager::update_InspectionList(void) {
+
 }

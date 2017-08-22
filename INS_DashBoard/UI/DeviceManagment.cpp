@@ -1,5 +1,6 @@
 #include "DeviceManagment.h"
 #include "Dashboard.h"
+#include <QHeaderView>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 //DECKView
@@ -169,8 +170,7 @@ DeviceManagment::DeviceManagment(QWidget *parent):QWidget(parent)
 	connect(&mDeviceList, SIGNAL(sigSelectDeviceID(QString)), this, SIGNAL(sigDeviceID(QString)));
 }
 
-DeviceManagment::~DeviceManagment()
-{
+DeviceManagment::~DeviceManagment(){
 }
 
 inline void DeviceManagment::initLayout() {
@@ -239,7 +239,7 @@ inline void DeviceManagment::initListView() {
 	mCheckList.resizeRowsToContents();
 	mCheckList.setSelectionMode(QAbstractItemView::SingleSelection);
 	mCheckList.setSelectionBehavior(QAbstractItemView::SelectRows);
-
+	mCheckList.verticalHeader()->setDefaultSectionSize(16);
 
 	listWidth = mCheckList.size().width();
 	headerText << STR_KOR("점검일자") << STR_KOR("장비번호") \
@@ -287,7 +287,4 @@ void DeviceManagment::resizeEvent(QResizeEvent *event) {
 	listWidth = mDeviceList.size().width();
 	mDeviceList.setColumnWidth(0, listWidth * 0.6);
 	mDeviceList.setColumnWidth(1, listWidth * 0.39);
-
-
-
 }

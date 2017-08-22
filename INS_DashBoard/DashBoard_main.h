@@ -8,6 +8,7 @@
 #include "AudioRecode/audiorecorder.h"
 #include "VoiceSender.h"
 #include "db/db_mysql.h"
+#include "db/JsonControll.h"
 
 class DashBoard_main : public QObject
 {
@@ -19,6 +20,8 @@ class DashBoard_main : public QObject
 	VoiceSender		*pVoiceSender;
 	DB_MySQL		*pMySQL;
 	DataManager		*pDataManager;
+	JsonControll	*pJsonControll;
+
 	
 public:
     DashBoard_main(void);

@@ -96,7 +96,6 @@ void Buffer::updateModel(void) {
 	
 		qDebug() << i.value().recode;
 		viewModel.insertRow(rowNum, i.value().recode);
-
 		++rowNum;
 		++i;
 	}
@@ -151,11 +150,18 @@ void Buffer::checkToNumber(void) {
 		else {
 			++(*pDisable);
 		}
+
+
 		++(*pTotal);
 		++i;
 
 		qDebug() << "Number Count() : "<< *pTotal << " = " << *pEnable << " + " << *pDisable;
 	}
+}
+
+void Buffer::setViewHeader(QStringList list) {
+	viewModel.setHorizontalHeaderLabels(list);
+
 }
 
 
@@ -195,7 +201,7 @@ DataStorage::DataStorage(void){
 
 	mTagBuffer.Clear(&mCountData.nTagTotal, &mCountData.nTagEnable, &mCountData.nTagDisable);
 	mAPBuffer.Clear(&mCountData.nAPTotal, &mCountData.nAPEnable, &mCountData.nAPDisable);
-	
+		
 
 #ifdef _TESTCODE_DASHBOARD
 	/************ test Code ********************************************************/
@@ -222,9 +228,41 @@ DataStorage::DataStorage(void){
 	/*******************************************************************************/
 #endif 
 	
-
-
 }
 
 DataStorage::~DataStorage(){
+}
+
+
+void DataStorage::checkToPeople(void) {
+
+	uint *_Total = &mCountData.nPeopleTotal;
+	uint *_Safe = &mCountData.nPeopleEnable;
+	uint *_Denger = &mCountData.nPeopleDisable;
+
+	if (mTagBuffer.size() <= 0 && mTagBuffer.getViewItems()->size() <= 0) {
+		*_Total = 0;
+		*_Safe = 0;
+		*_Denger = 0;
+		return;
+	}
+
+	ViewBuffer::const_iterator i = (mTagBuffer.getViewItems())->begin();
+	while (i != (mTagBuffer.getViewItems())->end()) {
+
+		const rowGroup *pObj = &i.value();
+
+		double z_pos = pObj->recode.at(TagZPOS)->text().toDouble();
+
+		if (z_pos >= 3.0) { //Evacuation condition
+			++(*_Safe);
+		} else {
+			++(*_Denger);
+		}
+		
+		++(*_Total);
+		++i;
+
+		qDebug() << "Safe Count() : " << *_Total << " = " << *_Safe << " + " << *_Denger;
+	}
 }

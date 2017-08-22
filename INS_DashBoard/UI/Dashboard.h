@@ -76,6 +76,7 @@ public:
 	DashLISTView(QWidget *parent = 0, QLayout *parentLayout = 0, uINT w = 0, uINT h = 0);
 	~DashLISTView();
 
+	void setVisibleHeader(uint x, ...);
 
 };
 
@@ -165,10 +166,11 @@ class DashImgButton : public QPushButton {
 	Q_OBJECT
 
 	bool isPush;
+	bool oneClick;
 	QString imgOn, imgPress;
 
 public :
-	DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QString imgSrc = ":/DDOWNBTN_PTT_ON", QString imgPressSrc = ":/DDOWNBTN_PTT_PRESS");
+	DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QString imgSrc = ":/DDOWNBTN_PTT_ON", QString imgPressSrc = ":/DDOWNBTN_PTT_PRESS", bool onClicked = false);
 	~DashImgButton();
 
 signals:
@@ -215,7 +217,7 @@ class Dashboard : public QWidget
 
 	DashInfoLABEL *cntAP_On;
 	DashInfoLABEL *cntAP_Off;
-	QTableView *mAPView;
+	DashLISTView *mAPView;
 
 	/////////////////////////////////////////
 	// Dash BOARD CENTER :::  Information
@@ -238,16 +240,25 @@ public:
 	DashImgButton *bottomBarBtn;
 	DashImgButton *PTTBtn;
 
+	DashImgButton *EmergencyBtn;
+	DashImgButton *MICOptionBtn;
+
 	Dashboard(QWidget *parent = 0);
 	~Dashboard();
 
-	QTableView* getTagView(void) { return mTAGView; }
-	QTableView* getAPView(void) { return mAPView; }
+	DashLISTView* getTagView(void) { return mTAGView; }
+	DashLISTView* getAPView(void) { return mAPView; }
 
 
 signals:
 	void sigPressPTTBtn(void);
 	void sigReleasePTTBtn(void);
+
+	void sigPressMODEBtn(void);
+	void sigReleaseMODEBtn(void);
+
+	void sigPressOPTIONBtn(void);
+	void sigReleaseOPTIONBtn(void);
 	
 public slots :
 	void onDownBar(void);

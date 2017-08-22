@@ -1,4 +1,5 @@
-#include "Dashboard.h"
+ï»¿#include "Dashboard.h"
+#include <QHeaderView>
 
 Dashboard::Dashboard(QWidget *parent)
 	: QWidget(parent)
@@ -22,13 +23,22 @@ Dashboard::Dashboard(QWidget *parent)
 	//this->setMinimumSize(1600, 1200);
 
 	PTTBtn->hide();
+	EmergencyBtn->hide();
+	MICOptionBtn->hide();
+
 	connect(bottomBarBtn, SIGNAL(clicked()), this, SLOT(onDownBar(void)));
 
 	// PTT Signal connect
 	connect(PTTBtn, SIGNAL(sigPressed()), this, SIGNAL(sigPressPTTBtn()));
 	connect(PTTBtn, SIGNAL(sigClicked()), this, SIGNAL(sigReleasePTTBtn()));
 
+	// PTT Signal connect
+	connect(EmergencyBtn, SIGNAL(sigPressed()), this, SIGNAL(sigPressMODEBtn()));
+	connect(EmergencyBtn, SIGNAL(sigClicked()), this, SIGNAL(sigReleaseMODEBtn()));
 
+	// PTT Signal connect
+	connect(MICOptionBtn, SIGNAL(sigPressed()), this, SIGNAL(sigPressOPTIONBtn()));
+	connect(MICOptionBtn, SIGNAL(sigClicked()), this, SIGNAL(sigReleaseOPTIONBtn()));
 }
 
 Dashboard::~Dashboard()
@@ -81,10 +91,10 @@ inline void Dashboard::initLayout(void) {
 
 	DashLABEL *a = new DashLABEL(this, &vLayoutCenter, ":/DLABEL_DISASTER", "");
 	centerA = new DashIconLABEL(this, &vLayoutCenter, \
-		":/DLABEL_DISASTER_CAUSE", ":/DICON_SAFETY", STR_KOR("Á¤»ó Ç×ÇØÁß"), layoutWidth, 0);
+		":/DLABEL_DISASTER_CAUSE", ":/DICON_SAFETY", STR_KOR("ì •ìƒ í•­í•´ì¤‘"), layoutWidth, 0);
 	
 	centerB = new DashIconLABEL(this, &vLayoutCenter, \
-		":/DLABEL_DISASTER_TIME", ":/DICON_SAFETY", STR_KOR("Á¤»ó Ç×ÇØÁß"), layoutWidth, 0);
+		":/DLABEL_DISASTER_TIME", ":/DICON_SAFETY", STR_KOR("ì •ìƒ í•­í•´ì¤‘"), layoutWidth, 0);
 
 	vLayoutCenter.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
@@ -98,11 +108,9 @@ inline void Dashboard::initLayout(void) {
 	vLayoutRight.setMargin(0);
 
 	DashLABEL *ra = new DashLABEL(this, &vLayoutRight, ":/DLABEL_PEOPLE", "");
-
 	RightA = new DashPeopleLABEL(this, &vLayoutRight, layoutWidth, 0);
-	
 	RightB = new DashIconLABEL(this, &vLayoutRight, \
-		":/DLABEL_PEOPLE_TIME", ":/DICON_SAFETY", STR_KOR("Á¤»ó Ç×ÇØÁß"), layoutWidth, 0);
+		":/DLABEL_PEOPLE_TIME", ":/DICON_SAFETY", STR_KOR("ì •ìƒ í•­í•´ì¤‘"), layoutWidth, 0);
 
 	vLayoutRight.addItem(new QSpacerItem(0, 0, QSizePolicy::Minimum, QSizePolicy::Expanding));
 
@@ -113,24 +121,31 @@ inline void Dashboard::initLayout(void) {
 	// Dash BOARD DOWN ::: PTT BUTTON
 
 	bottomBarBtn = new DashImgButton(this, &vMain, true, ":/DDOWNBTN_PTT_ON", ":/DDOWNBTN_PTT_PRESS");
-	PTTBtn       = new DashImgButton(this, 0, false, ":/DBTN_PTT_ON", ":/DBTN_PTT_PRESS");
+	PTTBtn       = new DashImgButton(this, 0, false, ":/DBTN_PTT_ON", ":/DBTN_PTT_PRESS", true);
+	EmergencyBtn = new DashImgButton(this, 0, false, ":/DBTN_EMMODE_BTN", ":/DBTN_EMMODE_BTN");
+	MICOptionBtn = new DashImgButton(this, 0, false, ":/DBTN_MICOPTION_BTN", ":/DBTN_MICOPTION_BTN");
 
-	QSize size = QSize(1600, 1200)/2 - (PTTBtn->size() / 2);
-	PTTBtn->setGeometry(size.width(), size.height()-200, PTTBtn->size().width(), PTTBtn->size().height());
 }
 
 void Dashboard::resizeEvent(QResizeEvent *event) {
 	qDebug() << "run Dashboard Event";
 	QSize size = QSize(1600, 1200) / 2 - (PTTBtn->size() / 2);
 	PTTBtn->setGeometry(size.width(), size.height() - 200, PTTBtn->size().width(), PTTBtn->size().height());
+	EmergencyBtn->setGeometry(size.width(), (size.height()*2 + 50) - (EmergencyBtn->size().height()/2), EmergencyBtn->size().width(), EmergencyBtn->size().height());
+	MICOptionBtn->setGeometry(size.width() + 33 + MICOptionBtn->size().width(), (size.height()*2 + 50) - (MICOptionBtn->size().height()/2), MICOptionBtn->size().width(), MICOptionBtn->size().height());
+
 }
 
 void Dashboard::onDownBar(void) {
 
 	if (PTTBtn->isVisible()) {
 		PTTBtn->hide();
+		EmergencyBtn->hide();
+		MICOptionBtn->hide();
 	} else {
 		PTTBtn->show();
+		EmergencyBtn->show();
+		MICOptionBtn->show();
 	}
 }
 
@@ -144,7 +159,11 @@ void Dashboard::updateDASHBOARD(QString _tagOn, QString _tagOff, \
 	cntAP_On->setText(_apOn);
 	cntAP_Off->setText(_apOff);
 
-	RightA->setText(_ppTotal, _ppSafe, _ppDenger);
+	if (isEmergencyMode) {
+		RightA->setText(_ppTotal, _ppSafe, _ppDenger);
+	} else {
+		RightA->setText(_ppTotal, "0", "0");
+	}
 }
 
 void Dashboard::DASHBOARD_Emergency_MODE(uINT GoldenTime) {
@@ -168,9 +187,9 @@ void Dashboard::DASHBOARD_SAFETY_MODE(void) {
 	RightA->onSafety();
 	RightB->onSafety();
 		
-	centerA->setText(STR_KOR("Á¤»ó Ç×ÇØÁß"));
-	centerB->setText(STR_KOR("Á¤»ó Ç×ÇØÁß"));
-	RightB->setText(STR_KOR("Á¤»ó Ç×ÇØÁß"));
+	centerA->setText(STR_KOR("ì •ìƒ í•­í•´ì¤‘"));
+	centerB->setText(STR_KOR("ì •ìƒ í•­í•´ì¤‘"));
+	RightB->setText(STR_KOR("ì •ìƒ í•­í•´ì¤‘"));
 
 }
 
@@ -311,13 +330,39 @@ DashLISTView::DashLISTView(QWidget *parent, QLayout *parentLayout, uINT w, uINT 
 	this->setMaximumSize(w, h);
 	this->setStyleSheet("DashLISTView{border : 1px solid #6E848E; \
 									   background-color: #14B5C8;}");
+
+
+	this->resizeRowsToContents();
+	this->verticalHeader()->setDefaultSectionSize(16);
+	this->setSelectionMode(QAbstractItemView::SingleSelection);
+	this->setSelectionBehavior(QAbstractItemView::SelectRows);
+	this->setEditTriggers(QAbstractItemView::NoEditTriggers);
+	this->setWordWrap(false);
+	
 }
 
 DashLISTView::~DashLISTView() {
 }
 
+void DashLISTView::setVisibleHeader(uint x, ...) {
+	va_list list;
+
+	int colIndex = 0;
+
+	va_start(list, x);
+
+	int targetHeadIndex = va_arg(list, uint);
 
 
+	while (this->columnAt(colIndex++) != -1) {}
+	if (targetHeadIndex != colIndex) {
+		this->hideColumn(colIndex);
+	}
+	va_end(list);
+
+
+
+}
 
 //////////////////////////////////////////////////////////////////////////////////////
 //   CLASS DashIconLABEL 
@@ -556,9 +601,10 @@ void DashPeopleLABEL::onSafety(void) {
 //////////////////////////////////////////////////////////////////////////////////////
 //   CLASS DashImgButton 
 //////////////////////////////////////////////////////////////////////////////////////
-DashImgButton::DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QString imgSrc, QString imgPressSrc) {
+DashImgButton::DashImgButton(QWidget *parent, QLayout *layout, bool toggle, QString imgSrc, QString imgPressSrc, bool onClicked) {
 
 	isPush = toggle;
+	oneClick = onClicked;
 
 	imgOn = imgSrc;
 	imgPress = imgPressSrc;
@@ -610,7 +656,7 @@ void DashImgButton::clickedBtn(void) {
 
 	emit sigClicked();
 
-	if (this->isVisible()) {
+	if (oneClick && this->isVisible()) {
 		this->hide();
 	}
 	else {

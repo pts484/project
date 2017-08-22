@@ -46,17 +46,21 @@ public:
 	void setClassLink(UI *, AudioRecorder *, DataStorage *, VoiceSender *, DB_MySQL	*);
 
 signals:
-
 	void sigRecoding_Done();
 
 private slots :
-
 	void onPressPTTBtn(void);
 	void onReleasePTTBtn(void);
 
+	void onReleaseOPTIONBtn(void);
+	void onReleaseMODEBtn(void);
+
 public slots :
 	void update_DashBoard(void);
+	//void update_TAGAPList(void);
 
+	void update_DeviceManagment(void);
+	void update_InspectionList(void);
 };
 
 #endif // DATAMANAGER_H_H

@@ -7,7 +7,9 @@
 #include <QList>
 #include <QStringList>
 #include <QDateTime>
+#include <QTableView>
 
+#include <qstring.h>
 #include <QStandardItem>
 #include <QStandardItemModel>
 
@@ -52,6 +54,8 @@ public:
 	void checkToNumber(void);
 
 
+	void setViewHeader(QStringList list);
+
 	QStandardItemModel* getModel(void) { return &viewModel; }
 	const ViewBuffer* getViewItems(void) { return &viewItems; }
 	const HashBuffer* getBuffer(void) { return this; }
@@ -76,7 +80,8 @@ public:
 
 
 	const CountSection* getCountSection(void) { return &mCountData; }
-
+	void checkToPeople(void);
+	
 signals:
 	
 
