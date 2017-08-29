@@ -2,74 +2,90 @@
 
 JsonControll::JsonControll(QObject *parent)
 	: QObject(parent) {
-	pNetworkAccessManager = new QNetworkAccessManager(this);
-	QObject::connect(pNetworkAccessManager, SIGNAL(finished(QNetworkReply*)), this, SLOT(finishedSlot(QNetworkReply*)));
+	
+	pNetMan = new QNetworkAccessManager(this);
+	pNetRequest = new QNetworkRequest();
+	mDataBuffer.clear();
+
+	connect(pNetMan, SIGNAL(finished(QNetworkReply *)), this, SLOT(receiveJsonData(QNetworkReply *)));
 }
 
-/*
-* Sends a request
-*/
-QNetworkReply* JsonControll::sendRequest(QString url) {
-	QUrl httpRequest(url);
-	QNetworkRequest request;
-	request.setSslConfiguration(QSslConfiguration::defaultConfiguration()); // Set default ssl config
-	request.setUrl(httpRequest); // Set the url
-	QNetworkReply *reply = pNetworkAccessManager->get(QNetworkRequest(httpRequest));
-
-	return reply;
+JsonControll::~JsonControll() {
 }
 
-/*
-* Runs when the request is finished and has received a response
-*/
-void JsonControll::finishedSlot(QNetworkReply *reply) {
-	// Reading attributes of the reply
-	// e.g. the HTTP status code
-	QVariant statusCodeV = reply->attribute(QNetworkRequest::HttpStatusCodeAttribute);
-	// Or the target URL if it was a redirect:
-	QVariant redirectionTargetUrl =
-		reply->attribute(QNetworkRequest::RedirectionTargetAttribute);
-	// see CS001432 on how to handle this
+uint JsonControll::sendRequest(QString query, uint _Kind) {
 
-	// no error received?
-	if (reply->error() == QNetworkReply::NoError) {
-		// Reading the data from the response
-		QByteArray bytes = reply->readAll();
-		QString jsonString(bytes); // string
+	nDataKind = _Kind;
 
-		qDebug() << bytes;
+	result.chk = false;
+	result.recode.clear();
 
-		bool ok;
-		//QVariantMap jsonResult = Json::parse(jsonString, ok).toMap();
-		if (!ok) {
-			qFatal("An error occured during parsing");
-			exit(1);
+	pNetRequest->setUrl(QUrl(query));
+	pNetMan->get(*pNetRequest);
+
+	return nDataKind;
+}
+
+
+
+void JsonControll::receiveJsonData(QNetworkReply *reply) {
+//this lambda is called when the reply is received
+//it can be a slot in your GUI window class
+//check for errors
+
+
+	if (reply->error() != QNetworkReply::NoError) {
+		qDebug() << "Error";
+		pNetMan->clearAccessCache();
+	} else {
+		//parse the reply JSON and display result in the UI
+		QJsonObject jsonObject = QJsonDocument::fromJson(reply->readAll()).object();
+
+		
+		switch (nDataKind) {
+		case 0:
+			result = jsonParser(jsonObject, gTAG_INDEX, "EZ0600R");
+			emit sigSend_DASHBOARD();
+			break;
+		case 1:
+			result = jsonParser(jsonObject, gDEVICE_INDEX, "DeviceList");
+			emit sigSend_DEVICELIST();
+			break;
+		case 2:
+			result = jsonParser(jsonObject, gDEVICE_INDEX, "??????");
+			emit sigSend_INSPACTIONLIST();
+			break;
+		default:
+			result = jsonParser(jsonObject, gTAG_INDEX, "EZ0600R");
+			emit sigSend_DASHBOARD();
+			break;
 		}
-
-		// Set the jsonResult
-		setJsonResult(m_jsonResult);
-	}
-	// Some http error received
-	else {
-		// handle errors here
 	}
 
-	// We receive ownership of the reply object
-	// and therefore need to handle deletion.
-	delete reply;
+	reply->deleteLater();
+
 }
 
-/*
-* Set the json result so that other functions can get it
-*/
-void JsonControll::setJsonResult(QVariantMap jsonResult) {
-	m_jsonResult = jsonResult;
-}
 
-/*
-* Get the json result
-* Return null if there is no result
-*/
-QVariantMap JsonControll::getJsonResult() {
-	return m_jsonResult;
+
+inline resultTable JsonControll::jsonParser(QJsonObject &rObj, const colIndex *indexKind, QString key) {
+
+	QJsonArray jsonArray = rObj[key].toArray();
+
+	for (int i = 0; i < jsonArray.size(); ++i) {
+		QJsonValue jsonValue = jsonArray[i];
+		QJsonObject mObj = jsonValue.toObject();
+
+		QStringList mSTRList;
+		QJsonObject::ConstIterator it = mObj.constBegin();
+
+		for (int j = 0; it != mObj.constEnd(); ++it, ++j) {
+			mSTRList << mObj[indexKind[j].key].toString();
+
+		}
+		result.recode << mSTRList;
+	}
+	result.chk = true;
+	qDebug() << "get JSON Data size >> " << result.recode.size();
+	return result;
 }

@@ -1,9 +1,12 @@
 #ifndef DB_MYSQL_H
 #define DB_MYSQL_H
 
+#include <QObject>
+#include <QList>
 #include <QHash>
 #include <QStringList>
 #include <string>
+#include <QByteArray>
 
 #include <my_global.h>
 #include <winsock2.h>
@@ -17,8 +20,29 @@
 #pragma comment(lib, "libmysql.lib")
 #include "../define.h"
 
+class requestQueue : public QList<uint> {
 
-class DB_MySQL{
+	uint requestID;
+
+public:
+	requestQueue();
+	~requestQueue();
+
+	uint getRequestID(void) {return requestID;}
+	const QByteArray* getStrQuery_popBack();
+	uint getQueryKind();
+	void requestQuery(uint query);
+};
+
+	
+class DB_MySQL : public QObject {
+	Q_OBJECT
+
+	bool		isReading;
+
+	resultTable resultBuffer;
+
+	requestQueue mQueryQueue;
 
 	MYSQL		mysql;
 	MYSQL		*connection;
@@ -27,6 +51,7 @@ class DB_MySQL{
 	int			query_stat;
 
 	inline void checkConnection(void);
+	resultTable runQuery(const char *query);
 
 public:
 
@@ -36,7 +61,14 @@ public:
 	bool isConnection(void);
 	bool connectDB(void);
 	void disconnectDB(void);
-	resultTable runQuery(const char *query);
+
+	void requestQuery(uint query);
+
+signals:
+	void sigGETDATA(resultTable *);
+
+public slots:
+	void Running_receiveDB();
 
 };
 

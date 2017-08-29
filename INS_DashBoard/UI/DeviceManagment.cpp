@@ -139,9 +139,10 @@ void DeviceView::mouseDoubleClickEvent(QMouseEvent *event) {
 }
 
 void DeviceView::mouseReleaseEvent(QMouseEvent *event) {
-
+	
 	QModelIndex i;
-	selectId = this->currentIndex().sibling(this->currentIndex().row(), 1).data().toString();
+	selectId = this->currentIndex().sibling(this->currentIndex().row(), 0).data().toString();
+	qDebug() << "select Device ID :: " << selectId;
 }
 
 void DeviceView::mouseMoveEvent(QMouseEvent *event) {
@@ -213,17 +214,17 @@ inline void DeviceManagment::initLayout() {
 
 inline void DeviceManagment::initTreeView() {
 
-	//init Header
-	QStringList instanceHeader;
-	instanceHeader << STR_KOR("장비이름") << STR_KOR("장비번호");
-	treeModel = new QStandardItemModel(&mDeviceList);
-	treeModel->setHorizontalHeaderLabels(instanceHeader);
+	////init Header
+	//QStringList instanceHeader;
+	//instanceHeader << STR_KOR("장비이름") << STR_KOR("장비번호");
+	//treeModel = new QStandardItemModel(&mDeviceList);
+	//treeModel->setHorizontalHeaderLabels(instanceHeader);
 
 	mDeviceList.setSelectionMode(QAbstractItemView::SingleSelection);
 	mDeviceList.setSelectionBehavior(QAbstractItemView::SelectRows);
 	//mDeviceList.setDragEnabled(true);
 	
-	mDeviceList.setModel(treeModel);
+	//mDeviceList.setModel(treeModel);
 	mDeviceList.setMaximumWidth(300);
 
 	//Edit Locked
@@ -234,8 +235,8 @@ inline void DeviceManagment::initTreeView() {
 inline void DeviceManagment::initListView() {
 
 	//init Header
-	listModel = new QStandardItemModel(&mCheckList);
-	mCheckList.setModel(listModel);
+	/*listModel = new QStandardItemModel(&mCheckList);
+	mCheckList.setModel(listModel);*/
 	mCheckList.resizeRowsToContents();
 	mCheckList.setSelectionMode(QAbstractItemView::SingleSelection);
 	mCheckList.setSelectionBehavior(QAbstractItemView::SelectRows);
@@ -259,7 +260,7 @@ inline void DeviceManagment::initListView() {
 void DeviceManagment::initListHeader() {
 
 	listWidth = mCheckList.size().width();
-	listModel->setHorizontalHeaderLabels(headerText);
+	//listModel->setHorizontalHeaderLabels(headerText);
 
 	mCheckList.setColumnWidth(0, listWidth * 0.1);
 	mCheckList.setColumnWidth(1, listWidth * 0.1);
@@ -269,6 +270,23 @@ void DeviceManagment::initListHeader() {
 	mCheckList.setColumnWidth(5, listWidth * 0.1);
 	mCheckList.setColumnWidth(6, listWidth * 0.1);
 	mCheckList.setColumnWidth(7, listWidth * 0.25);
+}
+
+void DeviceManagment::setVisibleHeader(uint x, ...) {
+	va_list list;
+	int colIndex = 0;
+
+	for each (auto& strKey in gTAG_INDEX) {
+		mDeviceList.setColumnHidden(colIndex++, true);
+	}
+
+	va_start(list, x);
+
+	for (int i = 0; i < x; ++i) {
+		int targetHeadIndex = va_arg(list, uint);
+		mDeviceList.showColumn(targetHeadIndex);
+	}
+	va_end(list);
 }
 
 void DeviceManagment::UpdateDeviceView(void){

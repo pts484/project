@@ -3,6 +3,7 @@
 
 #include <QObject>
 #include <QThread>
+#include <QTimer>
 
 #include "DataStorage.h"
 #include "UI/UI.h"
@@ -11,24 +12,29 @@
 #include "AudioRecode/audiorecorder.h"
 #include "VoiceSender.h"
 #include "db/db_mysql.h"
+#include "db/JsonControll.h"
 
 class DataManager : public QObject
 {
 	Q_OBJECT
 
-	resultTable		dbDataBuf;
 	CountSection	*pCount;
 
+	resultTable		dbDataBuf;
+
+	QTimer			mUpdateTimer;
 	QBasicTimer		talkTimer;
 	int				talkTIme;
 
 	QThread			wavFileSendThread;
+	QThread			dataReceiveThread;
 
 	UI				*pDM_ui;
 	AudioRecorder	*pDM_ar;
 	DataStorage		*pDM_ds;
 	VoiceSender		*pDM_vs;
 	DB_MySQL		*pDM_db;
+	JsonControll	*pDM_json;
 
 	Dashboard		*pDM_uiDash;
 	DeviceManagment	*pDM_uiDevice;
@@ -38,12 +44,20 @@ class DataManager : public QObject
 	void timerEvent(QTimerEvent *event) override;
 
 public:
+
 	DataManager(QObject *parent = nullptr);
-	DataManager(UI *, AudioRecorder *, DataStorage *, VoiceSender *, DB_MySQL *, QObject *parent = nullptr);
+	DataManager(UI *, AudioRecorder *, DataStorage *,
+				VoiceSender *, DB_MySQL *, JsonControll *, QObject *parent = nullptr);
 	~DataManager();
 
 
-	void setClassLink(UI *, AudioRecorder *, DataStorage *, VoiceSender *, DB_MySQL	*);
+	void setClassLink(UI *, AudioRecorder *, DataStorage *,
+					  VoiceSender *, DB_MySQL *, JsonControll *);
+
+
+	void update_DashBoard(resultTable result);
+	void update_DeviceManagment(resultTable result);
+	void update_InspectionList(resultTable result);
 
 signals:
 	void sigRecoding_Done();
@@ -55,12 +69,12 @@ private slots :
 	void onReleaseOPTIONBtn(void);
 	void onReleaseMODEBtn(void);
 
-public slots :
-	void update_DashBoard(void);
-	//void update_TAGAPList(void);
 
-	void update_DeviceManagment(void);
-	void update_InspectionList(void);
+	void UPDATE_DATA(resultTable *);
+	void reading_DB(void);
+	void request_DeviceInspacktion_List();
+
+public slots :
 };
 
 #endif // DATAMANAGER_H_H

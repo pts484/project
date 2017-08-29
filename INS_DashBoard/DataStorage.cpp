@@ -1,8 +1,5 @@
 #include "DataStorage.h"
 
-
-
-
 /*********************************************************************************/
 /* Buffer */
 /*********************************************************************************/
@@ -12,196 +9,234 @@ Buffer::Buffer(void) {
 
 Buffer::~Buffer(void) {
 
-	if (!pTotal) delete pTotal;
-	if (!pEnable) delete pEnable;
-	if (!pDisable) delete pDisable;
-
 	this->clear();
-	viewItems.clear();
 }
 
 
 
 const QStringList& Buffer::findRecode(QString key) {
-	return this->find(key).value();
+	return this->find(key).value().recode;
 }
 
 
 
-void Buffer::addRecode(QString key, QStringList &recode) {
+void Buffer::addRecode(QString key, QStringList &recode, int colIndex, const uint &Inteval) {
 
-	this->insert(key, recode);
+	rowGroup tmp;
+	tmp.isActive = false;
+	tmp.recode.clear();
 
-	rowGroup *tmp;
+	//Time Check && Counting
+	uint curTime = QDateTime::currentDateTime().toTime_t();
+	QDateTime dataTime = QDateTime::fromString(recode.at(colIndex), QString(TIME_FORMAT));
+	uint inverval = curTime - dataTime.toTime_t();
 
-	ViewBuffer::Iterator i = viewItems.find(key);
+	if (inverval < Inteval) {
+		tmp.isActive = true;
 
-	if (i != viewItems.end()) { /** Update Data **/
-		tmp = &i.value();
-
-		for (int i = 0; i < recode.size(); ++i) {
-			tmp->recode.at(i)->setText(recode.at(i));
-		}
-		
-		qDebug() << "update Add Buffer :" << this->size();
-		qDebug() << "update Add VIewer :" << viewItems.size();
-
-	} else {					/** New add Data **/
-		tmp = new rowGroup();
-		tmp->recode.clear();
-		tmp->isActive = false;
-
-		for (int i = 0; i < recode.size(); ++i) {
-			QStandardItem *pObj = new QStandardItem(recode.at(i));
-			tmp->recode << pObj;
-		}
-		viewItems.insert(key, *tmp);
-		
-		qDebug() << "new Add Buffer :" << this->size();
-		qDebug() << "new Add VIewer :" << viewItems.size();
+	} else {
+		tmp.isActive = false;
 	}
+	tmp.recode = recode;
 
-	tmp->isActive = true;
+	
+	// Add Recode 
+	this->insert(key, tmp);
 }
 
 
 
 void Buffer::deleteRecode(QString key) {
-
-	if (this->size() <= 0 && viewItems.size() <= 0) {
-		qDebug() << "buffer is Empty : deleteRecode()";
-		return;
-	}
-
 	this->remove(key);
-
-	rowData *row = &viewItems.find(key).value().recode;
-	for (int i = 0; i < row->size(); ++i) {
-		delete row->at(i);
-	}
-	row->clear();
-	viewItems.remove(key);
-
-	qDebug() << "Del Buffer :" << this->size();
-	qDebug() << "Del VIewer :" << viewItems.size();
+	//qDebug() << "Del Buffer :" << this->size();
 }
 
 void Buffer::updateModel(void) {
 
+
+	QStringList DisableKey;
+	DisableKey.clear();
 	viewModel.clear();
-	int rowNum = 0;
 
-	ViewBuffer::Iterator i = viewItems.begin();
-	while (i != viewItems.end()) {
-	
-		qDebug() << i.value().recode;
-		viewModel.insertRow(rowNum, i.value().recode);
-		++rowNum;
-		++i;
-	}
-}
-
-void Buffer::checkToActive(const uint &Inteval, int index) {
-
-	if (this->size() <= 0 && viewItems.size() <= 0) {
-		qDebug() << "buufer is Empty : checkToActive()";
-		return;
-	}
-
-	uint curTime = QDateTime::currentDateTime().toTime_t();
-	QString format = TIME_FORMAT;
-
-	ViewBuffer::Iterator i = viewItems.begin();
-	while (i != viewItems.end()) {
-
-		rowGroup *pObj = &i.value();
-		QDateTime dataTime = QDateTime::fromString(pObj->recode.at(index)->text(), format);
-
-		uint inverval = curTime - dataTime.toTime_t();
-
-		if (inverval < Inteval) {
-			pObj->isActive = true;
-		} else {
-			pObj->isActive = false;
+	//get Disable Tag
+	HashBuffer::const_iterator i = this->constBegin();
+	for (; i != this->constEnd(); ++i) {
+		if (i.value().isActive == false) {
+			DisableKey << i.key();
 		}
-		++i;
-
-		qDebug() << pObj->recode.at(index-1)->text()<< " : " << inverval << " : " << pObj->isActive;
 	}
-	checkToNumber();
+	
+	uint disableSize  = DisableKey.size();
+	uint ModelSize = viewModel.rowCount();
+
+
+	for (int i = 0; i < DisableKey.size(); ++i) {
+
+		QList<QStandardItem *> tmp = viewModel.findItems(DisableKey.at(i));
+		QStringList tmplist = findRecode(DisableKey.at(i));
+
+		if (tmp.size() <= 0) {
+		
+			for (int j = 0; j < tmplist.size(); ++j) {
+				QStandardItem *tmptime = new QStandardItem(tmplist.at(j));
+				tmp << tmptime;
+			}
+			viewModel.appendRow(tmp);
+
+		} else {
+
+			// 검증 안됨 ------------------------------------
+			QList<QStandardItem *> tmp = viewModel.takeRow(i);
+			for (int j = 0; j < tmplist.size(); ++j) {
+				tmp.at(j)->setData(tmplist.at(j));
+			}
+			viewModel.appendRow(tmp);
+		}
+	}
+	if ((ModelSize - disableSize) > 0) {
+		viewModel.removeRows(disableSize+1, (ModelSize - disableSize));
+	}
+
 }
 
-void Buffer::checkToNumber(void) {
-	if (this->size() <= 0 && viewItems.size() <= 0) {
-		*pTotal = 0;
-		*pEnable = 0;
-		*pDisable = 0;
+inline void Buffer::checkToNumber(void) {
+	if (this->size() <= 0) {
+		mTotal = 0;
+		mEnable = 0;
+		mDisable = 0;
 		return;
 	}
 
-	ViewBuffer::Iterator i = viewItems.begin();
-	while (i != viewItems.end()) {
+	mTotal = 0;
+	mEnable = 0;
+	mDisable = 0;
 
-		rowGroup *pObj = &i.value();
+	HashBuffer::ConstIterator i = this->constBegin();
+	while (i != this->end()) {
 
-		if (pObj->isActive) {
-			++(*pEnable);
+		if (i.value().isActive) {
+			++mEnable;
 		}
 		else {
-			++(*pDisable);
+			++mDisable;
 		}
-
-
-		++(*pTotal);
+		++mTotal;
 		++i;
-
-		qDebug() << "Number Count() : "<< *pTotal << " = " << *pEnable << " + " << *pDisable;
 	}
 }
 
 void Buffer::setViewHeader(QStringList list) {
 	viewModel.setHorizontalHeaderLabels(list);
-
 }
-
 
 void Buffer::Clear(void) {
 
-	pTotal = new uint(0);
-	pEnable = new uint(0);
-	pDisable = new uint(0);
+	mTotal = 0;
+	mEnable = 0;
+	mDisable = 0;
 
 	this->clear();
-	viewItems.clear();
 }
 
-void Buffer::Clear(uint *_Total, uint *_Enable, uint *_Disable) {
+void Buffer::updateBuffer(resultTable *result) {
 
-	pTotal = _Total;
-	pEnable = _Enable;
-	pDisable = _Disable;
-
-	*pTotal = 0;
-	*pEnable = 0;
-	*pDisable = 0;
-
-	this->clear();
-	viewItems.clear();
+	while (!result->recode.isEmpty()) {
+		QStringList &pObj = result->recode.takeFirst();
+		addRecode(pObj.at(ColumeIndex_TAG::TAG_NO), pObj, CALC_DATE);
+	}
+	checkToNumber();
+	updateModel();
 }
 
 
+/*********************************************************************************/
+/* TreeBuffer																	 */
+/*********************************************************************************/
+TreeBuffer::TreeBuffer() {
 
+}
+TreeBuffer::~TreeBuffer() {
+}
+
+void TreeBuffer::addDevice(QString key, QStringList &_device) {
+
+	QHash<QString, rowData>::const_iterator it = this->constFind(key);
+
+	if (it == this->constEnd()) { //장비가 없으면 추가
+		rowData tmp;
+		tmp.clear();
+
+		for each(QString str in _device) {
+			tmp << new QStandardItem(str);
+		}
+		this->insert(key, tmp);
+		qDebug() << "device insert ::" << key;
+	} else {						//장비가 있으면 값 수정
+
+		int i = 0;
+		for each(QString str in _device) {
+			it.value().at(i)->setData(str);
+			++i;
+		}
+		qDebug() << "device update ::" << key;
+	}
+}
+
+void TreeBuffer::delDevice(QString key) {
+	rowData mObj = this->take(key);
+	for each(QStandardItem *obj in mObj) {
+		if (obj != NULL) {
+			delete obj;
+			obj = NULL;
+		}
+	}
+}
+
+void TreeBuffer::setViewHeader(QStringList list) {
+	treeModel.setHorizontalHeaderLabels(list);
+}
+
+void TreeBuffer::updateModel() {
+
+	QHash<QString, rowData>::iterator it = this->begin();
+	for (; it != this->end(); ++it) {
+		QString type = it.value().at(ColumeIndex_DEVICE::DeviceType)->text();
+
+		QHash<QString, QStandardItem *>::iterator pRoot = rootItem.find(type);
+
+		if (pRoot != rootItem.end()) {
+			pRoot.value()->appendRow(it.value());
+		} else {
+			QStandardItem *pRootItem = new QStandardItem(type);
+			rootItem.insert(type, pRootItem);
+			pRootItem->appendRow(it.value());
+			treeModel.appendRow(pRootItem);
+		}
+	}
+}
+
+void TreeBuffer::updateType() {
+
+	//treeModel.findItems();
+}
+
+void TreeBuffer::updateBuffer(resultTable *result) {
+
+	while (!result->recode.isEmpty()) {
+		QStringList *pObj = &result->recode.takeFirst();
+		addDevice(pObj->at(ColumeIndex_DEVICE::DeviceID), *pObj);
+	}
+
+	updateModel();
+}
 /*********************************************************************************/
 /* DataStorage																	 */
 /*********************************************************************************/
 
 DataStorage::DataStorage(void){
-
-	mCountData = { 0, 0, 0, 0, 0, 0, 0, 0, 0 };
-
-	mTagBuffer.Clear(&mCountData.nTagTotal, &mCountData.nTagEnable, &mCountData.nTagDisable);
-	mAPBuffer.Clear(&mCountData.nAPTotal, &mCountData.nAPEnable, &mCountData.nAPDisable);
 		
+	mSafety = 0;
+	mDenger = 0;
 
 #ifdef _TESTCODE_DASHBOARD
 	/************ test Code ********************************************************/
@@ -226,6 +261,8 @@ DataStorage::DataStorage(void){
 	mTagBuffer.checkToActive(ACTIVE_INTERVAL, ColumeIndex_TAG::TagDATE);
 	qDebug() << mCountData.nTagTotal << mCountData.nTagEnable << mCountData.nTagDisable;
 	/*******************************************************************************/
+
+	/*******************************************************************************/
 #endif 
 	
 }
@@ -236,33 +273,16 @@ DataStorage::~DataStorage(){
 
 void DataStorage::checkToPeople(void) {
 
-	uint *_Total = &mCountData.nPeopleTotal;
-	uint *_Safe = &mCountData.nPeopleEnable;
-	uint *_Denger = &mCountData.nPeopleDisable;
+	mSafety = 0;
+	mDenger = 0;
 
-	if (mTagBuffer.size() <= 0 && mTagBuffer.getViewItems()->size() <= 0) {
-		*_Total = 0;
-		*_Safe = 0;
-		*_Denger = 0;
-		return;
-	}
+	HashBuffer::const_iterator i = mTagBuffer.constBegin();
+	for (; i != mTagBuffer.constEnd(); ++i) {
 
-	ViewBuffer::const_iterator i = (mTagBuffer.getViewItems())->begin();
-	while (i != (mTagBuffer.getViewItems())->end()) {
-
-		const rowGroup *pObj = &i.value();
-
-		double z_pos = pObj->recode.at(TagZPOS)->text().toDouble();
-
-		if (z_pos >= 3.0) { //Evacuation condition
-			++(*_Safe);
+		if (i.value().recode.at(ZPOS).toDouble() >= 3.0) {
+			++mSafety;
 		} else {
-			++(*_Denger);
+			++mDenger;
 		}
-		
-		++(*_Total);
-		++i;
-
-		qDebug() << "Safe Count() : " << *_Total << " = " << *_Safe << " + " << *_Denger;
 	}
 }

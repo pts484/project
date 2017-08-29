@@ -21,23 +21,24 @@
 /* This Class is Singleton Class */
 /*********************************/
 
-typedef QList<QStandardItem *>			rowData;
-
 typedef struct {
 	bool isActive;
-	rowData recode;
+	QStringList recode;
 }rowGroup;
 
-typedef QHash<QString, rowGroup>		ViewBuffer;
-typedef QHash<QString, QStringList>		HashBuffer;
+typedef QList<QStandardItem *>			  rowData;
+typedef QHash<QString, QStandardItem *>   RootType;
+
+typedef QHash<QString, rowGroup> HashBuffer;
+typedef QHash<QString, rowData>  HashTBuffer;
+
 
 class Buffer : public HashBuffer {
 
-	uint		*pTotal;
-	uint		*pEnable;
-	uint		*pDisable;
+	uint		mTotal;
+	uint		mEnable;
+	uint		mDisable;
 
-	ViewBuffer			viewItems;
 	QStandardItemModel	viewModel;
 
 public:
@@ -46,45 +47,78 @@ public:
 	~Buffer(void);
 
 	const QStringList& findRecode(QString key);
-	void addRecode(QString key, QStringList &recode);
+	void addRecode(QString key, QStringList &recode, int colIndex, const uint &Inteval = ACTIVE_INTERVAL);
 	void deleteRecode(QString key);
 
 	void updateModel(void);
-	void checkToActive(const uint &Inteval, int index);
-	void checkToNumber(void);
-
+	inline void checkToNumber(void);
 
 	void setViewHeader(QStringList list);
 
+	uint getTotal(void) { return mTotal; }
+	uint getEnable(void) { return mEnable; }
+	uint getDisable(void) { return mDisable; }
+
 	QStandardItemModel* getModel(void) { return &viewModel; }
-	const ViewBuffer* getViewItems(void) { return &viewItems; }
 	const HashBuffer* getBuffer(void) { return this; }
 
 	void Clear(void);
-	void Clear(uint *_Total, uint *_Enable, uint *_Disable);
+
+	void updateBuffer(resultTable *result);
 
 };
 
+class TreeBuffer : public HashTBuffer {
+
+	QStandardItemModel	treeModel;
+	RootType			rootItem;
+
+public:
+	
+	void addDevice(QString key, QStringList &device);
+	void delDevice(QString key);
+
+	void setViewHeader(QStringList list);
+
+	void updateModel();
+	void updateType();
+	void updateBuffer(resultTable *result);
+
+	QStandardItemModel* getModel() { return &treeModel; }
+
+	TreeBuffer();
+	~TreeBuffer();
+
+};
 
 class DataStorage : public QObject {
 	Q_OBJECT
 
 public:
 
+	uint	mSafety;
+	uint	mDenger;
+
+	//DashBoard --------------------------//
 	Buffer mTagBuffer;
 	Buffer mAPBuffer;
-	CountSection mCountData;
+
+	//Device Managment -------------------//
+	QStringList mDeviceType;
+	TreeBuffer mDeckTreeBuffer;
+
 
 	DataStorage(void);
 	~DataStorage(void);
 
-
-	const CountSection* getCountSection(void) { return &mCountData; }
+	//DashBoard Function --------------------------//
 	void checkToPeople(void);
-	
-signals:
-	
 
+	//Device Managment Function -------------------//
+	void setDeviceType(QStringList &_type) { mDeviceType = _type; };
+
+
+signals:
 public slots:
 	
 

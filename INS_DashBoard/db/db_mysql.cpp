@@ -1,7 +1,47 @@
 ﻿#include "db_mysql.h"
 
-DB_MySQL::DB_MySQL() {
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// request Query
+////////////////////////////////////////////////////////////////////////////////////////////////////
+
+requestQueue::requestQueue() :requestID(0){
+}
+
+requestQueue::~requestQueue() {
+}
+
+void requestQueue::requestQuery(uint query) {
+
+	//qDebug() << "RequestID [ " << requestID << " ] :" << gSQL_Query[query].query.constData();
+
+	++requestID;
+	push_back(query);
+}
+const QByteArray* requestQueue::getStrQuery_popBack() {
+	if (isEmpty()) { 
+		return 0; 
+	}
+
+	return &gSQL_Query[size()-1].query;
+}
+
+
+uint requestQueue::getQueryKind() {
+	if (isEmpty()) {
+		return NONE_DATA;
+	}
+
+	return takeLast();
+}
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// DB MYSQL
+////////////////////////////////////////////////////////////////////////////////////////////////////
+DB_MySQL::DB_MySQL(){
 	
+	isReading - false;
+
 	connection = NULL;
 	sql_result = NULL;
 
@@ -9,6 +49,8 @@ DB_MySQL::DB_MySQL() {
 	mysql_init(&mysql);
 	mysql_options(&mysql, MYSQL_SET_CHARSET_NAME, "utf8");
 	mysql_options(&mysql, MYSQL_INIT_COMMAND, "SET NAMES utf8");
+
+	connectDB();
 }
 
 DB_MySQL::~DB_MySQL(void) {
@@ -46,9 +88,9 @@ void DB_MySQL::disconnectDB() {
 
 
 resultTable DB_MySQL::runQuery(const char *query) {
-
 	resultTable result;
 
+	result.dataKind = DATASET_KIND::NONE_DATA;
 	result.chk = false;
 	result.recode.clear();
 
@@ -59,8 +101,6 @@ resultTable DB_MySQL::runQuery(const char *query) {
 		qDebug() << "do Not Connecttion Database";
 		return result;
 	}
-
-	printf("%s\n", query);
 
 	query_stat = mysql_query(connection, query);
 	if (query_stat != 0){
@@ -83,9 +123,42 @@ resultTable DB_MySQL::runQuery(const char *query) {
 			mObj << STR_UTF8(sql_row[j]);
 		}
 		result.recode << mObj;
+		//qDebug() << mObj;
 	}
+
 	mysql_free_result(sql_result);
+
 	result.chk = true;
+	result.requestID = mQueryQueue.getRequestID();
+	
+	isReading = false;
 
 	return result;
+}
+
+void DB_MySQL::requestQuery(uint query) {
+	mQueryQueue.requestQuery(query);
+}
+
+void DB_MySQL::Running_receiveDB() {
+
+	//db 접속 에러시 재접속 루틴
+
+	while (true) {
+		if (mQueryQueue.isEmpty()) {
+			//Nothing....
+		} else {
+			if (isReading) {
+				
+				uint query = mQueryQueue.getQueryKind();
+				QByteArray strQuery = gSQL_Query[query].query;
+				
+				resultBuffer = runQuery(strQuery.constData());
+				resultBuffer.dataKind = query;
+
+				emit sigGETDATA(&resultBuffer);
+			}
+			isReading = true;
+		}
+	}
 }

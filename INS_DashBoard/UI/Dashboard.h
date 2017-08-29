@@ -53,7 +53,6 @@ class DashInfoLABEL : public QLabel {
 	DashLABEL *Icon;
 	
 	
-
 public:
 	DashLABEL *Text;
 	DashInfoLABEL(QWidget *parent = 0, QLayout *parentLayout = 0, QString imgSrc = "", uINT w=0);
@@ -114,7 +113,6 @@ public:
 	void onEmergency(uINT Disaster, bool isCutTime, uINT interval, bool keepgoing);
 	void onSafety(void);
 	void onClear(void);
-
 
 signals:
 	void sigTIME_OVER(void);

@@ -115,11 +115,10 @@ class DeviceManagment : public QWidget
 	DECKButton *mDechBtn[3];
 
 	int listWidth;
-	QStandardItemModel *treeModel;
+	//QStandardItemModel *treeModel;
 
 	QStringList headerText;
-	QStandardItemModel *listModel;
-
+	//QStandardItemModel *listModel;
 
 	inline void initLayout();
 	inline void initTreeView();
@@ -132,6 +131,11 @@ public:
 	
 	DeviceManagment(QWidget *parent = 0);
 	~DeviceManagment();
+
+	DeviceView* getDeviceListView(void) { return &mDeviceList; }
+	QTableView* getmCheckListView(void) { return &mCheckList; }
+
+	void setVisibleHeader(uint x, ...);
 
 	void UpdateDeviceView(void);
 	void UpdateInspecView(void);

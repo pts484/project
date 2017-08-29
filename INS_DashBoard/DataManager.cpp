@@ -5,20 +5,32 @@ DataManager::DataManager(QObject *parent)
 	: QObject(parent) {
 }
 
-DataManager::DataManager(UI *_ui, AudioRecorder *_ar, DataStorage *_ds, VoiceSender *_vs, DB_MySQL *_db, QObject *parent)
+DataManager::DataManager(UI *_ui, AudioRecorder *_ar, DataStorage *_ds, 
+						 VoiceSender *_vs, DB_MySQL *_db, JsonControll *_json,
+						 QObject *parent)
 	: QObject(parent) {
 
 	talkTIme = 0;
 
-	setClassLink(_ui, _ar, _ds, _vs, _db);
+	setClassLink(_ui, _ar, _ds, _vs, _db, _json);
 
 	pDM_vs->moveToThread(&wavFileSendThread);
+	pDM_db->moveToThread(&dataReceiveThread);
 
+	pDM_uiDash->getTagView()->setModel(pDM_ds->mTagBuffer.getModel());
+	pDM_uiDash->getAPView()->setModel(pDM_ds->mAPBuffer.getModel());
+	pDM_uiDevice->getDeviceListView()->setModel(pDM_ds->mDeckTreeBuffer.getModel());
 	setConnection();
+	
 
+	//DashBoard data Read
+	dataReceiveThread.start();
 
-	pDM_db->connectDB();
-	update_DashBoard();
+	//device List Data Read
+	pDM_db->requestQuery(DEVICELIST_DATA);
+
+	//DashBoard update start
+	mUpdateTimer.start(1000);
 }
 
 DataManager::~DataManager() {
@@ -29,17 +41,19 @@ DataManager::~DataManager() {
 	disconnect(pDM_vs, SIGNAL(sigSendEND()), &wavFileSendThread, SLOT(quit()));
 }
 
-void DataManager::setClassLink(UI *_ui, AudioRecorder *_ar, DataStorage *_ds, VoiceSender *_vs, DB_MySQL *_db) {
+void DataManager::setClassLink(UI *_ui, AudioRecorder *_ar, DataStorage *_ds,
+							   VoiceSender *_vs, DB_MySQL *_db, JsonControll *_json) {
 	pDM_ui = _ui;
 	pDM_ar = _ar;
 	pDM_ds = _ds;
 	pDM_vs = _vs;
 	pDM_db = _db;
+	pDM_json = _json;
 
 	pDM_uiDash		= _ui->uiDashBoard;
 	pDM_uiDevice	= _ui->uiDevice;
 
-	pCount = &_ds->mCountData;
+	//pCount = &_ds->mCountData;
 }
 
 inline void DataManager::setConnection(void) {
@@ -52,6 +66,17 @@ inline void DataManager::setConnection(void) {
 	
 	connect(&wavFileSendThread, SIGNAL(started()), pDM_vs, SLOT(SendToVoiceFile()));
 	connect(pDM_vs, SIGNAL(sigSendEND()), &wavFileSendThread, SLOT(quit()));
+
+	// request db
+	connect(&dataReceiveThread, SIGNAL(started()), pDM_db, SLOT(Running_receiveDB()));
+
+	// update dashboard;
+	connect(&mUpdateTimer, SIGNAL(timeout()), this, SLOT(reading_DB()));
+	connect(pDM_db, SIGNAL(sigGETDATA(resultTable *)), this, SLOT(UPDATE_DATA(resultTable *)));
+
+	//update Device Managment
+	connect(pDM_uiDevice, SIGNAL(sigDeviceID(QString)), this, SLOT());
+	
 }
 
 void DataManager::timerEvent(QTimerEvent *event) {
@@ -114,61 +139,84 @@ void DataManager::onReleaseMODEBtn(void) {
 	pDM_ar->hide();
 }
 
-void DataManager::update_DashBoard(void) {
-	qDebug() << "update_DashBoard";
-
-	//read DB Data
-	dbDataBuf = pDM_db->runQuery("select * from taginfo");
+void DataManager::update_DashBoard(resultTable result) {
+	//qDebug() << "update_DashBoard";
 	
-	if (!dbDataBuf.chk) {
-		qDebug() << "DB READ ERROR !";
-		return;
-	}
-	//create UI List Item 
-	for (int i = 0; i < dbDataBuf.recode.size(); ++i) {
-		QStringList &pObj = dbDataBuf.recode.takeAt(i);
-		pDM_ds->mTagBuffer.addRecode(pObj.at(ColumeIndex_TAG::TagID), pObj);
-	}
+	//dbDataBuf = result;
 
-	//Tag Enable/Disable count Check
-	pDM_ds->mTagBuffer.checkToActive(ACTIVE_INTERVAL, ColumeIndex_TAG::TagDATE);
+	//update Tag Data
+	pDM_ds->mTagBuffer.updateBuffer(&result);
+
 	pDM_ds->checkToPeople();
+	pDM_ui->uiDashBoard->updateDASHBOARD(
+		QString::number(pDM_ds->mTagBuffer.getEnable()),
+		QString::number(pDM_ds->mTagBuffer.getDisable()),
+		QString::number(pDM_ds->mAPBuffer.getEnable()),
+		QString::number(pDM_ds->mAPBuffer.getDisable()),
+		QString::number(pDM_ds->mTagBuffer.getEnable() + pDM_ds->mTagBuffer.getDisable()),
+		QString::number(pDM_ds->mSafety),
+		QString::number(pDM_ds->mDenger)
+	);
+	dbDataBuf.recode.clear();
+	dbDataBuf.chk = false;
 
-	QStandardItemModel *pTagModel = pDM_ds->mTagBuffer.getModel();
-	pDM_ui->uiDashBoard->getTagView()->setModel(pTagModel);
-	pDM_ds->mTagBuffer.updateModel();
-
-	QStandardItemModel *pAPModel = pDM_ds->mAPBuffer.getModel();
-	pDM_ui->uiDashBoard->getAPView()->setModel(pAPModel);
-	pDM_ds->mAPBuffer.updateModel();
-
-	QStringList TagHead, APHead;
-	TagHead << STR_KOR("TAG ID") << STR_KOR("TAG 이름") << STR_KOR("마지막 배터리 상태");
-	APHead << STR_KOR("AP ID") << STR_KOR("AP 이름") << STR_KOR("데크");
+	/** Table View Header update  *************************************************/
+	QStringList TagHead, APHead, DeviceHead;
+	for each (auto& strKey in gTAG_INDEX) {
+		TagHead << strKey.name;
+	}
+	for each (auto& strKey in gAP_INDEX) {
+		APHead << strKey.name;
+	}
+	for each (auto& strKey in gDEVICE_INDEX) {
+		DeviceHead << strKey.name;
+	}
 
 	pDM_ds->mTagBuffer.setViewHeader(TagHead);
 	pDM_ds->mAPBuffer.setViewHeader(APHead);
+	pDM_ds->mDeckTreeBuffer.setViewHeader(DeviceHead);
 
 	DashLISTView *pTargetList = pDM_ui->uiDashBoard->getTagView();
-	//pTargetList->setVisibleHeader();
+	pTargetList->setVisibleHeader(4, TAG_NO, CALC_DATE, SRC, BAT_V);
 
-	pDM_ui->uiDashBoard->updateDASHBOARD(
-		QString::number(pCount->nTagEnable),
-		QString::number(pCount->nTagDisable),
-		QString::number(pCount->nAPEnable),
-		QString::number(pCount->nAPDisable),
-		QString::number(pCount->nPeopleTotal),
-		QString::number(pCount->nPeopleEnable),
-		QString::number(pCount->nPeopleDisable)
-	);
-
-	dbDataBuf.recode.clear();
+	pDM_uiDevice->setVisibleHeader(2, DeviceID, DeviceName);
+	/*******************************************************************************/
 }
 
-void DataManager::update_DeviceManagment(void) {
+
+void DataManager::update_DeviceManagment(resultTable result) {
+	qDebug() << "update_DeviceManagment";
+	
+	pDM_ds->mDeckTreeBuffer.updateBuffer(&result);
+	pDM_uiDevice->getDeviceListView()->expandAll();
 
 }
 
-void DataManager::update_InspectionList(void) {
+void DataManager::update_InspectionList(resultTable result) {
+	qDebug() << "update_InspectionList";
+}
 
+void DataManager::reading_DB(void) {
+	pDM_db->requestQuery(DASHBOARD_DATA);
+}
+
+void DataManager::request_DeviceInspacktion_List(void) {
+	pDM_db->requestQuery(DASHBOARD_DATA);
+}
+
+void DataManager::UPDATE_DATA(resultTable *result) {
+
+	switch (result->dataKind) {
+		case DASHBOARD_DATA:
+			update_DashBoard(*result);
+			break;
+		case DEVICELIST_DATA:
+			update_DeviceManagment(*result);
+			break;
+		case INSPACKTION_DATA:
+			update_InspectionList(*result);
+			break;
+		case NONE_DATA:
+			break;
+	}	
 }

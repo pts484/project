@@ -19,8 +19,8 @@ Dashboard::Dashboard(QWidget *parent)
 
 	initLayout();
 	
-	//this->setMaximumSize(1600, 1200);
-	//this->setMinimumSize(1600, 1200);
+	//this->setMaximumSize(WINDOWS_SIZEX, WINDOWS_SIZEX);
+	//this->setMinimumSize(WINDOWS_SIZEX, WINDOWS_SIZEX);
 
 	PTTBtn->hide();
 	EmergencyBtn->hide();
@@ -70,6 +70,7 @@ inline void Dashboard::initLayout(void) {
 	cntTAG_On->setText("0");
 	cntTAG_Off = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_TAG_OFF", layoutWidth);
 	mTAGView = new DashLISTView(this, &vLayoutLeft, layoutWidth, 132);
+
 
 	DashLABEL *pApTitle  = new DashLABEL(this, &vLayoutLeft, ":/DLABEL_AP",  "");
 	cntAP_On  = new DashInfoLABEL(this, &vLayoutLeft, ":/DICON_AP_ON", layoutWidth);
@@ -129,7 +130,7 @@ inline void Dashboard::initLayout(void) {
 
 void Dashboard::resizeEvent(QResizeEvent *event) {
 	qDebug() << "run Dashboard Event";
-	QSize size = QSize(1600, 1200) / 2 - (PTTBtn->size() / 2);
+	QSize size = QSize(WINDOWS_SIZEX, WINDOWS_SIZEY) / 2 - (PTTBtn->size() / 2);
 	PTTBtn->setGeometry(size.width(), size.height() - 200, PTTBtn->size().width(), PTTBtn->size().height());
 	EmergencyBtn->setGeometry(size.width(), (size.height()*2 + 50) - (EmergencyBtn->size().height()/2), EmergencyBtn->size().width(), EmergencyBtn->size().height());
 	MICOptionBtn->setGeometry(size.width() + 33 + MICOptionBtn->size().width(), (size.height()*2 + 50) - (MICOptionBtn->size().height()/2), MICOptionBtn->size().width(), MICOptionBtn->size().height());
@@ -346,22 +347,19 @@ DashLISTView::~DashLISTView() {
 
 void DashLISTView::setVisibleHeader(uint x, ...) {
 	va_list list;
-
 	int colIndex = 0;
+
+	for each (auto& strKey in gTAG_INDEX) {
+		this->setColumnHidden(colIndex++, true);
+	}
 
 	va_start(list, x);
 
-	int targetHeadIndex = va_arg(list, uint);
-
-
-	while (this->columnAt(colIndex++) != -1) {}
-	if (targetHeadIndex != colIndex) {
-		this->hideColumn(colIndex);
+	for (int i = 0; i < x; ++i) {
+		int targetHeadIndex = va_arg(list, uint);
+		this->showColumn(targetHeadIndex);
 	}
 	va_end(list);
-
-
-
 }
 
 //////////////////////////////////////////////////////////////////////////////////////

@@ -19,8 +19,10 @@ class DashBoard_main : public QObject
 	AudioRecorder	*pAudioRecoder;
 	VoiceSender		*pVoiceSender;
 	DB_MySQL		*pMySQL;
-	DataManager		*pDataManager;
 	JsonControll	*pJsonControll;
+
+	DataManager		*pDataManager;
+	
 
 	
 public:
