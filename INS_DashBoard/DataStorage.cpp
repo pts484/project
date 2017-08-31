@@ -150,77 +150,122 @@ void Buffer::updateBuffer(resultTable *result) {
 
 
 /*********************************************************************************/
-/* TreeBuffer																	 */
+/* DeviceBuffer																	 */
 /*********************************************************************************/
-TreeBuffer::TreeBuffer() {
+DeviceBuffer::DeviceBuffer() {
 
+	QGraphicsPixmapItem *map = new QGraphicsPixmapItem();
+	this->drawImage(map, ":/DECK_1", 0.5, 0, 0, false);
+	mDeviceOnDECK[0].addItem(map);
+
+	map = new QGraphicsPixmapItem();
+	this->drawImage(map, ":/DECK_2", 0.5, 0, 0, false);
+	mDeviceOnDECK[1].addItem(map);
+
+	map = new QGraphicsPixmapItem();
+	this->drawImage(map, ":/DECK_3", 0.5, 0, 0, false);
+	mDeviceOnDECK[2].addItem(map);
+
+	map = new QGraphicsPixmapItem();
+	this->drawImage(map, ":/DECK_4", 0.5, 0, 0, false);
+	mDeviceOnDECK[3].addItem(map);
+
+	pCurrentDECK = &mDeviceOnDECK[0];
 }
-TreeBuffer::~TreeBuffer() {
+
+DeviceBuffer::~DeviceBuffer() {
 }
 
-void TreeBuffer::addDevice(QString key, QStringList &_device) {
+void DeviceBuffer::addDevice(QString key, QStringList &_device) {
 
-	QHash<QString, rowData>::const_iterator it = this->constFind(key);
+	QHash<QString, deviceData>::const_iterator it = this->constFind(key);
 
 	if (it == this->constEnd()) { //장비가 없으면 추가
-		rowData tmp;
-		tmp.clear();
+		deviceData tmp;
+		tmp.data.clear();
 
 		for each(QString str in _device) {
-			tmp << new QStandardItem(str);
+			tmp.data << new QStandardItem(str);
 		}
+
+		tmp.icon = new QGraphicsPixmapItem();
+		this->drawImage(tmp.icon,
+			gDEVICE_Type[(_device.at(DeviceType).toInt()) - 1].key,
+			0.15,
+			_device.at(LocX).toDouble(),
+			_device.at(LocY).toDouble(),
+			true);
+
 		this->insert(key, tmp);
-		qDebug() << "device insert ::" << key;
+
+		//qDebug() << "device insert ::" << key << gDEVICE_Type[(_device.at(DeviceType).toInt()) - 1].name;
 	} else {						//장비가 있으면 값 수정
 
 		int i = 0;
 		for each(QString str in _device) {
-			it.value().at(i)->setData(str);
+			it.value().data.at(i)->setData(str);
 			++i;
 		}
-		qDebug() << "device update ::" << key;
+
+		it.value().icon->setPos(_device.at(LocX).toDouble(), _device.at(LocY).toDouble());
+		//qDebug() << "device insert ::" << key << gDEVICE_Type[(_device.at(DeviceType).toInt()) - 1].name;
 	}
 }
 
-void TreeBuffer::delDevice(QString key) {
-	rowData mObj = this->take(key);
-	for each(QStandardItem *obj in mObj) {
+void DeviceBuffer::delDevice(QString key) {
+
+	deviceData mObj = this->take(key);
+	for each(QStandardItem *obj in mObj.data) {
 		if (obj != NULL) {
 			delete obj;
 			obj = NULL;
 		}
 	}
+
+	if (mObj.icon->scene() != 0) {
+		mObj.icon->scene()->removeItem(mObj.icon);
+	}
+	delete mObj.icon;
+
+	qDebug() << "device delete ::" << key;
 }
 
-void TreeBuffer::setViewHeader(QStringList list) {
+void DeviceBuffer::setViewHeader(QStringList list) {
 	treeModel.setHorizontalHeaderLabels(list);
 }
 
-void TreeBuffer::updateModel() {
+void DeviceBuffer::updateModel() {
 
-	QHash<QString, rowData>::iterator it = this->begin();
+	QHash<QString, deviceData>::iterator it = this->begin();
 	for (; it != this->end(); ++it) {
-		QString type = it.value().at(ColumeIndex_DEVICE::DeviceType)->text();
+		QString type = it.value().data.at(ColumeIndex_DEVICE::DeviceType)->text();
 
 		QHash<QString, QStandardItem *>::iterator pRoot = rootItem.find(type);
 
 		if (pRoot != rootItem.end()) {
-			pRoot.value()->appendRow(it.value());
+			pRoot.value()->appendRow(it.value().data);
 		} else {
 			QStandardItem *pRootItem = new QStandardItem(type);
 			rootItem.insert(type, pRootItem);
-			pRootItem->appendRow(it.value());
+			pRootItem->appendRow(it.value().data);
 			treeModel.appendRow(pRootItem);
 		}
+
+		int numOfdeck = it.value().data.at(LocZ)->text().toInt();
+		if (numOfdeck >= NUMBER_OF_DECK) {
+			numOfdeck = NUMBER_OF_DECK - 1;
+		}
+
+		mDeviceOnDECK[numOfdeck].addItem(it.value().icon);
 	}
 }
 
-void TreeBuffer::updateType() {
+void DeviceBuffer::updateType() {
 
 	//treeModel.findItems();
 }
 
-void TreeBuffer::updateBuffer(resultTable *result) {
+void DeviceBuffer::updateBuffer(resultTable *result) {
 
 	while (!result->recode.isEmpty()) {
 		QStringList *pObj = &result->recode.takeFirst();
@@ -229,6 +274,35 @@ void TreeBuffer::updateBuffer(resultTable *result) {
 
 	updateModel();
 }
+
+void DeviceBuffer::selectScene(int num) { 
+	
+	pCurrentDECK = &mDeviceOnDECK[num]; 
+}
+
+void DeviceBuffer::drawImage(QGraphicsPixmapItem *item, QString imgSrc, float _scale, int _x, int _y, bool movement) {
+
+	QImage img;
+	QPixmap imgBuf;
+
+	if (img.load(imgSrc)) {
+		imgBuf = QPixmap::fromImage(img);
+	} else {
+		img.load(":/FAILED");
+		imgBuf = QPixmap::fromImage(img);
+		qDebug() << imgSrc << " Image Load Faild";
+	}
+	//imgBuf.scaled(imgBuf.size().width() * 0.1, imgBuf.size().height() * 0.1);
+
+	item->setPixmap(QPixmap(imgBuf));
+	item->setPos(_x, _y);
+	item->setScale(_scale);
+
+	if (movement) {
+		item->setFlag(QGraphicsItem::ItemIsMovable);
+	}
+}
+
 /*********************************************************************************/
 /* DataStorage																	 */
 /*********************************************************************************/

@@ -35,7 +35,6 @@
         <file alias="DDOWNBTN_PTT_PRESS">img/DDOWNBTN_PTT_PRESS.png</file>
         <file alias="DEICON_DECK">img/Device_ICON_DECK.png</file>
         <file alias="DE_BOTTOMBAR">img/DEVICE_BOTTOMBAR.png</file>
-        <file alias="SHIP_DECK_B">img/B_DECK.png</file>
         <file alias="DE_ICON_BOAT">img/DEVICE_ICON_BOAT.png</file>
         <file alias="DE_ICON_FIRSTAID">img/DEVICE_ICON_FirstAid.png</file>
         <file alias="DE_ICON_MCENTER">img/DEVICE_ICON_MCENTER.png</file>
@@ -43,5 +42,9 @@
         <file alias="DE_ICON_VEST">img/DEVICE_ICON_VEST.png</file>
         <file alias="DBTN_EMMODE_BTN">img/EmergencyMODE_Btn.png</file>
         <file alias="DBTN_MICOPTION_BTN">img/MIC_Option_Btn.png</file>
+        <file alias="DECK_2">img/SHIP_2nd_DECK.png</file>
+        <file alias="DECK_4">img/SHIP_COMPASS_DECK.png</file>
+        <file alias="DECK_1">img/SHIP_TANK_TOP_PLAN.png</file>
+        <file alias="DECK_3">img/SHIP_UPPER_DECK.png</file>
     </qresource>
 </RCC>

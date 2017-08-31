@@ -18,11 +18,7 @@ DECKView::DECKView(QWidget *parent){
 	pCurrentDECK = new QGraphicsScene(parent);
 	pCurrentDECK->setItemIndexMethod(QGraphicsScene::NoIndex);
 	
-	this->setScene(pCurrentDECK);
 	this->setFixedSize(1300, 700);
-
-	drawImage(":/SHIP_DECK_B", 0.5, 0, 0, false);
-	drawImage(":/DE_ICON_BOAT", 0.15, 1000, 1000, true);
 
 	this->show();
 }
@@ -54,7 +50,6 @@ void DECKView::drawImage(QString imgSrc, float _scale, int _x, int _y, bool move
 	}
 	
 	pCurrentDECK->addItem(Icons);
-	
 }
 
 void DECKView::mousePressEvent(QMouseEvent *event) {

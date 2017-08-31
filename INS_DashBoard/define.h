@@ -23,9 +23,9 @@
 #define CHOP(x) x[strlen(x) - 1] = ' '
 
 /*******         #define JSON_URL "SDD 서버"			*******/
-#define JSON_URL_ALL "http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=all"
-#define JSON_URL_DEVICELIST "http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=devicelist"
-#define JSON_URL_INSPACKTION "http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=all"
+#define JSON_URL_ALL			"http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=all"
+#define JSON_URL_DEVICELIST		"http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=devicelist"
+#define JSON_URL_INSPACKTION	"http://10.10.12.158/ConvenienceServer/Convenience_Server.jsp?msg=all"
 
 
 /*******         #define PTT_HOST "PTT 서버"		    *******/
@@ -38,14 +38,14 @@
 
 /*******         TAG & AP Disable chack Interval 		*******/
 #define ACTIVE_INTERVAL		8000
-#define TIME_FORMAT			"yyyy-MM-dd hh:mm:ss.000zzz"
+#define TIME_FORMAT			"yyyy-MM-dd hh:mm:ss.000zzz" 
 
 
 /******* FLAG **************************************************/
 //#define _TESTCODE_DASHBOARD	// Test Code
 
 
-#define DECK_SIZE 3
+#define NUMBER_OF_DECK 4
 
 typedef struct {
 	uint nTagTotal;
@@ -128,7 +128,7 @@ struct SQL_Query {
 
 const struct SQL_Query gSQL_Query[] = {
 	{ NONE_DATA, ""},
-	{ DASHBOARD_DATA, "select * from taginfo" },
+	{ DASHBOARD_DATA,  "select * from taginfo" },
 	{ DEVICETYPE_DATA, "select * from enumsafetydevice" },
 	{ DEVICELIST_DATA, "select * from safetydevicemanagment" },
 	{ INSPACKTION_DATA, "" },
@@ -171,6 +171,14 @@ const struct colIndex gDEVICE_INDEX[] = {
 	{ STR_KOR("담당자"),	"ManagerID",	ManagerID },
 };
 
+const struct colIndex gDEVICE_Type[] = {
+	{ STR_KOR("구명조끼"),	":/DE_ICON_VEST",		1 },
+	{ STR_KOR("구명정"),	":/DE_ICON_BOAT",		2 },
+	{ STR_KOR("구급상자"),	":/DE_ICON_FIRSTAID",	3 },
+	{ STR_KOR("의료실"),	":/DE_ICON_MCENTER",	4 },
+	{ STR_KOR("소화기"),	":/DE_ICON_TUBE",		5 },
+};
+
 const struct naming gNAME_SRC[] = {
 	{"TAG RTT", 0},
 	{"TAG RSS", 1},
@@ -183,6 +191,10 @@ const struct naming gNAME_POSKIND[] = {
 	{ "ZigBee", 1 },
 	{ "UWB", 2 },
 };
+
+
+
+
 
 //resultTable gDB_Result;
 

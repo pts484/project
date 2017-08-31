@@ -19,7 +19,7 @@ DataManager::DataManager(UI *_ui, AudioRecorder *_ar, DataStorage *_ds,
 
 	pDM_uiDash->getTagView()->setModel(pDM_ds->mTagBuffer.getModel());
 	pDM_uiDash->getAPView()->setModel(pDM_ds->mAPBuffer.getModel());
-	pDM_uiDevice->getDeviceListView()->setModel(pDM_ds->mDeckTreeBuffer.getModel());
+	pDM_uiDevice->getDeviceListView()->setModel(pDM_ds->mDeckDeviceBuffer.getModel());
 	setConnection();
 	
 
@@ -174,7 +174,7 @@ void DataManager::update_DashBoard(resultTable result) {
 
 	pDM_ds->mTagBuffer.setViewHeader(TagHead);
 	pDM_ds->mAPBuffer.setViewHeader(APHead);
-	pDM_ds->mDeckTreeBuffer.setViewHeader(DeviceHead);
+	pDM_ds->mDeckDeviceBuffer.setViewHeader(DeviceHead);
 
 	DashLISTView *pTargetList = pDM_ui->uiDashBoard->getTagView();
 	pTargetList->setVisibleHeader(4, TAG_NO, CALC_DATE, SRC, BAT_V);
@@ -187,8 +187,9 @@ void DataManager::update_DashBoard(resultTable result) {
 void DataManager::update_DeviceManagment(resultTable result) {
 	qDebug() << "update_DeviceManagment";
 	
-	pDM_ds->mDeckTreeBuffer.updateBuffer(&result);
+	pDM_ds->mDeckDeviceBuffer.updateBuffer(&result);
 	pDM_uiDevice->getDeviceListView()->expandAll();
+	pDM_uiDevice->getDECKView()->setScene(pDM_ds->mDeckDeviceBuffer.getScene(0));
 
 }
 

@@ -35,7 +35,6 @@ class DashLABEL;
 class DECKView : public QGraphicsView{
 	Q_OBJECT
 
-
 	QGraphicsScene *pCurrentDECK;
 	QGraphicsPixmapItem *Icons;
 
@@ -43,6 +42,8 @@ public:
 
 	DECKView(QWidget *parent = Q_NULLPTR);
 	~DECKView();
+
+	
 
 	void drawImage(QString imgSrc, float _scale, int _x, int _y, bool movement);
 
@@ -134,6 +135,7 @@ public:
 
 	DeviceView* getDeviceListView(void) { return &mDeviceList; }
 	QTableView* getmCheckListView(void) { return &mCheckList; }
+	DECKView*	getDECKView(void)		{ return mImgShipDeck; };
 
 	void setVisibleHeader(uint x, ...);
 

@@ -1,0 +1,11 @@
+﻿  Moc'ing TagLocationSimulatior.h...
+  Moc'ing db_mysql.h...
+  db_mysql.cpp
+db\db_mysql.cpp(43): warning C4552: '-': 의미 없는 연산자입니다. 파생 작업이 있는 연산자여야 합니다.
+  moc_db_mysql.cpp
+  moc_TagLocationSimulatior.cpp
+  main.cpp
+  TagLocationSimulatior.cpp
+  코드를 생성하고 있습니다...
+  qrc_TagLocationSimulatior.cpp
+  QtGuiApplication1.vcxproj -> E:\Development\[Git]\INS_DashBoard\x64\Release\QtGuiApplication1.exe

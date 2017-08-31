@@ -13,6 +13,9 @@
 #include <QStandardItem>
 #include <QStandardItemModel>
 
+#include <QGraphicsPixmapItem>
+#include <QGraphicsScene>
+
 #include<time.h>
 
 #include "define.h"
@@ -26,11 +29,16 @@ typedef struct {
 	QStringList recode;
 }rowGroup;
 
+typedef struct {
+	QGraphicsPixmapItem	*icon;
+	QList<QStandardItem *> data;
+}deviceData;
+
 typedef QList<QStandardItem *>			  rowData;
 typedef QHash<QString, QStandardItem *>   RootType;
 
-typedef QHash<QString, rowGroup> HashBuffer;
-typedef QHash<QString, rowData>  HashTBuffer;
+typedef QHash<QString, rowGroup>		  HashBuffer;
+typedef QHash<QString, deviceData>		  HashTBuffer;
 
 
 class Buffer : public HashBuffer {
@@ -68,10 +76,14 @@ public:
 
 };
 
-class TreeBuffer : public HashTBuffer {
+class DeviceBuffer : public HashTBuffer {
 
+	QGraphicsScene		*pCurrentDECK;
+	QGraphicsScene		mDeviceOnDECK[NUMBER_OF_DECK];
 	QStandardItemModel	treeModel;
 	RootType			rootItem;
+
+	void drawImage(QGraphicsPixmapItem *item, QString imgSrc, float _scale, int _x, int _y, bool movement);
 
 public:
 	
@@ -84,10 +96,12 @@ public:
 	void updateType();
 	void updateBuffer(resultTable *result);
 
+	void			selectScene(int num);
+	QGraphicsScene* getScene(int num) { return &mDeviceOnDECK[num]; }
 	QStandardItemModel* getModel() { return &treeModel; }
 
-	TreeBuffer();
-	~TreeBuffer();
+	DeviceBuffer();
+	~DeviceBuffer();
 
 };
 
@@ -105,7 +119,7 @@ public:
 
 	//Device Managment -------------------//
 	QStringList mDeviceType;
-	TreeBuffer mDeckTreeBuffer;
+	DeviceBuffer mDeckDeviceBuffer;
 
 
 	DataStorage(void);
