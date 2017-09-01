@@ -37,7 +37,7 @@
 
 
 /*******         TAG & AP Disable chack Interval 		*******/
-#define ACTIVE_INTERVAL		8000
+#define ACTIVE_INTERVAL		5
 #define TIME_FORMAT			"yyyy-MM-dd hh:mm:ss.000zzz" 
 
 

@@ -26,12 +26,17 @@
 #include <QHBoxLayout>
 
 #include <QDebug>
+#include <QMenu>
+
+
 #include "DataStorage.h"
 
 
 class DashLABEL;
 
-
+/*********************************************************************************/
+/* DECKView																	 */
+/*********************************************************************************/
 class DECKView : public QGraphicsView{
 	Q_OBJECT
 
@@ -55,6 +60,10 @@ protected:
 
 };
 
+
+/*********************************************************************************/
+/* DECKButton																	 */
+/*********************************************************************************/
 class DECKButton : public QPushButton {
 	Q_OBJECT
 
@@ -74,6 +83,10 @@ public:
 	void mouseReleaseEvent(QMouseEvent *event);
 };
 
+
+/*********************************************************************************/
+/* DeviceView																	 */
+/*********************************************************************************/
 class DeviceView : public QTreeView {
 	Q_OBJECT
 public:
@@ -82,19 +95,33 @@ public:
 	~DeviceView();
 
 	QString selectId;
-
 	QModelIndex sigCell;
+
+	/* Mouse Event Function */
 	void mouseDoubleClickEvent(QMouseEvent *event);
 	void mouseReleaseEvent(QMouseEvent *event);
 	void mouseMoveEvent(QMouseEvent *event);
 	
-
 signals:
 	void sigSelectDeviceID(QString);
+	void sigRelocation_Icon(QString);
+	void sigDelete_Icon(QString);
+	void sigModify_Icon(QString);
+
+private slots:
+	void ShowContextMenu(const QPoint& pos, QString _Id);
+
+	void onRelocation_Icon();
+	void onDelete_Icon();
+	void onModify_Icon();
 
 public slots:
 };
 
+
+/*********************************************************************************/
+/* DeviceManagment																	 */
+/*********************************************************************************/
 class DeviceManagment : public QWidget
 {
 	Q_OBJECT
@@ -109,8 +136,8 @@ class DeviceManagment : public QWidget
 
 	DeviceView	mDeviceList;
 	QTableView	mCheckList;
-
 	DECKView	*mImgShipDeck;
+
 	QLabel		mCanvas;
 
 	DECKButton *mDechBtn[3];
@@ -138,7 +165,6 @@ public:
 	DECKView*	getDECKView(void)		{ return mImgShipDeck; };
 
 	void setVisibleHeader(uint x, ...);
-
 	void UpdateDeviceView(void);
 	void UpdateInspecView(void);
 
@@ -147,6 +173,9 @@ signals:
 
 public slots:
 
+	void onDECK_ItemReLocation(QString);
+	void onDECK_ItemDelete(QString);
+	void onDECK_ItemModify(QString);
 
 };
 #endif //DEVICEMANAGMENT_H

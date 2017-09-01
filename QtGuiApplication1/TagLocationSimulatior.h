@@ -2,6 +2,7 @@
 #define MAIN_H_
 
 #include <QtWidgets/QMainWindow>
+#include <QScrollArea>
 #include <QLabel>
 #include <qlineedit.h>
 #include <QVBoxLayout>
@@ -13,6 +14,7 @@
 
 #include <QString>
 #include <QList>
+#include <qvalidator.h>
 
 #include <Qthread>
 
@@ -23,10 +25,6 @@
 #define TABLENAME			"taginfo"
 #define TIME_FORMAT			"yyyy-MM-dd hh:mm:ss.000zzz" 
 #define NUMBER_OF_SIMULATION 30
-
-
-
-
 
 /*****************************************************************************/
 /* OBJECT                                                                    */
@@ -59,7 +57,7 @@ class UI_OBJECT : public QLabel {
 		QSpacerItem *spacer;
 
 		uint	interval;
-		double posX, posY, posZ;
+		double nposX, nposY, nposZ;
 		QString	TagID;
 
 		QTimer timer;
@@ -70,9 +68,10 @@ signals:
 
 		
 public:
+	double *posX[2], *posY[2], *posZ[2];
 	uint simulatorID;
 
-	UI_OBJECT(QWidget *parent, QLayout *_layout, uint num);
+	UI_OBJECT(QWidget *parent, QLayout *_layout, uint num, double _x[], double _y[], double _z[]);
 	~UI_OBJECT();
 
 	double fRand(double fMin, double fMax);
@@ -95,14 +94,14 @@ class Simulation : public QObject {
 
 public:
 
-	QLayout *pLayout;
+	QVBoxLayout *pLayout;
 
 	uint		simulatorID;
 	QThread		thread;
 	UI_OBJECT	*TagWorker;
 
 	Simulation() {};
-	Simulation(QWidget *parent, QLayout *_layout, uint num);
+	Simulation(QWidget *parent, QVBoxLayout *_layout, uint num, double _x[], double _y[], double _z[]);
 	~Simulation();
 
 
@@ -121,16 +120,23 @@ class TagLocationSimulatior : public QMainWindow
 {
 	Q_OBJECT
 
-	QWidget centralW;
+	
+	QScrollArea centralW;
+	QWidget		widget;
 	QVBoxLayout layout;
 
 	QPushButton addBtn;
+
+	QHBoxLayout editLayout;
+	QLineEdit   xEdit[2], yEdit[2], zEdit[2];
+	QPushButton xyzApply;
 
 	QList<Simulation *> Simuls;
 
 	uint number;
 
 public:
+	double posX[2], posY[2], posZ[2];
 	TagLocationSimulatior(QWidget *parent = Q_NULLPTR);
 
 
@@ -139,9 +145,10 @@ private slots:
 	
 	void simulationIsDone();
 
-
 	void addSimulatior();
 	void delSimulatior(uint);
+
+	void setMinMax();
 
 
 };

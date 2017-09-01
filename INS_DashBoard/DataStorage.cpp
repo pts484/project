@@ -100,16 +100,14 @@ void Buffer::updateModel(void) {
 }
 
 inline void Buffer::checkToNumber(void) {
-	if (this->size() <= 0) {
-		mTotal = 0;
-		mEnable = 0;
-		mDisable = 0;
-		return;
-	}
 
 	mTotal = 0;
 	mEnable = 0;
 	mDisable = 0;
+
+	if (this->size() <= 0) {
+		return;
+	}
 
 	HashBuffer::ConstIterator i = this->constBegin();
 	while (i != this->end()) {

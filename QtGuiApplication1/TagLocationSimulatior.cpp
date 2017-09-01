@@ -4,7 +4,7 @@
 /*****************************************************************************/
 static qulonglong defulteID = 7718106562511;
 
-UI_OBJECT::UI_OBJECT(QWidget *parent, QLayout *_layout, uint num){
+UI_OBJECT::UI_OBJECT(QWidget *parent, QLayout *_layout, uint num, double _x[], double _y[], double _z[]){
 
 	flag = true;
 
@@ -16,9 +16,16 @@ UI_OBJECT::UI_OBJECT(QWidget *parent, QLayout *_layout, uint num){
 	isRuning = false;
 	isApply = false;
 
-	posX = 0.0;
-	posY = 0.0;
-	posZ = 0.0;
+	nposX = 0.0;
+	nposY = 0.0;
+	nposZ = 0.0;
+
+	posX[0] = &_x[0];
+	posX[1] = &_x[1];
+	posY[0] = &_y[0];
+	posY[1] = &_y[1];
+	posZ[0] = &_z[0];
+	posZ[1] = &_z[1];
 
 	TagID = "";
 	interval = 1000;
@@ -42,7 +49,7 @@ UI_OBJECT::UI_OBJECT(QWidget *parent, QLayout *_layout, uint num){
 	layout.addWidget(&nLocationVlaueY);
 	layout.addWidget(&nLocationVlaueZ);
 
-	qDebug() << defulteID;
+	//qDebug() << defulteID;
 	nTagID.setText(QString::number(defulteID++));
 	nInterval.setText(QString::number(interval));
 	nNum.setText(QString::number(simulatorID));
@@ -62,6 +69,7 @@ UI_OBJECT::UI_OBJECT(QWidget *parent, QLayout *_layout, uint num){
 	nStop.setDisabled(true);
 
 	this->setFixedSize(QSize(1000, 50));
+	this->setSizePolicy(QSizePolicy::Expanding, QSizePolicy::Ignored);
 
 	connect(&timer,		SIGNAL(timeout()),		this, SLOT(onQuery()));
 	connect(&nApply,	SIGNAL(clicked()),		this, SLOT(onApply()));
@@ -84,7 +92,7 @@ UI_OBJECT::~UI_OBJECT() {
 void UI_OBJECT::onApply(void) {
 
 	if (nTagID.text().length() != 13) {
-		qDebug() << "currupt";
+		//qDebug() << "currupt";
 		return;
 	} else {
 		TagID = nTagID.text();
@@ -97,7 +105,7 @@ void UI_OBJECT::onApply(void) {
 		interval = nInterval.text().toInt();
 	}
 
-	qDebug() << TagID << " :: " << interval;
+	//qDebug() << TagID << " :: " << interval;
 
 	isApply = true;
 	nStart.setDisabled(false);
@@ -108,23 +116,23 @@ void UI_OBJECT::onQuery() {
 
 	QString curTime = QDateTime::currentDateTime().toString(TIME_FORMAT);
 
-	posX = fRand(0.0, 70.5);
-	posY = fRand(0.0, 12.3);
-	posZ = fRand(0.0, 4.0);
+	nposX = fRand(*posX[0], *posX[1]);
+	nposY = fRand(*posY[0], *posY[1]);
+	nposZ = fRand(*posZ[0], *posZ[1]);
 
 	QString instance_Query = QString("UPDATE %1 SET CalcDate = '%6', XPOS = %2, YPOS = %3, ZPOS = %4 WHERE TagNo = %5")
 		.arg(TABLENAME)
-		.arg(QString::number(posX))
-		.arg(QString::number(posY))
-		.arg(QString::number(posZ))
+		.arg(QString::number(nposX))
+		.arg(QString::number(nposY))
+		.arg(QString::number(nposZ))
 		.arg(TagID)
 		.arg(curTime);
 
 	db_Interface->updateQuery(instance_Query.toUtf8());
 	
-	nLocationVlaueX.setText(QString("X : [%1]").arg(posX, 9, 'f', -1, QChar('0')));
-	nLocationVlaueY.setText(QString("Y : [%1]").arg(posY, 9, 'f', -1, QChar('0')));
-	nLocationVlaueZ.setText(QString("Z : [%1]").arg(posZ, 9, 'f', -1, QChar('0')));
+	nLocationVlaueX.setText(QString("X : [%1]").arg(nposX, 9, 'f', -1, QChar('0')));
+	nLocationVlaueY.setText(QString("Y : [%1]").arg(nposY, 9, 'f', -1, QChar('0')));
+	nLocationVlaueZ.setText(QString("Z : [%1]").arg(nposZ, 9, 'f', -1, QChar('0')));
 
 }
 
@@ -167,18 +175,18 @@ double UI_OBJECT::fRand(double fMin, double fMax) {
 /*****************************************************************************/
 /* MAIN                                                                      */
 /*****************************************************************************/
-Simulation::Simulation(QWidget *parent, QLayout *_layout, uint num) {
+Simulation::Simulation(QWidget *parent, QVBoxLayout *_layout, uint num, double _x[], double _y[], double _z[]) {
 
 	pLayout = _layout;
 
 	simulatorID = num;
-	TagWorker = new UI_OBJECT(parent, pLayout, num);
+	TagWorker = new UI_OBJECT(parent, pLayout, num, _x, _y, _z);
 	this->moveToThread(&thread);
 
 	connect(&thread, SIGNAL(started()), this, SLOT(onRunning()));
 	connect(this, SIGNAL(finish()), this, SLOT(onDone()));
 
-	pLayout->addWidget(TagWorker);
+	pLayout->addWidget(TagWorker, Qt::AlignTop);
 }
 
 Simulation::~Simulation() {
@@ -198,15 +206,15 @@ Simulation::~Simulation() {
 
 void Simulation::onRunning(void) {
 
-	if (thread.isRunning())
-		qDebug() << "Running Thread ID [" << thread.currentThreadId() << "]";
+	if (thread.isRunning()){}
+		//qDebug() << "Running Thread ID [" << thread.currentThreadId() << "]";
 }
 
 void Simulation::onDone(void) {
 
 	thread.quit();
-	if (!thread.isRunning())
-		qDebug() << "Running Thread ID [" << thread.currentThreadId() << "] is EXIT(0)";
+	if (!thread.isRunning()){}
+		//qDebug() << "Running Thread ID [" << thread.currentThreadId() << "] is EXIT(0)";
 }
 
 /*****************************************************************************/
@@ -218,28 +226,76 @@ TagLocationSimulatior::TagLocationSimulatior(QWidget *parent)
 
 	number = 0;
 
+	posX[0] = 0.0;
+	posX[1] = 12.3;
+	posY[0] = 0.0;
+	posY[1] = 70.5;
+	posZ[0] = 0.0;
+	posZ[1] = 51.0;
+
+	xyzApply.setText("Apply");
+	xEdit[0].setText("0.0");
+	xEdit[1].setText("Max X");
+	yEdit[0].setText("0.0");
+	yEdit[1].setText("Max Y");
+	zEdit[0].setText("0.0");
+	zEdit[1].setText("Max Z");
+
+	xEdit[0].setValidator(new QDoubleValidator(0, 9999, 2, this));
+	xEdit[1].setValidator(new QDoubleValidator(0, 9999, 2, this));
+	yEdit[0].setValidator(new QDoubleValidator(0, 9999, 2, this));
+	yEdit[1].setValidator(new QDoubleValidator(0, 9999, 2, this));
+	zEdit[0].setValidator(new QDoubleValidator(0, 9999, 2, this));
+	zEdit[1].setValidator(new QDoubleValidator(0, 9999, 2, this));
+
+	editLayout.addWidget(&xEdit[0]);
+	editLayout.addWidget(&xEdit[1]);
+	editLayout.addWidget(&yEdit[0]);
+	editLayout.addWidget(&yEdit[1]);
+	editLayout.addWidget(&zEdit[0]);
+	editLayout.addWidget(&zEdit[1]);
+	editLayout.addWidget(&xyzApply);
+
 	addBtn.setText("Add Simulator");
-	//layout.setAlignment(Qt::AlignTop);
-	layout.addWidget(&addBtn);
+	layout.setAlignment(Qt::AlignTop);
+	layout.addWidget(&addBtn, Qt::AlignTop);
+	layout.addLayout(&editLayout, Qt::AlignTop);
 
 	this->setCentralWidget(&centralW);
-	centralW.setLayout(&layout);
+	
+	centralW.setWidgetResizable(true);
+	centralW.setWidget(&widget);
 
+	this->setGeometry(0, 50, 1050, 700);
+	centralW.setGeometry(0, 0, 1050, 700);
+	widget.setGeometry(0, 0, 1050, 700);
+
+	widget.setLayout(&layout);
 
 	connect(&addBtn, SIGNAL(clicked()), this, SLOT(addSimulatior()));
+	connect(&xyzApply, SIGNAL(clicked()), this, SLOT(setMinMax()));
 
+	//qDebug() << "Main Thread ID ::" <<this->thread()->currentThreadId();
+}
 
-	qDebug() << "Main Thread ID ::" <<this->thread()->currentThreadId();
+void TagLocationSimulatior::setMinMax() {
+
+	posX[0] = xEdit[0].text().toDouble();
+	posX[1] = xEdit[1].text().toDouble();
+	posY[0] = yEdit[0].text().toDouble();
+	posY[1] = yEdit[1].text().toDouble();
+	posZ[0] = zEdit[0].text().toDouble();
+	posZ[1] = zEdit[1].text().toDouble();
 }
 
 
 void TagLocationSimulatior::simulationIsDone(void) {
-	qDebug() << "simul is done";
+	//qDebug() << "simul is done";
 }
 
 void TagLocationSimulatior::addSimulatior(void) {
 
-	Simulation *pObj = new Simulation(&centralW, &layout, number++);
+	Simulation *pObj = new Simulation(&widget, &layout, number++, posX, posY, posZ);
 
 	connect(pObj->TagWorker, SIGNAL(sigDelete(uint)), this, SLOT(delSimulatior(uint)));
 	
@@ -255,7 +311,7 @@ void TagLocationSimulatior::addSimulatior(void) {
 
 void TagLocationSimulatior::delSimulatior(uint id) {
 
-	//qDebug() << id << " :: simul is Deleted";
+	////qDebug() << id << " :: simul is Deleted";
 	QList<Simulation *>::iterator it = Simuls.begin();
 
 	Simulation *nObj;

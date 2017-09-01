@@ -54,7 +54,7 @@ void DECKView::drawImage(QString imgSrc, float _scale, int _x, int _y, bool move
 
 void DECKView::mousePressEvent(QMouseEvent *event) {
 	QGraphicsView::mousePressEvent(event);
-	qDebug() << "On MAP Double Cliick";
+	qDebug() << "On MAP Press Cliick";
 	
 	QGraphicsItem *selectObject;
 	selectObject = pCurrentDECK->mouseGrabberItem();
@@ -99,6 +99,8 @@ DECKButton::DECKButton(QString text, QFont *font) {
 	this->setLayout(&mainLayout);
 	this->setMinimumSize(mainLayout.sizeHint());
 	this->setMaximumSize(mainLayout.sizeHint());
+	this->setContextMenuPolicy(Qt::CustomContextMenu);
+
 }
 
 DECKButton::~DECKButton() {
@@ -129,21 +131,66 @@ DeviceView::~DeviceView() {}
 
 void DeviceView::mouseDoubleClickEvent(QMouseEvent *event) {
 
+	//QModelIndex i;
+	selectId = this->currentIndex().sibling(this->currentIndex().row(), 0).data().toString();
+
+	qDebug() << "double Click ";
 	emit sigSelectDeviceID(selectId);
-	selectId = "";
+	//selectId = "";
 }
 
 void DeviceView::mouseReleaseEvent(QMouseEvent *event) {
 	
-	QModelIndex i;
+	//QModelIndex i;
 	selectId = this->currentIndex().sibling(this->currentIndex().row(), 0).data().toString();
+	QString selectDebviveName = this->currentIndex().sibling(this->currentIndex().row(), 1).data().toString();
 	qDebug() << "select Device ID :: " << selectId;
+
+	/* Mouse Right Click Process ***************************************/
+	if (event->button() == Qt::RightButton) {
+		qDebug() << "Open Menu";
+		
+		ShowContextMenu(event->pos(), selectDebviveName);
+	}
 }
 
 void DeviceView::mouseMoveEvent(QMouseEvent *event) {
 }
 
+void DeviceView::ShowContextMenu(const QPoint& pos, QString _Id) // this is a slot
+{
+	// for most widgets
+	//QPoint globalPos = this->mapToGlobal(pos);
+	// for QAbstractScrollArea and derived classes you would use:
+	QPoint globalPos = this->viewport()->mapToGlobal(pos);
 
+	QMenu itemMenu;
+
+	itemMenu.addAction(_Id);
+	itemMenu.addAction(STR_KOR("재배치"), this, [this] { emit sigRelocation_Icon(selectId); });
+	itemMenu.addAction(STR_KOR("수정"), this, [this] { emit sigModify_Icon(selectId); });
+	itemMenu.addAction(STR_KOR("삭제"), this, [this] { emit sigDelete_Icon(selectId); });
+
+	itemMenu.exec(globalPos);
+
+	//QAction* selectedItem = itemMenu.exec(globalPos);
+	//if (selectedItem) {
+	//	
+	//} else {
+	//	// nothing was chosen
+	//}
+}
+
+void DeviceView::onRelocation_Icon() {
+	qDebug() << STR_KOR("재배치") << selectId;
+
+}
+void DeviceView::onDelete_Icon() {
+	qDebug() << STR_KOR("삭제") << selectId;
+}
+void DeviceView::onModify_Icon() {
+	qDebug() << STR_KOR("수정") << selectId;
+}
 
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -164,6 +211,9 @@ DeviceManagment::DeviceManagment(QWidget *parent):QWidget(parent)
 	initListView();
 
 	connect(&mDeviceList, SIGNAL(sigSelectDeviceID(QString)), this, SIGNAL(sigDeviceID(QString)));
+	connect(&mDeviceList, SIGNAL(sigRelocation_Icon(QString)), this, SLOT(onDECK_ItemReLocation(QString)));
+	connect(&mDeviceList, SIGNAL(sigDelete_Icon(QString)), this, SLOT(onDECK_ItemDelete(QString)));
+	connect(&mDeviceList, SIGNAL(sigModify_Icon(QString)), this, SLOT(onDECK_ItemModify(QString)));
 }
 
 DeviceManagment::~DeviceManagment(){
@@ -285,10 +335,21 @@ void DeviceManagment::setVisibleHeader(uint x, ...) {
 }
 
 void DeviceManagment::UpdateDeviceView(void){
-
 }
 
 void DeviceManagment::UpdateInspecView(void) {
+}
+
+void DeviceManagment::onDECK_ItemReLocation(QString _id) {
+	
+	
+}
+
+void DeviceManagment::onDECK_ItemDelete(QString _id) {
+
+}
+
+void DeviceManagment::onDECK_ItemModify(QString _id) {
 
 }
 

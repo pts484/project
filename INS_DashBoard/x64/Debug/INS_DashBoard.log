@@ -1,3 +1,161 @@
-﻿  Generate moc_predefs.h
+﻿  Moc'ing DeviceManagment.h...
+  Generate moc_predefs.h
+  DashBoard_main.cpp
+e:\development\[git]\ins_dashboard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(996): warning C4005: 'M_E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(153): note: 'M_E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(997): warning C4005: 'M_LOG2E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(157): note: 'M_LOG2E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(998): warning C4005: 'M_LOG10E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(161): note: 'M_LOG10E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(999): warning C4005: 'M_LN2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(165): note: 'M_LN2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1000): warning C4005: 'M_LN10': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(169): note: 'M_LN10'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(173): note: 'M_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1002): warning C4005: 'M_PI_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(177): note: 'M_PI_2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1003): warning C4005: 'M_PI_4': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(181): note: 'M_PI_4'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1004): warning C4005: 'M_1_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(185): note: 'M_1_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1005): warning C4005: 'M_2_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(189): note: 'M_2_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1006): warning C4005: 'M_2_SQRTPI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(193): note: 'M_2_SQRTPI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1007): warning C4005: 'M_SQRT2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(197): note: 'M_SQRT2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1008): warning C4005: 'M_SQRT1_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(201): note: 'M_SQRT1_2'의 이전 정의를 참조하십시오.
+  DataManager.cpp
+e:\development\[git]\ins_dashboard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(996): warning C4005: 'M_E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(153): note: 'M_E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(997): warning C4005: 'M_LOG2E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(157): note: 'M_LOG2E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(998): warning C4005: 'M_LOG10E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(161): note: 'M_LOG10E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(999): warning C4005: 'M_LN2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(165): note: 'M_LN2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1000): warning C4005: 'M_LN10': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(169): note: 'M_LN10'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(173): note: 'M_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1002): warning C4005: 'M_PI_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(177): note: 'M_PI_2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1003): warning C4005: 'M_PI_4': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(181): note: 'M_PI_4'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1004): warning C4005: 'M_1_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(185): note: 'M_1_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1005): warning C4005: 'M_2_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(189): note: 'M_2_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1006): warning C4005: 'M_2_SQRTPI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(193): note: 'M_2_SQRTPI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1007): warning C4005: 'M_SQRT2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(197): note: 'M_SQRT2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1008): warning C4005: 'M_SQRT1_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(201): note: 'M_SQRT1_2'의 이전 정의를 참조하십시오.
+DataManager.cpp(78): warning C4003: 'SLOT' 매크로의 실제 매개 변수가 부족합니다.
+DataManager.cpp(82): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+  moc_DashBoard_main.cpp
+e:\development\[git]\ins_dashboard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(996): warning C4005: 'M_E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(153): note: 'M_E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(997): warning C4005: 'M_LOG2E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(157): note: 'M_LOG2E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(998): warning C4005: 'M_LOG10E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(161): note: 'M_LOG10E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(999): warning C4005: 'M_LN2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(165): note: 'M_LN2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1000): warning C4005: 'M_LN10': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(169): note: 'M_LN10'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(173): note: 'M_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1002): warning C4005: 'M_PI_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(177): note: 'M_PI_2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1003): warning C4005: 'M_PI_4': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(181): note: 'M_PI_4'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1004): warning C4005: 'M_1_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(185): note: 'M_1_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1005): warning C4005: 'M_2_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(189): note: 'M_2_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1006): warning C4005: 'M_2_SQRTPI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(193): note: 'M_2_SQRTPI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1007): warning C4005: 'M_SQRT2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(197): note: 'M_SQRT2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1008): warning C4005: 'M_SQRT1_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(201): note: 'M_SQRT1_2'의 이전 정의를 참조하십시오.
+  moc_DataManager.cpp
+e:\development\[git]\ins_dashboard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(996): warning C4005: 'M_E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(153): note: 'M_E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(997): warning C4005: 'M_LOG2E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(157): note: 'M_LOG2E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(998): warning C4005: 'M_LOG10E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(161): note: 'M_LOG10E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(999): warning C4005: 'M_LN2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(165): note: 'M_LN2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1000): warning C4005: 'M_LN10': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(169): note: 'M_LN10'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(173): note: 'M_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1002): warning C4005: 'M_PI_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(177): note: 'M_PI_2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1003): warning C4005: 'M_PI_4': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(181): note: 'M_PI_4'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1004): warning C4005: 'M_1_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(185): note: 'M_1_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1005): warning C4005: 'M_2_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(189): note: 'M_2_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1006): warning C4005: 'M_2_SQRTPI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(193): note: 'M_2_SQRTPI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1007): warning C4005: 'M_SQRT2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(197): note: 'M_SQRT2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1008): warning C4005: 'M_SQRT1_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(201): note: 'M_SQRT1_2'의 이전 정의를 참조하십시오.
+  moc_DeviceManagment.cpp
+  moc_UI.cpp
+E:\Development\[Git]\INS_DashBoard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+  DeviceManagment.cpp
+UI\DeviceManagment.cpp(112): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+UI\DeviceManagment.cpp(117): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+UI\DeviceManagment.cpp(132): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+UI\DeviceManagment.cpp(157): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+UI\DeviceManagment.cpp(324): warning C4018: '<': signed 또는 unsigned가 일치하지 않습니다.
+UI\DeviceManagment.cpp(318): warning C4189: 'strKey': 지역 변수가 초기화되었으나 참조되지 않았습니다.
+UI\DeviceManagment.cpp(339): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+  UI.cpp
+E:\Development\[Git]\INS_DashBoard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+UI\UI.cpp(98): warning C4100: 'event': 참조되지 않은 정식 매개 변수입니다.
+  main.cpp
+e:\development\[git]\ins_dashboard\css3_code.h : warning C4819: 현재 코드 페이지(949)에서 표시할 수 없는 문자가 파일에 들어 있습니다. 데이터가 손실되지 않게 하려면 해당 파일을 유니코드 형식으로 저장하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(996): warning C4005: 'M_E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(153): note: 'M_E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(997): warning C4005: 'M_LOG2E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(157): note: 'M_LOG2E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(998): warning C4005: 'M_LOG10E': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(161): note: 'M_LOG10E'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(999): warning C4005: 'M_LN2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(165): note: 'M_LN2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1000): warning C4005: 'M_LN10': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(169): note: 'M_LN10'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1001): warning C4005: 'M_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(173): note: 'M_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1002): warning C4005: 'M_PI_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(177): note: 'M_PI_2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1003): warning C4005: 'M_PI_4': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(181): note: 'M_PI_4'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1004): warning C4005: 'M_1_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(185): note: 'M_1_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1005): warning C4005: 'M_2_PI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(189): note: 'M_2_PI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1006): warning C4005: 'M_2_SQRTPI': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(193): note: 'M_2_SQRTPI'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1007): warning C4005: 'M_SQRT2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(197): note: 'M_SQRT2'의 이전 정의를 참조하십시오.
+C:\Program Files (x86)\Windows Kits\10\Include\10.0.10240.0\ucrt\math.h(1008): warning C4005: 'M_SQRT1_2': 매크로 재정의
+  E:\LIB\QT\5.8\MSVC2015_64\include\QtCore\qmath.h(201): note: 'M_SQRT1_2'의 이전 정의를 참조하십시오.
+  코드를 생성하고 있습니다...
   INS_DashBoard.vcxproj -> E:\Development\[Git]\INS_DashBoard\debug\INS_DashBoard.exe
   INS_DashBoard.vcxproj -> debug\INS_DashBoard.pdb (Full PDB)
